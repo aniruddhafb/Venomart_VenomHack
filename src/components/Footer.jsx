@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import venologo from "../../public/logosm.png";
+import venomlogo from "../../public/logosm.png";
 import Link from "next/link";
 
 const Footer = ({ theme }) => {
@@ -11,9 +11,9 @@ const Footer = ({ theme }) => {
                     <div className="col-span-full sm:col-span-3 md:col-span-4">
                         <Link href="/" className="mb-4 inline-block">
                             <Image
-                                src={venologo}
-                                height={130}
-                                width={150}
+                                src={venomlogo}
+                                height={160}
+                                width={180}
                                 alt="NFT Marketplace"
                             />
                         </Link>
