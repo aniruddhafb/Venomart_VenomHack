@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Footer = ({ theme }) => {
     return (
-        <div className="w-full page-footer dark:bg-jacarta-900 bottom-0 left-0 block" class={theme}>
+        <div className="w-full page-footer dark:bg-jacarta-900 bottom-0 left-0 block">
             <div className="container">
                 <div className="grid grid-cols-6 gap-x-7 gap-y-14 pt-24 pb-12 md:grid-cols-12">
                     <div className="col-span-full sm:col-span-3 md:col-span-4">

@@ -5,10 +5,10 @@ import { useRouter } from "next/router";
 import venomlogo from "../../public/logosm.png";
 
 
-const Navbar = () => {
+const Navbar = ({ signer_address, connect_wallet }) => {
 
     const router = useRouter();
-    const signer_address = "";
+
     const [profileDrop, setProfileDrop] = useState(false);
     const [mobieProfileDrop, setMobieProfileDrop] = useState(false);
     const [search_result, set_search_result] = useState([]);
@@ -96,7 +96,7 @@ const Navbar = () => {
                             {!signer_address ? (
                                 <a
                                     href="#"
-                                    // onClick={connectToWallet}
+                                    onClick={connect_wallet}
                                     className="js-wallet group flex h-10 w-10 items-center justify-center rounded-full border border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-accent focus:border-transparent focus:bg-accent dark:border-transparent dark:bg-white/[.15] dark:hover:bg-accent"
                                     data-bs-toggle="modal"
                                     data-bs-target="#walletModal"
@@ -119,11 +119,9 @@ const Navbar = () => {
                                         {/* profile icon */}
                                         <button
                                             className="group ml-2 flex h-10 w-10 items-center justify-center rounded-full border border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-accent focus:border-transparent focus:bg-accent dark:border-transparent dark:bg-white/[.15] dark:hover:bg-accent"
-                                        // onClick={() => (
-                                        //     setProfileDrop(!profileDrop),
-                                        //     SetShowNotifications(false),
-                                        //     setShowNetworkPopup(false)
-                                        // )}
+                                            onClick={() => (
+                                                setProfileDrop(!profileDrop)
+                                            )}
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -139,13 +137,13 @@ const Navbar = () => {
 
                                         {/* profile dropdown  */}
                                         {profileDrop && (
-                                            <div className="!-right-4 !top-[85%] !left-auto z-10 min-w-[14rem] whitespace-nowrap rounded-xl bg-white transition-all will-change-transform before:absolute before:-top-3 before:h-3 before:w-full group-dropdown-hover:opacity-100 dark:bg-jacarta-800 lg:absolute lg:grid lg:!translate-y-4 lg:py-4 lg:px-2 lg:shadow-2xl">
+                                            <div className="!-right-4 !top-[85%] !left-auto z-10 min-w-[14rem] whitespace-nowrap rounded-xl transition-all will-change-transform before:absolute before:-top-3 before:h-3 before:w-full group-dropdown-hover:opacity-100 dark:bg-jacarta-800 lg:absolute lg:grid lg:!translate-y-4 lg:py-4 lg:px-2 lg:shadow-2xl">
                                                 <button
                                                     className="js-copy-clipboard my-4 flex select-none items-center whitespace-nowrap px-5 font-display leading-none text-jacarta-700 dark:text-white"
                                                     data-tippy-content="Copy"
                                                 >
                                                     <span className="max-w-[10rem] overflow-hidden text-ellipsis">
-                                                        {/* {signer_address} */}
+                                                        {signer_address}
                                                     </span>
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
