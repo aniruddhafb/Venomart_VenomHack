@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import venomlogo from "../../public/logosm.png";
 
 
-const Navbar = ({ signer_address, connect_wallet }) => {
+const Navbar = ({ signer_address, connect_wallet, theme }) => {
 
     const router = useRouter();
 
@@ -14,15 +14,15 @@ const Navbar = ({ signer_address, connect_wallet }) => {
     const [search_result, set_search_result] = useState([]);
 
     return (
-        <div className="overflow-x-hidden font-body text-jacarta-500 dark:bg-jacarta-900">
+        <div className={`${theme} overflow-x-hidden font-body text-jacarta-500 dark:bg-jacarta-900`}>
             <div className="js-page-header fixed top-0 z-20 w-full backdrop-blur transition-colors">
                 <div className="flex items-center px-6 py-6 xl:px-24">
                     {/* icon  */}
                     <Link href="/" className="shrink-0">
                         <Image
                             src={venomlogo}
-                            height={160}
-                            width={160}
+                            height={190}
+                            width={190}
                             alt="NFT Marketplace"
                         />
                     </Link>
@@ -202,7 +202,7 @@ const Navbar = ({ signer_address, connect_wallet }) => {
                             data-tippy-content="Copy"
                         >
                             <span className="max-w-[10rem] overflow-hidden text-ellipsis">
-                                {/* {signer_address} */}
+                                {signer_address}
                             </span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -228,7 +228,7 @@ const Navbar = ({ signer_address, connect_wallet }) => {
                             </div> */}
                         </div>
                         <Link
-                            // href={`/profile/${signer_address}`}
+                            href={`/profile/${signer_address}`}
                             className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-accent focus:text-accent dark:hover:bg-jacarta-600"
                         >
                             <svg

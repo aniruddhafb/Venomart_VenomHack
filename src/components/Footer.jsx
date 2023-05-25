@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Footer = ({ theme }) => {
     return (
-        <div className="w-full page-footer dark:bg-jacarta-900 bottom-0 left-0 block">
+        <div className={`${theme} w-full page-footer dark:bg-jacarta-900 bottom-0 left-0 block`}>
             <div className="container">
                 <div className="grid grid-cols-6 gap-x-7 gap-y-14 pt-24 pb-12 md:grid-cols-12">
                     <div className="col-span-full sm:col-span-3 md:col-span-4">
@@ -57,7 +57,7 @@ const Footer = ({ theme }) => {
                 <div className="flex flex-col items-center justify-between space-y-2 py-8 sm:flex-row sm:space-y-0">
                     <span className="text-sm dark:text-jacarta-400">
                         &copy; 2023 VenomArt — Built during{" "}
-                        <a href="https://dorahacks.io/hackathon/venom-hackathon" target="_blank" className="text-accent">
+                        <a href="https://dorahacks.io/hackathon/venom-hackathon" target="_blank" className="text-[#189C87]">
                             Venom Hackathon
                         </a>
                     </span>

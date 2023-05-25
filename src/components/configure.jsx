@@ -37,9 +37,10 @@ export const initVenomConnect = async () => {
                     },
                 ],
                 defaultWalletWaysToConnect: [
+                    'extension',
                     'mobile',
                     'ios',
-                    'android',
+                    'android'
                 ],
             },
         },

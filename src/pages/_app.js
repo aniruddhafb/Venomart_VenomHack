@@ -1,9 +1,11 @@
+import "@/styles/bootstrap.css";
+import '@/styles/custom.css'
+import '@/styles/globals.css'
+
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
-import "@/styles/bootstrap.css";
-import '@/styles/globals.css'
-import { useEffect, useState } from 'react';
 
+import { useEffect, useState } from 'react';
 import { initVenomConnect } from "../components/configure";
 
 export default function App({ Component, pageProps }) {
@@ -14,11 +16,14 @@ export default function App({ Component, pageProps }) {
 
   const init = async () => {
     const _venomConnect = await initVenomConnect();
+    console.log({ _venomConnect: _venomConnect })
     setVenomConnect(_venomConnect);
   };
 
   const getAddress = async (provider) => {
+    console.log({ provider: provider })
     const providerState = await provider?.getProviderState?.();
+    console.log({ providerState: providerState })
     return providerState?.permissions.accountInteraction?.address.toString();
   };
 

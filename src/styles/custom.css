@@ -1,0 +1,7 @@
+#heroBack {
+  height: 100%;
+  width: 100%;
+  background-image: url("/dark.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
