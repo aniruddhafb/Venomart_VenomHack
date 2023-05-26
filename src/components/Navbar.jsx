@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/router";
 import venomlogo from "../../public/logosm.png";
 
@@ -12,6 +12,12 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
     const [profileDrop, setProfileDrop] = useState(false);
     const [mobieProfileDrop, setMobieProfileDrop] = useState(false);
     const [search_result, set_search_result] = useState([]);
+
+    useEffect(() => {
+        setProfileDrop(false);
+        setMobieProfileDrop(false);
+        set_search_result(false);
+    }, [router.pathname])
 
     return (
         <div className={`${theme} overflow-x-hidden font-body text-jacarta-500 dark:bg-jacarta-900`}>
@@ -228,7 +234,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                                     </span>
                                                 </Link>
                                                 <Link
-                                                    href={`/nft/createNFT}`}
+                                                    href={`/nft/createNFT`}
                                                     className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-accent focus:text-accent dark:hover:bg-jacarta-600"
                                                 >
                                                     <svg
@@ -246,7 +252,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                                     </span>
                                                 </Link>
                                                 <Link
-                                                    href={`/collection/createCollection}`}
+                                                    href={`/collection/createCollection`}
                                                     className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-accent focus:text-accent dark:hover:bg-jacarta-600"
                                                 >
                                                     <svg

@@ -16,11 +16,11 @@ export default function Home() {
               Largest Marketplace on venom blockchain
             </p>
             <div className="flex space-x-4">
-              <Link href="create.html"
+              <Link href="/nft/createNFT"
                 className="w-36 rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white transition-all hover:bg-accent-dark">
                 Create
               </Link>
-              <Link href="collections.html"
+              <Link href="/nft/exploreNFTs"
                 className="w-36 rounded-full bg-white py-3 px-8 text-center font-semibold text-[#189C87] shadow-white-volume transition-all hover:bg-accent-dark hover:text-white hover:shadow-accent-volume">
                 Explore
               </Link>
