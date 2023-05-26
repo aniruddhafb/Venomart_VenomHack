@@ -130,7 +130,7 @@ const CreateNFT = ({
                                     name="name"
                                     type="text"
                                     id="item-name"
-                                    className="w-full rounded-lg border-jacarta-100 py-3 hover:ring-2 hover:ring-accent/10 focus:ring-accent dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black dark:placeholder:text-jacarta-300 text-black"
+                                    className="w-full rounded-lg border-jacarta-100 py-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black dark:placeholder:text-jacarta-300 text-black"
                                     placeholder="Item name"
                                     required
                                 />
@@ -152,7 +152,7 @@ const CreateNFT = ({
                                     onChange={handleChange}
                                     name="description"
                                     id="item-description"
-                                    className="w-full rounded-lg border-jacarta-100 py-3 px-3 hover:ring-2 hover:ring-accent/10 focus:ring-accent dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black dark:placeholder:text-jacarta-300"
+                                    className="w-full rounded-lg border-jacarta-100 py-3 px-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black dark:placeholder:text-jacarta-300"
                                     rows="4"
                                     required
                                     placeholder="Provide a detailed description of your item."
@@ -226,7 +226,7 @@ const CreateNFT = ({
                                         </div>
                                     </div>
                                     <button
-                                        className="group flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-accent bg-white hover:border-transparent hover:bg-[#189C87] dark:bg-jacarta-700"
+                                        className="group flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-[#189C87] bg-white hover:border-transparent hover:bg-[#189C87] dark:bg-jacarta-700"
                                         type="button"
                                         id="item-properties"
                                         data-bs-toggle="modal"
@@ -294,7 +294,7 @@ const CreateNFT = ({
                                                                 value={data.properties[index].type}
                                                                 name="type"
                                                                 type="text"
-                                                                className="h-12 w-full border border-r-0 border-jacarta-100 focus:ring-inset focus:ring-accent dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black dark:placeholder-jacarta-300"
+                                                                className="h-12 w-full border border-r-0 border-jacarta-100 focus:ring-inset focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black dark:placeholder-jacarta-300"
                                                                 placeholder="Type"
                                                             />
                                                         </div>
@@ -305,7 +305,7 @@ const CreateNFT = ({
                                                                 value={data.properties[index].value}
                                                                 name="value"
                                                                 type="text"
-                                                                className="h-12 w-full rounded-r-lg border border-jacarta-100 focus:ring-inset focus:ring-accent dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black dark:placeholder-jacarta-300"
+                                                                className="h-12 w-full rounded-r-lg border border-jacarta-100 focus:ring-inset focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black dark:placeholder-jacarta-300"
                                                                 placeholder="Value"
                                                             />
                                                         </div>

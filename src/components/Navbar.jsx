@@ -43,7 +43,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                             type="search"
                             // onFocus={() => set_search_result([])}
                             // onChange={find_nft}
-                            className="w-full rounded-2xl border border-jacarta-100 py-[0.6875rem] px-4 pl-10 text-jacarta-700 placeholder-jacarta-500 focus:ring-accent dark:border-transparent dark:bg-white/[.15] dark:text-white dark:placeholder-white"
+                            className="w-full rounded-2xl border border-jacarta-100 py-[0.6875rem] px-4 pl-10 text-jacarta-700 placeholder-jacarta-500 focus:ring-[#189C87] dark:border-transparent dark:bg-white/[.15] dark:text-white dark:placeholder-white"
                             placeholder="Search"
                         />
                         <span className="absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-2xl">
@@ -85,7 +85,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                 <li className="js-nav-dropdown group relative">
                                     <Link
                                         href="/nft/exploreNFTs"
-                                        className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-accent focus:text-accent dark:text-white dark:hover:text-accent dark:focus:text-accent lg:px-5"
+                                        className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-[#189C87] focus:text-[#189C87] dark:text-white dark:hover:text-[#189C87] dark:focus:text-[#189C87] lg:px-5"
                                         id="navDropdown-1"
                                         aria-expanded="false"
                                         role="button"
@@ -97,7 +97,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                 <li className="js-nav-dropdown group relative">
                                     <Link
                                         href="/collection/exploreCollections"
-                                        className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-accent focus:text-accent dark:text-white dark:hover:text-accent dark:focus:text-accent lg:px-5"
+                                        className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-[#189C87] focus:text-[#189C87] dark:text-white dark:hover:text-[#189C87] dark:focus:text-[#189C87] lg:px-5"
                                         id="navDropdown-1"
                                         aria-expanded="false"
                                         role="button"
@@ -109,7 +109,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                 <li className="js-nav-dropdown group relative">
                                     <Link
                                         href="/nft/launchpad"
-                                        className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-accent focus:text-accent dark:text-white dark:hover:text-accent dark:focus:text-accent lg:px-5"
+                                        className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-[#189C87] focus:text-[#189C87] dark:text-white dark:hover:text-[#189C87] dark:focus:text-[#189C87] lg:px-5"
                                         id="navDropdown-1"
                                         aria-expanded="false"
                                         role="button"
@@ -127,7 +127,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                 <a
                                     href="#"
                                     onClick={connect_wallet}
-                                    className="js-wallet group flex h-10 w-10 items-center justify-center rounded-full border border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-accent focus:border-transparent focus:bg-accent dark:border-transparent dark:bg-white/[.15] dark:hover:bg-accent"
+                                    className="js-wallet group flex h-10 w-10 items-center justify-center rounded-full border border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-[#189C87] focus:border-transparent focus:bg-[#189C87] dark:border-transparent dark:bg-white/[.15] dark:hover:bg-[#189C87]"
                                     data-bs-toggle="modal"
                                     data-bs-target="#walletModal"
                                     aria-label="wallet"
@@ -148,7 +148,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                     <div className="relative">
                                         {/* profile icon */}
                                         <button
-                                            className="group ml-2 flex h-10 w-10 items-center justify-center rounded-full border border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-accent focus:border-transparent focus:bg-accent dark:border-transparent dark:bg-white/[.15] dark:hover:bg-accent"
+                                            className="group ml-2 flex h-10 w-10 items-center justify-center rounded-full border border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-[#189C87] focus:border-transparent focus:bg-[#189C87] dark:border-transparent dark:bg-white/[.15] dark:hover:bg-[#189C87]"
                                             onClick={() => (
                                                 setProfileDrop(!profileDrop)
                                             )}
@@ -167,7 +167,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
 
                                         {/* profile dropdown  */}
                                         {profileDrop && (
-                                            <div className="!-right-4 !top-[85%] !left-auto z-10 min-w-[14rem] whitespace-nowrap rounded-xl transition-all will-change-transform before:absolute before:-top-3 before:h-3 before:w-full group-dropdown-hover:opacity-100 dark:bg-jacarta-800 lg:absolute lg:grid lg:!translate-y-4 lg:py-4 lg:px-2 lg:shadow-2xl">
+                                            <div className="!-right-4 !top-[85%] !left-auto z-10 min-w-[14rem] whitespace-nowrap rounded-xl transition-all will-change-transform before:absolute before:-top-3 before:h-3 before:w-full group-dropdown-hover:opacity-100 dark:bg-[#137e6c] lg:absolute lg:grid lg:!translate-y-4 lg:py-4 lg:px-2 lg:shadow-2xl">
                                                 <button
                                                     className="js-copy-clipboard my-4 flex select-none items-center whitespace-nowrap px-5 font-display leading-none text-jacarta-700 dark:text-white"
                                                     data-tippy-content="Copy"
@@ -199,7 +199,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                                 </div>
                                                 <Link
                                                     href={`/profile/${signer_address}`}
-                                                    className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-accent focus:text-accent dark:hover:bg-jacarta-600"
+                                                    className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +217,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                                 </Link>
                                                 <Link
                                                     href={`/profile/editProfile}`}
-                                                    className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-accent focus:text-accent dark:hover:bg-jacarta-600"
+                                                    className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -235,7 +235,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                                 </Link>
                                                 <Link
                                                     href={`/nft/createNFT`}
-                                                    className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-accent focus:text-accent dark:hover:bg-jacarta-600"
+                                                    className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +253,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                                 </Link>
                                                 <Link
                                                     href={`/collection/createCollection`}
-                                                    className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-accent focus:text-accent dark:hover:bg-jacarta-600"
+                                                    className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -272,7 +272,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                                 <Link
                                                     href="#"
                                                     onClick={onDisconnect}
-                                                    className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-accent focus:text-accent dark:hover:bg-jacarta-600"
+                                                    className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -323,16 +323,10 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                             <span className="text-sm font-medium tracking-tight dark:text-jacarta-200">
                                 Balance
                             </span>
-                            {/* <div className="flex items-center">
-                                <span className="text-lg font-bold text-green">
-                                    {signer_bal ? signer_bal : "0.00"} {"  "}{" "}
-                                    {symbol ? symbol : "ETH"}
-                                </span>
-                            </div> */}
                         </div>
                         <Link
                             href={`/profile/${signer_address}`}
-                            className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-accent focus:text-accent dark:hover:bg-jacarta-600"
+                            className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
