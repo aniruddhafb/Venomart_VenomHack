@@ -216,7 +216,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                                     </span>
                                                 </Link>
                                                 <Link
-                                                    href={`/profile/editProfile}`}
+                                                    href={`/profile/editProfile`}
                                                     className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
                                                 >
                                                     <svg

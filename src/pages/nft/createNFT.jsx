@@ -130,7 +130,7 @@ const CreateNFT = ({
                                     name="name"
                                     type="text"
                                     id="item-name"
-                                    className="w-full rounded-lg border-jacarta-100 py-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black dark:placeholder:text-jacarta-300 text-black"
+                                    className="bg-gray-300 w-full rounded-lg border-jacarta-100 py-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black placeholder:text-gray-800 text-black"
                                     placeholder="Item name"
                                     required
                                 />
@@ -152,7 +152,7 @@ const CreateNFT = ({
                                     onChange={handleChange}
                                     name="description"
                                     id="item-description"
-                                    className="w-full rounded-lg border-jacarta-100 py-3 px-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black dark:placeholder:text-jacarta-300"
+                                    className="bg-gray-300 w-full rounded-lg border-jacarta-100 py-3 px-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black placeholder:text-gray-800"
                                     rows="4"
                                     required
                                     placeholder="Provide a detailed description of your item."
@@ -182,7 +182,7 @@ const CreateNFT = ({
                                     name="collection"
                                     value={data.collection}
                                     onChange={handleChange}
-                                    className="dropdown my-1 cursor-pointer w-[100%] text-black p-3"
+                                    className="dropdown my-1 cursor-pointer w-[100%] text-black p-3 bg-gray-300"
                                     required
                                 >
                                     <option>
