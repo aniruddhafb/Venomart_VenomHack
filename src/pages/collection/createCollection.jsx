@@ -30,7 +30,7 @@ const CreateNFTCollection = ({ signer_address }) => {
             {loading ? (
                 <Loader />
             ) : (
-                <form onSubmit={""} className="relative py-24">
+                <form onSubmit={""} className="relative py-24" id="heroBack">
                     <div className="container">
                         <h1 className="py-16 text-center font-display text-4xl font-medium text-jacarta-700 dark:text-white">
                             Create NFT Collection
