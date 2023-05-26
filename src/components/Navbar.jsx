@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import venomlogo from "../../public/logosm.png";
 
 
-const Navbar = ({ signer_address, connect_wallet, theme }) => {
+const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
 
     const router = useRouter();
 
@@ -264,7 +264,8 @@ const Navbar = ({ signer_address, connect_wallet, theme }) => {
                                                     </span>
                                                 </Link>
                                                 <Link
-                                                    href="!#"
+                                                    href="#"
+                                                    onClick={onDisconnect}
                                                     className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-accent focus:text-accent dark:hover:bg-jacarta-600"
                                                 >
                                                     <svg

@@ -73,6 +73,7 @@ export default function App({ Component, pageProps }) {
         theme={"dark"}
         signer_address={signer_address}
         connect_wallet={connect_wallet}
+        onDisconnect={onDisconnect}
       />
       <Component {...pageProps}
         theme={"dark"}
