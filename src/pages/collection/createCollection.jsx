@@ -24,7 +24,7 @@ const CreateNFTCollection = ({ signer_address }) => {
             <Head>
                 <title>Create NFT Collection - Venomart Marketplace</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="icon" href="/favicon.png" />
+                <link rel="icon" href="/fav.png" />
             </Head>
 
             {loading ? (

@@ -10,6 +10,8 @@ import { initVenomConnect } from "../components/configure";
 
 export default function App({ Component, pageProps }) {
 
+  const blockURL = "https://testnet.venomscan.com/";
+
   const [venomConnect, setVenomConnect] = useState();
   const [venomProvider, setVenomProvider] = useState();
   const [signer_address, setSignerAddress] = useState();
@@ -78,6 +80,7 @@ export default function App({ Component, pageProps }) {
       <Component {...pageProps}
         theme={"dark"}
         signer_address={signer_address}
+        blockURL={blockURL}
       />
       <Footer
         theme={"dark"}

@@ -36,7 +36,7 @@ const EditProfile = ({ signer_address, polybase }) => {
             <Head>
                 <title>Edit Profile - Venomart Marketplace</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="icon" href="/favicon.png" />
+                <link rel="icon" href="/fav.png" />
             </Head>
 
             <form onSubmit={""}>
@@ -113,7 +113,7 @@ const EditProfile = ({ signer_address, polybase }) => {
                                         onChange={handleChange}
                                         value={data.username}
                                         id="profile-username"
-                                        className="w-full rounded-lg border-jacarta-100 py-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 placeholder:text-jacarta-300 text-black"
+                                        className="bg-gray-300 w-full rounded-lg border-jacarta-100 py-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 placeholder:text-jacarta-300 text-black placeholder:text-gray-800"
                                         placeholder="Enter username"
                                         required
                                     />
@@ -130,7 +130,7 @@ const EditProfile = ({ signer_address, polybase }) => {
                                         value={data.bio}
                                         onChange={handleChange}
                                         id="profile-bio"
-                                        className="w-full rounded-lg border-jacarta-100 py-3 px-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700  placeholder:text-jacarta-300 text-black"
+                                        className="bg-gray-300 w-full rounded-lg border-jacarta-100 py-3 px-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700  placeholder:text-jacarta-300 text-black placeholder:text-gray-800"
                                         required
                                         placeholder="Tell the world your story!"
                                     ></textarea>
@@ -149,7 +149,7 @@ const EditProfile = ({ signer_address, polybase }) => {
                                         value={data.email}
                                         onChange={handleChange}
                                         id="profile-email"
-                                        className="w-full rounded-lg border-jacarta-100 py-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 placeholder:text-jacarta-300 text-black"
+                                        className="bg-gray-300 w-full rounded-lg border-jacarta-100 py-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 placeholder:text-jacarta-300 text-black placeholder:text-gray-800"
                                         placeholder="Enter email"
                                     />
                                 </div>
@@ -157,7 +157,7 @@ const EditProfile = ({ signer_address, polybase }) => {
                                 <div className="mb-6">
                                     <label
                                         htmlFor="profile-email"
-                                        className="mb-1 block font-display text-sm text-jacarta-700 dark:text-white"
+                                        className="mb-1 block font-display text-sm text-jacarta-700 dark:text-white "
                                     >
                                         Are you a NFT artist ?
                                     </label>
@@ -167,7 +167,7 @@ const EditProfile = ({ signer_address, polybase }) => {
                                         }
                                         defaultValue={data.isArtist}
                                         name="isArtist"
-                                        className="text-black w-full rounded-lg border-jacarta-100 py-3 px-3 hover:ring-2 hover:ring-accent/10 dark:border-jacarta-600 dark:bg-jacarta-700 dark:placeholder:text-jacarta-300"
+                                        className="bg-gray-300 text-black w-full rounded-lg border-jacarta-100 py-3 px-3 hover:ring-2 hover:ring-accent/10 dark:border-jacarta-600 dark:bg-jacarta-700 dark:placeholder:text-jacarta-300"
                                     >
                                         <option value={false}>No</option>
                                         <option value={true}>Yes</option>
@@ -180,7 +180,7 @@ const EditProfile = ({ signer_address, polybase }) => {
                                     </label>
                                     <button
                                         type="button"
-                                        className="text-black flex w-full overflow-hidden text-ellipsis whitespace-nowrap select-none items-center rounded-lg border border-jacarta-100 bg-white py-3 px-4 hover:bg-jacarta-50 dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-jacarta-300 cursor-default"
+                                        className="bg-gray-300 text-black flex w-full overflow-hidden text-ellipsis whitespace-nowrap select-none items-center rounded-lg border border-jacarta-100 py-3 px-4 hover:bg-jacarta-50 dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-jacarta-300 cursor-default"
                                     >
                                         <span>{signer_address}</span>
                                         <svg
@@ -286,7 +286,7 @@ const EditProfile = ({ signer_address, polybase }) => {
                                             focusable="false"
                                             data-prefix="fab"
                                             data-icon="twitter"
-                                            className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 fill-jacarta-300 dark:fill-jacarta-400"
+                                            className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 fill-jacarta-600"
                                             role="img"
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 512 512"
@@ -299,8 +299,8 @@ const EditProfile = ({ signer_address, polybase }) => {
                                             value={data.twitter}
                                             onChange={handleChange}
                                             id="profile-twitter"
-                                            className="w-full rounded-t-lg border-jacarta-100 py-3 pl-10 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-inset focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 placeholder:text-jacarta-300 text-black"
-                                            placeholder="@twittername"
+                                            className="w-full rounded-t-lg border-jacarta-100 py-3 pl-10 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-inset focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 placeholder:text-jacarta-300 text-black placeholder:text-gray-800 bg-gray-300"
+                                            placeholder="twitter name"
                                         />
                                     </div>
                                     <div className="relative">
@@ -309,7 +309,7 @@ const EditProfile = ({ signer_address, polybase }) => {
                                             focusable="false"
                                             data-prefix="fab"
                                             data-icon="instagram"
-                                            className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 fill-jacarta-300 dark:fill-jacarta-400"
+                                            className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 fill-jacarta-600"
                                             role="img"
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 448 512"
@@ -322,8 +322,8 @@ const EditProfile = ({ signer_address, polybase }) => {
                                             type="text"
                                             onChange={handleChange}
                                             id="profile-instagram"
-                                            className="-mt-px w-full border-jacarta-100 py-3 pl-10 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-inset focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700  placeholder:text-jacarta-300 text-black"
-                                            placeholder="instagramname"
+                                            className="-mt-px w-full border-jacarta-100 py-3 pl-10 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-inset focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700  placeholder:text-jacarta-300 text-black placeholder:text-gray-800 bg-gray-300"
+                                            placeholder="instagram name"
                                         />
                                     </div>
                                     <div className="relative">
@@ -332,7 +332,7 @@ const EditProfile = ({ signer_address, polybase }) => {
                                             viewBox="0 0 24 24"
                                             width="24"
                                             height="24"
-                                            className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 fill-jacarta-300 dark:fill-jacarta-400"
+                                            className="pointer-events-none absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 fill-jacarta-600"
                                         >
                                             <path fill="none" d="M0 0h24v24H0z" />
                                             <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-2.29-2.333A17.9 17.9 0 0 1 8.027 13H4.062a8.008 8.008 0 0 0 5.648 6.667zM10.03 13c.151 2.439.848 4.73 1.97 6.752A15.905 15.905 0 0 0 13.97 13h-3.94zm9.908 0h-3.965a17.9 17.9 0 0 1-1.683 6.667A8.008 8.008 0 0 0 19.938 13zM4.062 11h3.965A17.9 17.9 0 0 1 9.71 4.333 8.008 8.008 0 0 0 4.062 11zm5.969 0h3.938A15.905 15.905 0 0 0 12 4.248 15.905 15.905 0 0 0 10.03 11zm4.259-6.667A17.9 17.9 0 0 1 15.973 11h3.965a8.008 8.008 0 0 0-5.648-6.667z" />
@@ -343,7 +343,7 @@ const EditProfile = ({ signer_address, polybase }) => {
                                             onChange={handleChange}
                                             type="url"
                                             id="profile-website"
-                                            className="-mt-px w-full rounded-b-lg border-jacarta-100 py-3 pl-10 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-inset focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700  placeholder:text-jacarta-300 text-black"
+                                            className="-mt-px w-full rounded-b-lg border-jacarta-100 py-3 pl-10 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-inset focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700  placeholder:text-jacarta-300 text-black placeholder:text-gray-800 bg-gray-300"
                                             placeholder="yoursitename.com"
                                         />
                                     </div>
