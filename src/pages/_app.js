@@ -1,9 +1,9 @@
 import "@/styles/bootstrap.css";
-import '@/styles/custom.css'
-import '@/styles/globals.css'
+import '@/styles/custom.css';
+import '@/styles/globals.css';
 
-import Footer from '@/components/Footer'
-import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
 
 import { useEffect, useState } from 'react';
 import { initVenomConnect } from "../components/configure";
