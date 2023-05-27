@@ -4,7 +4,6 @@ import { ProviderRpcClient } from "everscale-inpage-provider";
 import { EverscaleStandaloneClient } from "everscale-standalone-client";
 
 export const initVenomConnect = async () => {
-  // CONFIG FOR DEVNET
   return new VenomConnect({
     theme: "dark",
     checkNetworkId: 1002,
