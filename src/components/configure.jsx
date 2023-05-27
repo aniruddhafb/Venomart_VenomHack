@@ -1,4 +1,3 @@
-// "use client";
 import { VenomConnect } from 'venom-connect';
 import { ProviderRpcClient } from 'everscale-inpage-provider';
 import { EverscaleStandaloneClient } from 'everscale-standalone-client';
