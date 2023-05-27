@@ -62,14 +62,14 @@ const Profile = ({
                                 alt="collection avatar"
                                 height={100}
                                 width={100}
-                                className="rounded-xl border-[5px] border-white dark:border-[#189C87] h-[130px] w-[auto]"
+                                className="rounded-xl border-[5px] border-white h-[130px] w-[auto]"
                             />
                         </figure>
                     </div>
 
                     <div className="container">
                         <div className="text-center">
-                            <div className="mt-[-30px] mb-8 inline-flex items-center justify-center rounded-full border border-jacarta-100 bg-white py-1.5 px-4 dark:border-jacarta-600 dark:bg-[#0a4a3f]">
+                            <div className="mt-[-30px] mb-8 inline-flex items-center justify-center rounded-full border border-jacarta-100  py-1.5 px-4 ">
                                 <a
                                     href={`${blockURL}` + `accounts/` + `${slug}`}
                                     target="_blank"
