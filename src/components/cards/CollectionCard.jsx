@@ -11,7 +11,7 @@ const CollectionCard = ({
     CollectionAddress
 }) => {
     return (
-        <div className="relative rounded-2.5xl border border-jacarta-100 bg-white p-[1.1875rem] transition-shadow hover:shadow-lg dark:border-jacarta-700 dark:bg-jacarta-700 h-[290px] overflow-hidden">
+        <div className="relative rounded-2.5xl border border-[#189C87] bg-transparent p-[1.1875rem] transition-shadow hover:shadow-lg dark:border-jacarta-700 dark:bg-jacarta-700 h-[290px] overflow-hidden">
             <Link
                 href={`/collection/${CollectionAddress}`}
                 className="relative flex space-x-[0.625rem]"
@@ -26,7 +26,7 @@ const CollectionCard = ({
                         width={100}
                     />
                 </span>
-                <span className="absolute bottom-[-25px] right-20">
+                <span className="absolute bottom-[-25px] right-28">
                     <Image
                         src={Logo?.replace("ipfs://", "https://gateway.ipfscdn.io/ipfs/")}
                         alt="Logo"
@@ -41,7 +41,7 @@ const CollectionCard = ({
             <div className="flex">
                 <Link
                     href={`/collection/${CollectionAddress}`}
-                    className=" mt-8 font-display text-[22px] text-jacarta-700 hover:text-accent dark:text-white dark:hover:text-accent"
+                    className=" mt-8 font-display text-[22px] text-jacarta-700 hover:text-[#189C87] dark:text-white dark:hover:text-accent"
                     style={{
                         width: "180px",
                         whiteSpace: "nowrap",
@@ -57,13 +57,13 @@ const CollectionCard = ({
                 <div className="flex flex-wrap items-center">
                     <span className="mr-1 dark:text-jacarta-400">by</span>
                     {!OwnerAddress == "" ? (
-                        <Link href={`/profile/${OwnerAddress}`} className="text-accent">
+                        <Link href={`/profile/${OwnerAddress}`} className="text-[#189C87]">
                             <span>
                                 {OwnerAddress.slice(0, 5) + "..." + OwnerAddress.slice(38)}
                             </span>
                         </Link>
                     ) : (
-                        <Link href="#" className="text-accent">
+                        <Link href="#" className="text-[#189C87]">
                             <span>you</span>
                         </Link>
                     )}

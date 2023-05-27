@@ -3,6 +3,9 @@ import Head from 'next/head';
 import Image from 'next/image'
 import Link from 'next/link'
 
+import img1 from "../../public/img1.jpg"
+import NftCard from '@/components/cards/NftCard';
+
 export default function Home() {
   return (
     <>
@@ -63,11 +66,58 @@ export default function Home() {
         </div>
       </section>
 
-      {/* trending collections  */}
+      {/* Newly minted  */}
+      <div className="py-24">
+        <div className="container">
+          <h2 className="mb-8 text-center font-display text-3xl text-jacarta-700 dark:text-white">
+            <span className="mr-1 inline-block h-6 w-6 bg-contain bg-center text-xl"></span>
+            Trending NFTs
+          </h2>
+
+          <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4">
+            {/* {nfts.map(
+              (e, index) =>
+                index < 12 && (
+                  <NftCard
+                    ImageSrc={e.ipfsData.image.replace(
+                      "ipfs://",
+                      "https://gateway.ipfscdn.io/ipfs/"
+                    )}
+                    Name={e.ipfsData.name}
+                    Description={e.ipfsData.description}
+                    Address={e.ipfsData.collection}
+                    tokenId={e.tokenId}
+                    chainID={e.chainId}
+                    listedBool={e.isListed}
+                    listingPrice={e.listingPrice}
+                    chain_image={e.chain_image}
+                    chain_symbol={e.chain_symbol}
+                  />
+                )
+            )} */}
+
+            {/* test nft 00 */}
+            <NftCard
+              ImageSrc={"ipfs://Qmc6WoM29v824AebK4YpiaFvkhTQpLTJDxTu51jY6pb7WV/671.gif".replace(
+                "ipfs://",
+                "https://gateway.ipfscdn.io/ipfs/"
+              )}
+              Name={"NFT Name"}
+              Description={"NFT Descript"}
+              Address={"0:00edkfdkfkr4444"}
+              tokenId={2}
+              listedBool={true}
+              listingPrice={"0.2"}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* latest collections  */}
       <div className="relative py-24 dark:bg-jacarta-800">
         <div className="container">
           <div className="mb-12 text-center font-display text-3xl text-jacarta-700 dark:text-white">
-            <h2 className="inline">Trending Collections </h2>
+            <h2 className="inline">Latest Collections </h2>
           </div>
           <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-3 lg:grid-cols-4">
             {/* {all_collections?.map((e, index) => {
@@ -85,11 +135,22 @@ export default function Home() {
                 )
               );
             })} */}
+
+            {/* test card  */}
+            <CollectionCard
+              key={1}
+              Cover={"ipfs://QmcgjtD4qf55wtoutEt7ng5yb68YV8T8zSsSLkroVsrpEC/0x2a84808279ff8316fbd559b781a1397622257376.gif"}
+              Logo={"ipfs://QmcgjtD4qf55wtoutEt7ng5yb68YV8T8zSsSLkroVsrpEC/0x2a84808279ff8316fbd559b781a1397622257376.gif"}
+              Name={"test Collection"}
+              Description={"test desc"}
+              OwnerAddress={"0:39334"}
+              CollectionAddress={"0:39334"}
+            />
           </div>
 
           <div className="mt-10 text-center">
             <Link
-              href="/collection/TopCollections"
+              href="/collection/exploreCollections"
               className="inline-block rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87] transition-all hover:bg-[#087160]"
             >
               Explore all collections
