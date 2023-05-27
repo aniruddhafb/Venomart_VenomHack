@@ -1,10 +1,17 @@
 import CollectionCard from '@/components/cards/CollectionCard';
+import Head from 'next/head';
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>Venomart Marketplace - Trusted NFT Marketplace on Venom Blockchain</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/fav.png" />
+      </Head>
+
       {/* hero section */}
       <section className="relative pb-10 pt-20 md:pt-32 lg:h-[88vh]" id='heroBack'>
         <div className="container h-full">
