@@ -3,15 +3,33 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/router";
 import venomlogo from "../../public/logosm.png";
+import venomLogo from "../../public/venom.svg";
+import axios from "axios";
+import { ethers } from "ethers";
 
 
 const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
 
     const router = useRouter();
 
+    const baseURL = "https://testnet-api.venomscan.com/v1/accounts";
+
     const [profileDrop, setProfileDrop] = useState(false);
     const [mobieProfileDrop, setMobieProfileDrop] = useState(false);
     const [search_result, set_search_result] = useState([]);
+
+    const [explorerLog, SetExplorerLog] = useState("");
+    const [vnmBalance, setVnmBalance] = useState("");
+
+    useEffect(() => {
+        axios.post(baseURL, {
+            "id": "0:6b5f10917e63eef512b1294917ffa27d2cd5f89abe3013d82ae089368519a36c"
+        }).then((response) => {
+            SetExplorerLog(response.data);
+            const balance = parseFloat(response.data.balance / 1000000000).toFixed(2);
+            setVnmBalance(balance);
+        });
+    })
 
     useEffect(() => {
         setProfileDrop(false);
@@ -192,8 +210,9 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                                         Balance
                                                     </span>
                                                     <div className="flex items-center">
-                                                        <span className="text-lg font-bold text-green">
-                                                            {/* {signer_bal} {"  "} {symbol} */}
+                                                        <span className="text-lg font-bold text-white" style={{ display: "flex", justifyContent: 'center', alignItems: "center" }}>
+                                                            {vnmBalance}
+                                                            <Image src={venomLogo} height={100} width={100} style={{ height: "18px", width: "18px", marginLeft: "7px" }} />
                                                         </span>
                                                     </div>
                                                 </div>
@@ -368,8 +387,9 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                                 Balance
                             </span>
                             <div className="flex items-center">
-                                <span className="text-lg font-bold text-green">
-                                    {/* {signer_bal} {"  "} {symbol} */}
+                                <span className="text-lg font-bold text-white" style={{ display: "flex", justifyContent: 'center', alignItems: "center" }}>
+                                    {vnmBalance}
+                                    <Image src={venomLogo} height={100} width={100} style={{ height: "18px", width: "18px", marginLeft: "7px" }} />
                                 </span>
                             </div>
                         </div>
