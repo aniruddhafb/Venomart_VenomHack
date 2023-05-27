@@ -3019,7 +3019,8 @@ input[type="search"]::-webkit-search-results-decoration {
   color: rgba(19, 23, 64, var(--tw-text-opacity));
 }
 .nav-link.active:after {
-  --tw-bg-opacity: 1;
+  --tw-bg-opacity: 0;
+  border-bottom: 3px solid #189c87;
   background-color: rgba(131, 88, 255, var(--tw-bg-opacity));
   bottom: -1px;
   content: var(--tw-content);
