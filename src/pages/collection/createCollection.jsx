@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Loader from "@/components/Loader";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { ThirdwebStorage } from "@thirdweb-dev/storage";
-import { ProviderRpcClient, AccountStatus } from "everscale-inpage-provider";
 
 const CreateNFTCollection = ({ signer_address }) => {
   const router = useRouter();
@@ -15,12 +13,7 @@ const CreateNFTCollection = ({ signer_address }) => {
     logo: "",
     image: "",
     description: "",
-  });  
-
-  const handle_submit = async (e) => {
-    e.preventDefault();
-    console.log(data);
-  };
+  });
 
   const handleChange = (e) => {
     set_data({ ...data, [e.target.name]: e.target.value });
@@ -31,13 +24,13 @@ const CreateNFTCollection = ({ signer_address }) => {
       <Head>
         <title>Create NFT Collection - Venomart Marketplace</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/fav.png" />
       </Head>
 
       {loading ? (
         <Loader />
       ) : (
-        <form onSubmit={handle_submit} className="relative py-24">
+        <form onSubmit={""} className="relative py-24" id="heroBack">
           <div className="container">
             <h1 className="py-16 text-center font-display text-4xl font-medium text-jacarta-700 dark:text-white">
               Create NFT Collection

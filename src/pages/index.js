@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <section className="relative pb-10 pt-20 md:pt-32 lg:h-[88vh]">
-      <div className="container h-full" id='heroBack'>
+    <section className="relative pb-10 pt-20 md:pt-32 lg:h-[88vh]" id='heroBack'>
+      <div className="container h-full">
         <div className="grid h-full items-center gap-4 md:grid-cols-12">
           <div
             className="col-span-6 flex h-full flex-col items-center justify-center py-10 md:items-start md:py-20 xl:col-span-4">
