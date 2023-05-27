@@ -69,6 +69,39 @@ const Footer = ({ theme }) => {
                             </li>
                         </ul>
                     </div>
+
+                    <div className="col-span-full sm:col-span-3 md:col-span-2">
+                        <h3 className="mb-6 font-display text-sm text-jacarta-700 dark:text-white">
+                            My Account
+                        </h3>
+                        <ul className="flex flex-col space-y-1 dark:text-jacarta-300">
+                            <li>
+                                <Link
+                                    href="/profile/editProfile"
+                                    className="hover:text-accent dark:hover:text-white"
+                                >
+                                    Edit Profile
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/nft/createNFT"
+                                    className="hover:text-accent dark:hover:text-white"
+                                >
+                                    Create NFT
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/collection/createCollection"
+                                    className="hover:text-accent dark:hover:text-white"
+                                >
+                                    Create Collection
+                                </Link>
+                            </li>
+
+                        </ul>
+                    </div>
                 </div>
                 <div className="flex flex-col items-center justify-between space-y-2 py-8 sm:flex-row sm:space-y-0">
                     <span className="text-sm dark:text-jacarta-400">
