@@ -6,7 +6,7 @@ import { EverscaleStandaloneClient } from "everscale-standalone-client";
 export const initVenomConnect = async () => {
   return new VenomConnect({
     theme: "dark",
-    checkNetworkId: 1002,
+    checkNetworkId: 1000,
     checkNetworkName: "Venom Devnet",
     providersOptions: {
       venomwallet: {

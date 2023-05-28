@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import CollectionCard from "@/components/cards/CollectionCard";
 import Head from "next/head";
 
-const TopCollections = ({ all_collections, loadNFTs, standaloneProvider }) => {
+const TopCollections = ({
+  all_collections,
+  loadNFTs,
+  standaloneProvider,
+  mint_nft,
+}) => {
   useEffect(() => {
     if (standaloneProvider) loadNFTs(standaloneProvider);
   }, [standaloneProvider]);
@@ -27,6 +32,7 @@ const TopCollections = ({ all_collections, loadNFTs, standaloneProvider }) => {
           <h1 className="py-16 text-center font-display text-4xl font-medium text-jacarta-700 dark:text-white">
             Explore Collections
           </h1>
+          <button onClick={() => mint_nft(standaloneProvider)}>Mint NFT</button>
 
           {/* loop collections here  */}
           <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-3 lg:grid-cols-4">
