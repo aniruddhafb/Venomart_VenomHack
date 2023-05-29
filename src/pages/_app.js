@@ -71,6 +71,7 @@ export default function App({ Component, pageProps }) {
   const getNftImage = async (provider, nftAddress) => {
     const nftContract = new provider.Contract(nftAbi, nftAddress);
     // calling getJson function of NFT contract
+
     const getJsonAnswer = await nftContract.methods
       .getJson({ answerId: 0 })
       .call();
@@ -95,6 +96,7 @@ export default function App({ Component, pageProps }) {
 
   const COLLECTION_ADDRESS =
     "0:f50ca3ffcdd955757b1b7f28dc4c4b8e2ed0c95d6b6eb41f12b024dd2b09dd94";
+
   const getNftCodeHash = async (provider) => {
     const collectionAddress = new Address(collection_address_testnet);
     const contract = new provider.Contract(collectionAbi, collectionAddress);
@@ -108,7 +110,6 @@ export default function App({ Component, pageProps }) {
     const addresses = await standaloneProvider?.getAccountsByCodeHash({
       codeHash,
     });
-    console.log(addresses);
     return addresses?.accounts;
   };
 
@@ -124,7 +125,6 @@ export default function App({ Component, pageProps }) {
       //   return;
       // }
       const nftURLs = await getCollectionItems(provider, nftAddresses);
-      console.log({ nftURLs });
     } catch (e) {
       console.error(e);
     }
@@ -206,10 +206,10 @@ export default function App({ Component, pageProps }) {
     return addresses?.accounts;
   };
 
-  const collection_contract = (provider) => {
-    const contr = new provider.Contract(collectionAbi, COLLECTION_ADDRESS);
-    return contr;
-  };
+  // const collection_contract = (provider) => {
+  //   const contr = new provider.Contract(collectionAbi, COLLECTION_ADDRESS);
+  //   return contr;
+  // };
 
   const mint_nft = async (provider) => {
     const json = {
@@ -232,12 +232,14 @@ export default function App({ Component, pageProps }) {
     };
     console.log({ signer_address });
     // const contr = collection_contract(provider);
-    const contr = new provider.Contract(collectionAbi, COLLECTION_ADDRESS);
-
-    console.log(contr);
+    const contr = new provider.Contract(
+      collectionAbi,
+      collection_address_testnet
+    );
+    
     const res = await contr?.methods
       .mintNft({ json: json })
-      .send({ from: signer_address });
+      .send({ from: new Address(signer_address) });
 
     console.log(res);
   };

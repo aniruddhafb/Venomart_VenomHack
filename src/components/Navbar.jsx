@@ -27,7 +27,6 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
         // id: "0:6b5f10917e63eef512b1294917ffa27d2cd5f89abe3013d82ae089368519a36c",
       })
       .then((response) => {
-        console.log(response.data);
         SetExplorerLog(response.data);
         const balance = parseFloat(response.data.balance / 1000000000).toFixed(
           2

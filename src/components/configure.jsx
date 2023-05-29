@@ -1,7 +1,10 @@
 // "use client";
 import { VenomConnect } from "venom-connect";
 import { ProviderRpcClient } from "everscale-inpage-provider";
-import { EverscaleStandaloneClient } from "everscale-standalone-client";
+import {
+  EverscaleStandaloneClient,
+  Keystore,
+} from "everscale-standalone-client";
 
 export const initVenomConnect = async () => {
   return new VenomConnect({
@@ -22,6 +25,7 @@ export const initVenomConnect = async () => {
             packageOptionsStandalone: {
               fallback: () =>
                 EverscaleStandaloneClient.create({
+                  keystore: ,
                   connection: {
                     id: 1010,
                     group: "venom_testnet",
