@@ -13,10 +13,10 @@ const ballotActivationSignerKeys = {
     "naive talent fork license vacuum rocket slot auction ability birth police wheat",
 };
 
-export const initVenomConnect = async () => {
+const initVenomConnect = async () => {
   return new VenomConnect({
     theme: "dark",
-    checkNetworkId: 1000,
+    checkNetworkId: 1002,
     checkNetworkName: "Venom Devnet",
     providersOptions: {
       venomwallet: {
@@ -32,15 +32,6 @@ export const initVenomConnect = async () => {
             packageOptionsStandalone: {
               fallback: () =>
                 EverscaleStandaloneClient.create({
-                  // accountsStorage: {},
-                  // keystore: new SimpleKeystore({
-                  //   [ballotActivationSignerKeys.public]: {
-                  //     publicKey:
-                  //       "a6ffc482a89817d62314bf333f30dc45cd6045b87f8ee4e3c231bd6e55a38001",
-                  //     secretKey:
-                  //       "naive talent fork license vacuum rocket slot auction ability birth police wheat",
-                  //   },
-                  // }),
                   connection: {
                     id: 1010,
                     group: "venom_testnet",
