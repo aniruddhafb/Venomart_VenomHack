@@ -1,4 +1,3 @@
-// "use client";
 import { VenomConnect } from "venom-connect";
 import { ProviderRpcClient } from "everscale-inpage-provider";
 import {
@@ -43,7 +42,7 @@ export const initVenomConnect = async () => {
                   }),
                   connection: {
                     id: 1010,
-                    group: "venom_testnet",
+                    group: "venom_devnet",
                     type: "jrpc",
                     data: {
                       endpoint: "https://jrpc-devnet.venom.foundation/rpc",
