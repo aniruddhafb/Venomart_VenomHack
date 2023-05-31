@@ -237,13 +237,13 @@ export default function App({ Component, pageProps }) {
       collection_address_testnet
     );
 
-    const res = await contr.methods
-      .mintNft({ json: json })
-      .send({ from: new Address(signer_address) });
+    const res = await contr.methods.mintNft({ json: json }).send({
+      from: new Address(signer_address),
+    });
 
     console.log(res);
   };
-  
+
   useEffect(() => {
     init();
   }, []);
