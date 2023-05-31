@@ -10,7 +10,11 @@ import { ethers } from "ethers";
 const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
   const router = useRouter();
 
-  const baseURL = "https://testnet-api.venomscan.com/v1/accounts";
+  // testnet api 
+  // const baseURL = "https://testnet-api.venomscan.com/v1/accounts";
+
+  // devnet api 
+  const baseURL = "https://devnet-api.venomscan.com/v1/accounts";
 
   const [profileDrop, setProfileDrop] = useState(false);
   const [mobieProfileDrop, setMobieProfileDrop] = useState(false);
@@ -24,7 +28,6 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
     axios
       .post(baseURL, {
         id: signer_address,
-        // id: "0:6b5f10917e63eef512b1294917ffa27d2cd5f89abe3013d82ae089368519a36c",
       })
       .then((response) => {
         SetExplorerLog(response.data);
