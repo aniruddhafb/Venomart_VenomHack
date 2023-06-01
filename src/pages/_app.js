@@ -2,6 +2,8 @@ import "@/styles/bootstrap.css";
 import "@/styles/custom.css";
 import "@/styles/globals.css";
 import axios from "axios";
+import { Polybase } from "@polybase/client";
+
 // import {} from ""
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -239,9 +241,24 @@ export default function App({ Component, pageProps }) {
 
     const res = await contr.methods.mintNft({ json: json }).send({
       from: new Address(signer_address),
+      amount: "2",
     });
 
     console.log(res);
+  };
+
+  const polybase = () => {
+    const db = new Polybase({
+      defaultNamespace: process.env.NEXT_PUBLIC_POLYBASE_NAMESPACE,
+      signer: async (data) => {
+        return {
+          h: "eth-personal-sign",
+          sig: await wallet.signMessage(data),
+        };
+      },
+    });
+
+    return db;
   };
 
   useEffect(() => {

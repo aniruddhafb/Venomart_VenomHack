@@ -1,18 +1,29 @@
 import { VenomConnect } from "venom-connect";
 import { ProviderRpcClient } from "everscale-inpage-provider";
+
 import {
+  EverWalletAccount,
   EverscaleStandaloneClient,
   SimpleKeystore,
 } from "everscale-standalone-client";
 
-const ballotActivationSignerKeys = {
-  // suppose we have this variables in system environment...you can use dotenv for example
-  public: "a6ffc482a89817d62314bf333f30dc45cd6045b87f8ee4e3c231bd6e55a38001",
-  secret:
-    "naive talent fork license vacuum rocket slot auction ability birth police wheat",
-};
-
 export const initVenomConnect = async () => {
+  const eas = await EverWalletAccount.fromPubkey({
+    publicKey:
+      "4f123dd589cc2a899f125f387022dfcda80fb5fa142df9e935922d03c5da4244",
+  });
+
+  const sks = new SimpleKeystore();
+  sks.addKeyPair(
+    "4f123dd589cc2a899f125f387022dfcda80fb5fa142df9e935922d03c5da4244",
+    {
+      publicKey:
+        "4f123dd589cc2a899f125f387022dfcda80fb5fa142df9e935922d03c5da4244",
+      secretKey:
+        "naive talent fork license vacuum rocket slot auction ability birth police wheat",
+    }
+  );
+
   return new VenomConnect({
     theme: "dark",
     checkNetworkId: 1002,
@@ -31,15 +42,8 @@ export const initVenomConnect = async () => {
             packageOptionsStandalone: {
               fallback: () =>
                 EverscaleStandaloneClient.create({
-                  accountsStorage: {},
-                  keystore: new SimpleKeystore({
-                    [ballotActivationSignerKeys.public]: {
-                      publicKey:
-                        "a6ffc482a89817d62314bf333f30dc45cd6045b87f8ee4e3c231bd6e55a38001",
-                      secretKey:
-                        "naive talent fork license vacuum rocket slot auction ability birth police wheat",
-                    },
-                  }),
+                  keystore: sks,
+                  accountsStorage: eas,
                   connection: {
                     id: 1010,
                     group: "venom_devnet",
