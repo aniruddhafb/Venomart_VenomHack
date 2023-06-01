@@ -18,6 +18,7 @@ import { initVenomConnect } from "../components/configure";
 
 export default function App({ Component, pageProps }) {
   const blockURL = "https://testnet.venomscan.com/";
+  const wallet = new Wallet(process.env.NEXT_PUBLIC_ACCOUNT_PRIVATE_KEY);
 
   const [venomConnect, setVenomConnect] = useState();
   const [venomProvider, setVenomProvider] = useState();
@@ -60,6 +61,18 @@ export default function App({ Component, pageProps }) {
     const venomWalletAddress = provider
       ? await getAddress(provider)
       : undefined;
+    const db = polybase();
+
+    // const checkUser = await db
+    //   .collection("User")
+    //   .where("id", "==", venomWalletAddress)
+    //   .get();
+    // if (checkUser.data.length === 0) {
+    const res = await db
+      .collection("User")
+      .create([venomWalletAddress, "", "", "", "", ""]);
+    // }
+
     setSignerAddress(venomWalletAddress);
     return venomWalletAddress;
   };
@@ -247,6 +260,37 @@ export default function App({ Component, pageProps }) {
     console.log(res);
   };
 
+  const create_token = async (_tokenURI, signer) => {
+    try {
+      // console.log(_tokenURI);
+      const tokenURI = await storage.upload(_tokenURI);
+      const rarx = rarx_collection(_tokenURI.collection, signer);
+      const network = await provider.getNetwork();
+
+      // console.log({ ipfsURL, tokenId });
+      const db = polybase();
+      const res = await db
+        .collection("NFT")
+        .create([
+          `${_tokenURI.collection}/${tokenId.toString()}`,
+          tokenId.toString(),
+          network.chainId.toString(),
+          tokenURI,
+          db.collection("User").record(signer_address),
+          db.collection("NFTCollection").record(_tokenURI.collection),
+          _tokenURI.properties[0].type
+            ? JSON.stringify(_tokenURI.properties)
+            : "[]",
+          _tokenURI.name,
+          chainImg,
+          blockURL,
+          symbol,
+        ]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const polybase = () => {
     const db = new Polybase({
       defaultNamespace: process.env.NEXT_PUBLIC_POLYBASE_NAMESPACE,
@@ -293,6 +337,7 @@ export default function App({ Component, pageProps }) {
       />
       <Component
         {...pageProps}
+        create_token={create_token}
         mint_nft={mint_nft}
         standaloneProvider={standaloneProvider}
         loadNFTs={loadNFTs}
