@@ -279,7 +279,6 @@ export default function App({ Component, pageProps }) {
       />
       <Component
         {...pageProps}
-        create_token={create_token}
         mint_nft={mint_nft}
         standaloneProvider={standaloneProvider}
         loadNFTs={loadNFTs}
