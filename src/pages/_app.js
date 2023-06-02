@@ -1,8 +1,6 @@
 import "@/styles/bootstrap.css";
 import "@/styles/custom.css";
 import "@/styles/globals.css";
-import axios from "axios";
-import { Polybase } from "@polybase/client";
 
 // import {} from ""
 import Footer from "@/components/Footer";
