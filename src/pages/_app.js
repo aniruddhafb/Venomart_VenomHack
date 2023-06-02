@@ -35,30 +35,21 @@ export default function App({ Component, pageProps }) {
     setVenomConnect(_venomConnect);
   };
 
-  const get_user_by_wallet = async (wallet) => {
-    // const res = await axios({
-    //   url: `${BaseURL}/users`,
-    //   method: "GET",
-    // });
-    // console.log(res.data);
-  };
-
   const create_user = async (data) => {
-    const profile_img = data?.profileImage
-      ? await storage.upload(data.profileImage)
-      : "";
-    const cover_img = data?.coverImage
-      ? await storage.upload(data.coverImage)
-      : "";
     const res = await axios({
       url: `${BaseURL}/users`,
       method: "POST",
       data: {
         wallet_id: data.wallet_id,
-        username: "sas",
+        user_name: "",
+        bio: "",
+        email: "",
+        walletAddress: "",
+        profileImage: "",
+        coverImage: "",
       },
     });
-    console.log(res.data);
+    return res.data;
   };
 
   const create_nft = async (data) => {
@@ -80,19 +71,43 @@ export default function App({ Component, pageProps }) {
     console.log(res.data);
   };
 
-  const create_collection = async (data) => {
-    const ipfsUrl = "await storage.upload(data);";
-    const tokenId = uuidv4().toString();
+  const update_profile = async (data) => {
+    console.log(data);
+    const profile_img = data?.profileImage
+      ? await storage.upload(data.profileImage)
+      : "";
+    const cover_img = data?.coverImage
+      ? await storage.upload(data.coverImage)
+      : "";
     const res = await axios({
-      url: `${BaseURL}/nfts`,
+      url: `${BaseURL}/users`,
+      method: "PUT",
+      data: {
+        wallet_id: data.walletAddress,
+        user_name: data.user_name,
+        email: data.email,
+        bio: data.bio,
+        profileImage: profile_img,
+        coverImage: cover_img,
+        socials: [data.twitter, data.instagram, data.customLink],
+      },
+    });
+    console.log(res.data);
+  };
+
+  const create_collection = async (data) => {
+    const ipfsUrl_logo = await storage.upload(data.logo);
+    const ipfsUrl_cover = await storage.upload(data.image);
+    const res = await axios({
+      url: `${BaseURL}/collections`,
       method: "POST",
       data: {
-        tokenId: tokenId,
-        nft_collection: `collection_address/${tokenId}`,
-        ipfsURL: ipfsUrl,
-        listingPrice: 0,
-        isListed: false,
-        owner: signer_address,
+        collection_address: uuidv4().toString(),
+        coverImage: ipfsUrl_cover,
+        logo: ipfsUrl_logo,
+        name: data.name,
+        symbol: data.symbol,
+        description: data.description,
       },
     });
     console.log(res.data);
@@ -129,6 +144,7 @@ export default function App({ Component, pageProps }) {
       ? await getAddress(provider)
       : undefined;
     setSignerAddress(venomWalletAddress);
+    create_user({ wallet_id: venomWalletAddress });
     return venomWalletAddress;
   };
 
@@ -318,21 +334,20 @@ export default function App({ Component, pageProps }) {
 
   // connect event handler
   useEffect(() => {
-    get_user_by_wallet();
-    // const main_func = async () => {
-    //   const off = venomConnect?.on("connect", onConnect);
-    //   if (venomConnect) {
-    //     const standaloneProvider = await initStandalone();
-    //     checkAuth(venomConnect);
-    //     if (!signer_address) return;
-    //     user_nfts(standaloneProvider, signer_address);
-    //   }
-    //   return () => {
-    //     off?.();
-    //   };
-    // };
+    const main_func = async () => {
+      const off = venomConnect?.on("connect", onConnect);
+      if (venomConnect) {
+        const standaloneProvider = await initStandalone();
+        checkAuth(venomConnect);
+        if (!signer_address) return;
+        user_nfts(standaloneProvider, signer_address);
+      }
+      return () => {
+        off?.();
+      };
+    };
 
-    // main_func();
+    main_func();
   }, [venomConnect, signer_address]);
 
   return (
@@ -345,6 +360,8 @@ export default function App({ Component, pageProps }) {
       />
       <Component
         {...pageProps}
+        create_user={create_user}
+        update_profile={update_profile}
         create_collection={create_collection}
         create_nft={create_nft}
         mint_nft={mint_nft}

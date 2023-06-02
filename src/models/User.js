@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
   wallet_id: String,
-  username: {
+  user_name: {
     type: String,
     sparse: true,
   },
