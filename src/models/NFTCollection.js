@@ -1,27 +1,18 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const CollectionSchema = new mongoose.Schema({
-  id: String,
-  owner: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
+  collection_address: String,
+  // owner: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "User",
+  // },
   coverImage: String,
   logo: String,
   name: String,
   symbol: String,
   description: String,
-  chain_image: String,
-  chain_block: String,
-  isStarted: Boolean,
-  isRequested: Boolean,
-  isSettled: Boolean,
-  isCollectionVerified: Boolean,
-  uma_contract: String,
-  nfts: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "NFT",
-    },
-  ],
+  nfts: [String],
 });
+
+module.exports =
+  mongoose.models?.Collection || mongoose.model("Collection", CollectionSchema);

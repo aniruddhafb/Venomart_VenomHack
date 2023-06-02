@@ -55,6 +55,44 @@ export default function App({ Component, pageProps }) {
       method: "POST",
       data: {
         wallet_id: data.wallet_id,
+        username: "sas",
+      },
+    });
+    console.log(res.data);
+  };
+
+  const create_nft = async (data) => {
+    console.log(data);
+    const ipfsUrl = "await storage.upload(data);";
+    const tokenId = uuidv4().toString();
+    const res = await axios({
+      url: `${BaseURL}/nfts`,
+      method: "POST",
+      data: {
+        tokenId: tokenId,
+        nft_collection: `collection_address/${tokenId}`,
+        ipfsURL: ipfsUrl,
+        listingPrice: 0,
+        isListed: false,
+        owner: signer_address,
+      },
+    });
+    console.log(res.data);
+  };
+
+  const create_collection = async (data) => {
+    const ipfsUrl = "await storage.upload(data);";
+    const tokenId = uuidv4().toString();
+    const res = await axios({
+      url: `${BaseURL}/nfts`,
+      method: "POST",
+      data: {
+        tokenId: tokenId,
+        nft_collection: `collection_address/${tokenId}`,
+        ipfsURL: ipfsUrl,
+        listingPrice: 0,
+        isListed: false,
+        owner: signer_address,
       },
     });
     console.log(res.data);
@@ -245,36 +283,33 @@ export default function App({ Component, pageProps }) {
   // };
 
   const mint_nft = async (provider) => {
-    const json = {
-      type: "Basic NFT",
-      name: "Sample Name",
-      description: "Hello world!",
-      preview: {
-        source:
-          "https://venom.network/static/media/bg-main.6b6f0965e7c3b3d9833b.jpg",
-        mimetype: "image/png",
-      },
-      files: [
-        {
-          source:
-            "https://venom.network/static/media/bg-main.6b6f0965e7c3b3d9833b.jpg",
-          mimetype: "image/jpg",
-        },
-      ],
-      external_url: "https://venom.network",
-    };
-
-    const contr = new provider.Contract(
-      collectionAbi,
-      collection_address_testnet
-    );
-
-    const res = await contr.methods.mintNft({ json: json }).send({
-      from: new Address(signer_address),
-      amount: "2",
-    });
-
-    console.log(res);
+    // const json = {
+    //   type: "Basic NFT",
+    //   name: "Sample Name",
+    //   description: "Hello world!",
+    //   preview: {
+    //     source:
+    //       "https://venom.network/static/media/bg-main.6b6f0965e7c3b3d9833b.jpg",
+    //     mimetype: "image/png",
+    //   },
+    //   files: [
+    //     {
+    //       source:
+    //         "https://venom.network/static/media/bg-main.6b6f0965e7c3b3d9833b.jpg",
+    //       mimetype: "image/jpg",
+    //     },
+    //   ],
+    //   external_url: "https://venom.network",
+    // };
+    // const contr = new provider.Contract(
+    //   collectionAbi,
+    //   collection_address_testnet
+    // );
+    // const res = await contr.methods.mintNft({ json: json }).send({
+    //   from: new Address(signer_address),
+    //   amount: "2",
+    // });
+    // console.log(res);
   };
 
   useEffect(() => {
@@ -284,20 +319,20 @@ export default function App({ Component, pageProps }) {
   // connect event handler
   useEffect(() => {
     get_user_by_wallet();
-    const main_func = async () => {
-      const off = venomConnect?.on("connect", onConnect);
-      if (venomConnect) {
-        const standaloneProvider = await initStandalone();
-        checkAuth(venomConnect);
-        if (!signer_address) return;
-        user_nfts(standaloneProvider, signer_address);
-      }
-      return () => {
-        off?.();
-      };
-    };
+    // const main_func = async () => {
+    //   const off = venomConnect?.on("connect", onConnect);
+    //   if (venomConnect) {
+    //     const standaloneProvider = await initStandalone();
+    //     checkAuth(venomConnect);
+    //     if (!signer_address) return;
+    //     user_nfts(standaloneProvider, signer_address);
+    //   }
+    //   return () => {
+    //     off?.();
+    //   };
+    // };
 
-    main_func();
+    // main_func();
   }, [venomConnect, signer_address]);
 
   return (
@@ -310,6 +345,8 @@ export default function App({ Component, pageProps }) {
       />
       <Component
         {...pageProps}
+        create_collection={create_collection}
+        create_nft={create_nft}
         mint_nft={mint_nft}
         standaloneProvider={standaloneProvider}
         loadNFTs={loadNFTs}
