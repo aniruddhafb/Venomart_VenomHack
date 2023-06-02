@@ -39,22 +39,22 @@ export const initVenomConnect = async () => {
                 (() => Promise.reject()),
               forceUseFallback: true,
             },
-            packageOptionsStandalone: {
-              fallback: () =>
-                EverscaleStandaloneClient.create({
-                  keystore: sks,
-                  accountsStorage: eas,
-                  connection: {
-                    id: 1010,
-                    group: "venom_devnet",
-                    type: "jrpc",
-                    data: {
-                      endpoint: "https://jrpc-devnet.venom.foundation/rpc",
-                    },
-                  },
-                }),
-              forceUseFallback: true,
-            },
+            // packageOptionsStandalone: {
+            //   fallback: () =>
+            //     EverscaleStandaloneClient.create({
+            //       keystore: sks,
+            //       accountsStorage: eas,
+            //       connection: {
+            //         id: 1010,
+            //         group: "venom_devnet",
+            //         type: "jrpc",
+            //         data: {
+            //           endpoint: "https://jrpc-devnet.venom.foundation/rpc",
+            //         },
+            //       },
+            //     }),
+            //   forceUseFallback: true,
+            // },
             id: "extension",
             type: "extension",
           },

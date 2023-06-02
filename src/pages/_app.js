@@ -1,7 +1,11 @@
 import "@/styles/bootstrap.css";
 import "@/styles/custom.css";
 import "@/styles/globals.css";
-
+import axios from "axios";
+import { ThirdwebStorage } from "@thirdweb-dev/storage";
+import { v4 as uuidv4 } from "uuid";
+import User from "../models/User";
+import dbConnect from "@/lib/dbConnect";
 // import {} from ""
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -13,9 +17,12 @@ import collectionAbi from "../../abi/Sample.abi.json";
 import { Address, ProviderRpcClient } from "everscale-inpage-provider";
 import { useEffect, useState } from "react";
 import { initVenomConnect } from "../components/configure";
+import mongoose from "mongoose";
 
 export default function App({ Component, pageProps }) {
+  const BaseURL = "http://localhost:3000/api";
   const blockURL = "https://testnet.venomscan.com/";
+  const storage = new ThirdwebStorage();
 
   const [venomConnect, setVenomConnect] = useState();
   const [venomProvider, setVenomProvider] = useState();
@@ -26,6 +33,84 @@ export default function App({ Component, pageProps }) {
   const init = async () => {
     const _venomConnect = await initVenomConnect();
     setVenomConnect(_venomConnect);
+  };
+
+  const create_user = async (data) => {
+    const res = await axios({
+      url: `${BaseURL}/users`,
+      method: "POST",
+      data: {
+        wallet_id: data.wallet_id,
+        user_name: "",
+        bio: "",
+        email: "",
+        walletAddress: "",
+        profileImage: "",
+        coverImage: "",
+      },
+    });
+    return res.data;
+  };
+
+  const create_nft = async (data) => {
+    console.log(data);
+    const ipfsUrl = "await storage.upload(data);";
+    const tokenId = uuidv4().toString();
+    const res = await axios({
+      url: `${BaseURL}/nfts`,
+      method: "POST",
+      data: {
+        tokenId: tokenId,
+        nft_collection: `collection_address/${tokenId}`,
+        ipfsURL: ipfsUrl,
+        listingPrice: 0,
+        isListed: false,
+        owner: signer_address,
+      },
+    });
+    console.log(res.data);
+  };
+
+  const update_profile = async (data) => {
+    console.log(data);
+    const profile_img = data?.profileImage
+      ? await storage.upload(data.profileImage)
+      : "";
+    const cover_img = data?.coverImage
+      ? await storage.upload(data.coverImage)
+      : "";
+    const res = await axios({
+      url: `${BaseURL}/users`,
+      method: "PUT",
+      data: {
+        wallet_id: data.walletAddress,
+        user_name: data.user_name,
+        email: data.email,
+        bio: data.bio,
+        profileImage: profile_img,
+        coverImage: cover_img,
+        socials: [data.twitter, data.instagram, data.customLink],
+      },
+    });
+    console.log(res.data);
+  };
+
+  const create_collection = async (data) => {
+    const ipfsUrl_logo = await storage.upload(data.logo);
+    const ipfsUrl_cover = await storage.upload(data.image);
+    const res = await axios({
+      url: `${BaseURL}/collections`,
+      method: "POST",
+      data: {
+        collection_address: uuidv4().toString(),
+        coverImage: ipfsUrl_cover,
+        logo: ipfsUrl_logo,
+        name: data.name,
+        symbol: data.symbol,
+        description: data.description,
+      },
+    });
+    console.log(res.data);
   };
 
   const getAddress = async (provider) => {
@@ -59,6 +144,7 @@ export default function App({ Component, pageProps }) {
       ? await getAddress(provider)
       : undefined;
     setSignerAddress(venomWalletAddress);
+    create_user({ wallet_id: venomWalletAddress });
     return venomWalletAddress;
   };
 
@@ -213,36 +299,33 @@ export default function App({ Component, pageProps }) {
   // };
 
   const mint_nft = async (provider) => {
-    const json = {
-      type: "Basic NFT",
-      name: "Sample Name",
-      description: "Hello world!",
-      preview: {
-        source:
-          "https://venom.network/static/media/bg-main.6b6f0965e7c3b3d9833b.jpg",
-        mimetype: "image/png",
-      },
-      files: [
-        {
-          source:
-            "https://venom.network/static/media/bg-main.6b6f0965e7c3b3d9833b.jpg",
-          mimetype: "image/jpg",
-        },
-      ],
-      external_url: "https://venom.network",
-    };
-
-    const contr = new provider.Contract(
-      collectionAbi,
-      collection_address_testnet
-    );
-
-    const res = await contr.methods.mintNft({ json: json }).send({
-      from: new Address(signer_address),
-      amount: "2",
-    });
-
-    console.log(res);
+    // const json = {
+    //   type: "Basic NFT",
+    //   name: "Sample Name",
+    //   description: "Hello world!",
+    //   preview: {
+    //     source:
+    //       "https://venom.network/static/media/bg-main.6b6f0965e7c3b3d9833b.jpg",
+    //     mimetype: "image/png",
+    //   },
+    //   files: [
+    //     {
+    //       source:
+    //         "https://venom.network/static/media/bg-main.6b6f0965e7c3b3d9833b.jpg",
+    //       mimetype: "image/jpg",
+    //     },
+    //   ],
+    //   external_url: "https://venom.network",
+    // };
+    // const contr = new provider.Contract(
+    //   collectionAbi,
+    //   collection_address_testnet
+    // );
+    // const res = await contr.methods.mintNft({ json: json }).send({
+    //   from: new Address(signer_address),
+    //   amount: "2",
+    // });
+    // console.log(res);
   };
 
   useEffect(() => {
@@ -277,6 +360,10 @@ export default function App({ Component, pageProps }) {
       />
       <Component
         {...pageProps}
+        create_user={create_user}
+        update_profile={update_profile}
+        create_collection={create_collection}
+        create_nft={create_nft}
         mint_nft={mint_nft}
         standaloneProvider={standaloneProvider}
         loadNFTs={loadNFTs}

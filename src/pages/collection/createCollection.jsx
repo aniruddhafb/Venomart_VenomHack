@@ -3,7 +3,7 @@ import Loader from "@/components/Loader";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const CreateNFTCollection = ({ signer_address }) => {
+const CreateNFTCollection = ({ signer_address, create_collection }) => {
   const router = useRouter();
   const [loading, set_loading] = useState(false);
   const [preview, set_preview] = useState({ logo: "", cover: "" });
@@ -19,6 +19,11 @@ const CreateNFTCollection = ({ signer_address }) => {
     set_data({ ...data, [e.target.name]: e.target.value });
   };
 
+  const handle_submit = async (e) => {
+    e.preventDefault();
+    create_collection(data);
+  };
+
   return (
     <>
       <Head>
@@ -30,7 +35,7 @@ const CreateNFTCollection = ({ signer_address }) => {
       {loading ? (
         <Loader />
       ) : (
-        <form onSubmit={""} className="relative py-24" id="heroBack">
+        <form onSubmit={handle_submit} className="relative py-24" id="heroBack">
           <div className="container">
             <h1 className="py-16 text-center font-display text-4xl font-medium text-jacarta-700 dark:text-white">
               Create NFT Collection
