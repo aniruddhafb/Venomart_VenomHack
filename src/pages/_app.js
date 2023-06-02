@@ -2,8 +2,10 @@ import "@/styles/bootstrap.css";
 import "@/styles/custom.css";
 import "@/styles/globals.css";
 import axios from "axios";
-import { Polybase } from "@polybase/client";
-
+import { ThirdwebStorage } from "@thirdweb-dev/storage";
+import { v4 as uuidv4 } from "uuid";
+import User from "../models/User";
+import dbConnect from "@/lib/dbConnect";
 // import {} from ""
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -15,9 +17,12 @@ import collectionAbi from "../../abi/Sample.abi.json";
 import { Address, ProviderRpcClient } from "everscale-inpage-provider";
 import { useEffect, useState } from "react";
 import { initVenomConnect } from "../components/configure";
+import mongoose from "mongoose";
 
 export default function App({ Component, pageProps }) {
+  const BaseURL = "http://localhost:3000/api";
   const blockURL = "https://testnet.venomscan.com/";
+  const storage = new ThirdwebStorage();
 
   const [venomConnect, setVenomConnect] = useState();
   const [venomProvider, setVenomProvider] = useState();
@@ -28,6 +33,31 @@ export default function App({ Component, pageProps }) {
   const init = async () => {
     const _venomConnect = await initVenomConnect();
     setVenomConnect(_venomConnect);
+  };
+
+  const get_user_by_wallet = async (wallet) => {
+    // const res = await axios({
+    //   url: `${BaseURL}/users`,
+    //   method: "GET",
+    // });
+    // console.log(res.data);
+  };
+
+  const create_user = async (data) => {
+    const profile_img = data?.profileImage
+      ? await storage.upload(data.profileImage)
+      : "";
+    const cover_img = data?.coverImage
+      ? await storage.upload(data.coverImage)
+      : "";
+    const res = await axios({
+      url: `${BaseURL}/users`,
+      method: "POST",
+      data: {
+        wallet_id: data.wallet_id,
+      },
+    });
+    console.log(res.data);
   };
 
   const getAddress = async (provider) => {
@@ -253,6 +283,7 @@ export default function App({ Component, pageProps }) {
 
   // connect event handler
   useEffect(() => {
+    get_user_by_wallet();
     const main_func = async () => {
       const off = venomConnect?.on("connect", onConnect);
       if (venomConnect) {
