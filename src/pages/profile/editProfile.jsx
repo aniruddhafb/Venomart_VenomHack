@@ -39,9 +39,9 @@ const EditProfile = ({
     console.log({ user_data });
     set_data({
       ...user_data?.user,
-      twitter: user_data?.user.socials[0],
-      instagram: user_data?.user.socials[1],
-      customLink: user_data?.user.socials[2],
+      twitter: user_data?.user?.socials[0],
+      instagram: user_data?.user?.socials[1],
+      customLink: user_data?.user?.socials[2],
       walletAddress: signer_address,
     });
   };
