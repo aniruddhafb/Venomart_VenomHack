@@ -9,6 +9,7 @@ const TopCollections = ({
   mint_nft,
 }) => {
   useEffect(() => {
+    console.log(standaloneProvider);
     if (standaloneProvider) loadNFTs(standaloneProvider);
   }, [standaloneProvider]);
 
