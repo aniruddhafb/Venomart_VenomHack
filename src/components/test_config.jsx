@@ -1,14 +1,15 @@
 import { VenomConnect } from "venom-connect";
 import { ProviderRpcClient } from "everscale-inpage-provider";
-
-const standaloneFallback = (checkNetworkId = 1000) =>
+import EverscaleStandaloneClient from "everscale-standalone-client";
+  
+const standaloneFallback = (checkNetworkId = 1002) =>
   EverscaleStandaloneClient.create({
     connection: getNetworkData(checkNetworkId, "connection"),
   });
 
 export const initVenomConnect = async (checkNetworkId = 1002) => {
   return new VenomConnect({
-    theme: "light",
+    theme: "dark",
     checkNetworkId: checkNetworkId,
     providersOptions: {
       venomwallet: {

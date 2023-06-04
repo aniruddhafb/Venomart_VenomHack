@@ -2,16 +2,8 @@ import React, { useEffect, useState } from "react";
 import CollectionCard from "@/components/cards/CollectionCard";
 import Head from "next/head";
 
-const TopCollections = ({
-  all_collections,
-  loadNFTs,
-  standaloneProvider,
-  mint_nft,
-}) => {
-  useEffect(() => {
-    console.log(standaloneProvider);
-    if (standaloneProvider) loadNFTs(standaloneProvider);
-  }, [standaloneProvider]);
+const TopCollections = ({ all_collections, standaloneProvider, mint_nft }) => {
+  useEffect(() => {}, [standaloneProvider]);
 
   return (
     <>
