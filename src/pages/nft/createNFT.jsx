@@ -266,9 +266,9 @@ const CreateNFT = ({
 
               {/* <!-- Properties Modal --> */}
               {propModel && (
-                <div className="bg-black">
-                  <div className="max-w-2xl mb-4 bg-black">
-                    <div className="modal-content bg-black">
+                <div>
+                  <div className="max-w-2xl mb-4">
+                    <div className="modal-content bg-transparent">
                       <div className="modal-body p-6">
                         {data.properties.map((e, index) => (
                           <div

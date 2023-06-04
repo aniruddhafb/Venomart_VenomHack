@@ -26,7 +26,7 @@ export default function Home() {
                 Buy, sell and collect NFTs.
               </h1>
               <p className="mb-8 text-center text-lg dark:text-jacarta-200 md:text-left">
-                Largest Marketplace on venom blockchain
+                Collect you favourite NFTs on venom blockchain <br /> Trade NFTs for free on venomart..
               </p>
               <div className="flex space-x-4">
                 <Link href="/nft/createNFT"
@@ -42,24 +42,8 @@ export default function Home() {
 
             <div className="col-span-6 xl:col-span-8">
               <div className="relative text-center md:pl-8 md:text-right">
-                <svg viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
-                  className="mt-8 inline-block w-72 rotate-[8deg] sm:w-full lg:w-[24rem] xl:w-[35rem]">
-                  <defs>
-                    <clipPath id="clipping" clipPathUnits="userSpaceOnUse">
-                      <path d="
-                    M 0, 100
-                    C 0, 17.000000000000004 17.000000000000004, 0 100, 0
-                    S 200, 17.000000000000004 200, 100
-                        183, 200 100, 200
-                        0, 183 0, 100
-                " fill="#9446ED"></path>
-                    </clipPath>
-                  </defs>
-                  <g clip-path="url(#clipping)">
-                    <image href="../../dark.svg" width="200" height="200" />
-                  </g>
-                </svg>
-                <img src="img/hero/3D_elements.png" alt="" className="absolute top-0 animate-fly md:-right-[10%]" />
+                <img src="../../1.png" alt="" className="mt-8 inline-block w-72 rotate-[8deg] sm:w-full lg:w-[24rem] xl:w-[31rem]" style={{ borderRadius: "12%" }} />
+                <img src="../../3D_elements.png" alt="" className="absolute top-[-20px] animate-fly md:-right-[13%]" />
               </div>
             </div>
           </div>
