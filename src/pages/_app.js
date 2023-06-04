@@ -6,6 +6,8 @@ import { ThirdwebStorage } from "@thirdweb-dev/storage";
 import { v4 as uuidv4 } from "uuid";
 import User from "../models/User";
 import dbConnect from "@/lib/dbConnect";
+
+// import { toNano } from "locklift";
 // import {} from ""
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -125,14 +127,15 @@ export default function App({ Component, pageProps }) {
 
   const initStandalone = async () => {
     const standalone = await venomConnect?.getStandalone();
+    console.log({ standalone });
     setStandAloneProvider(standalone);
     return standalone;
   };
 
   const onConnect = async (provider) => {
     await onProviderReady(provider);
+
     setVenomProvider(provider);
-    console.log({ provider });
   };
 
   const onDisconnect = async () => {
@@ -145,7 +148,7 @@ export default function App({ Component, pageProps }) {
       ? await getAddress(provider)
       : undefined;
     setSignerAddress(venomWalletAddress);
-    create_user({ wallet_id: venomWalletAddress });
+    // create_user({ wallet_id: venomWalletAddress });
     return venomWalletAddress;
   };
 
@@ -154,150 +157,14 @@ export default function App({ Component, pageProps }) {
     await venomConnect.connect();
   };
 
-  //NFT FUNCTIONS
-  const getNftImage = async (provider, nftAddress) => {
-    const nftContract = new provider.Contract(nftAbi, nftAddress);
-    // calling getJson function of NFT contract
-
-    const getJsonAnswer = await nftContract.methods
-      .getJson({ answerId: 0 })
-      .call();
-    const json = JSON.parse(getJsonAnswer.json ?? "{}");
-    console.log(json);
-    return json.preview?.source || "";
-  };
-
-  const getCollectionItems = async (provider, nftAddresses) => {
-    return Promise.all(
-      nftAddresses.map(async (nftAddress) => {
-        const imgInfo = await getNftImage(provider, nftAddress);
-        return imgInfo;
-      })
-    );
-  };
-
   //COLLECTION FUNCTIONS
 
   const collection_address_devnet =
-    "0:0:e0503cdd6dfc9a3203b2745d2636022d94b2f11da10d3c5550c25a00bd85ee34";
-
-  const getNftCodeHash = async (provider) => {
-    const collectionAddress = new Address(collection_address_devnet);
-    const contract = new provider.Contract(collectionAbi, collectionAddress);
-    const { codeHash } = await contract.methods
-      .nftCodeHash({ answerId: 0 })
-      .call({ responsible: true });
-    return BigInt(codeHash).toString(16);
-  };
-
-  const getNftAddresses = async (codeHash) => {
-    const addresses = await standaloneProvider?.getAccountsByCodeHash({
-      codeHash,
-    });
-    return addresses?.accounts;
-  };
-
-  const loadNFTs = async (provider) => {
-    try {
-      const nftCodeHash = await getNftCodeHash(provider);
-      console.log({ nftCodeHash });
-      if (!nftCodeHash) {
-        return;
-      }
-      const nftAddresses = await getNftAddresses(nftCodeHash);
-      // if (!nftAddresses || !nftAddresses.length) {
-      //   if (nftAddresses && !nftAddresses.length) setListIsEmpty(true);
-      //   return;
-      // }
-      const nftURLs = await getCollectionItems(provider, nftAddresses);
-      console.log({ nftURLs });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const user_nfts = async (provider, ownerAddress) => {
-    // setListIsEmpty(false);
-    try {
-      // Take a salted code
-      const saltedCode = await saltCode(provider, ownerAddress);
-      // Hash it
-      const codeHash = await provider.getBocHash(saltedCode);
-      if (!codeHash) {
-        return;
-      }
-      // Fetch all Indexes by hash
-      const indexesAddresses = await getAddressesFromIndex(codeHash);
-      // if (!indexesAddresses || !indexesAddresses.length) {
-      //   if (indexesAddresses && !indexesAddresses.length) setListIsEmpty(true);
-      //   return;
-      // }
-      // Fetch all image URLs
-      const nftURLs = await getNftsByIndexes(provider, indexesAddresses);
-      console.log({ nftURLs });
-      // setMyCollectionItems(nftURLs);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const getNftsByIndexes = async (provider, indexAddresses) => {
-    const nftAddresses = await Promise.all(
-      indexAddresses.map(async (indexAddress) => {
-        const indexContract = new provider.Contract(indexAbi, indexAddress);
-        const indexInfo = await indexContract.methods
-          .getInfo({ answerId: 0 })
-          .call();
-        return indexInfo.nft;
-      })
-    );
-
-    return getCollectionItems(provider, nftAddresses);
-  };
-
-  const saltCode = async (provider, ownerAddress) => {
-    // Index StateInit you should take from github. It ALWAYS constant!
-    const INDEX_BASE_64 = `te6ccgECIAEAA4IAAgE0AwEBAcACAEPQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAgaK2zUfBAQkiu1TIOMDIMD/4wIgwP7jAvILHAYFHgOK7UTQ10nDAfhmifhpIds80wABn4ECANcYIPkBWPhC+RDyqN7TPwH4QyG58rQg+COBA+iogggbd0CgufK0+GPTHwHbPPI8EQ4HA3rtRNDXScMB+GYi0NMD+kAw+GmpOAD4RH9vcYIImJaAb3Jtb3Nwb3T4ZNwhxwDjAiHXDR/yvCHjAwHbPPI8GxsHAzogggujrde64wIgghAWX5bBuuMCIIIQR1ZU3LrjAhYSCARCMPhCbuMA+EbycyGT1NHQ3vpA0fhBiMjPjits1szOyds8Dh8LCQJqiCFus/LoZiBu8n/Q1PpA+kAwbBL4SfhKxwXy4GT4ACH4a/hs+kJvE9cL/5Mg+GvfMNs88gAKFwA8U2FsdCBkb2Vzbid0IGNvbnRhaW4gYW55IHZhbHVlAhjQIIs4rbNYxwWKiuIMDQEK103Q2zwNAELXTNCLL0pA1yb0BDHTCTGLL0oY1yYg10rCAZLXTZIwbeICFu1E0NdJwgGOgOMNDxoCSnDtRND0BXEhgED0Do6A34kg+Gz4a/hqgED0DvK91wv/+GJw+GMQEQECiREAQ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAD/jD4RvLgTPhCbuMA0x/4RFhvdfhk0ds8I44mJdDTAfpAMDHIz4cgznHPC2FeIMjPkll+WwbOWcjOAcjOzc3NyXCOOvhEIG8TIW8S+ElVAm8RyM+EgMoAz4RAzgH6AvQAcc8LaV4gyPhEbxXPCx/OWcjOAcjOzc3NyfhEbxTi+wAaFRMBCOMA8gAUACjtRNDT/9M/MfhDWMjL/8s/zsntVAAi+ERwb3KAQG90+GT4S/hM+EoDNjD4RvLgTPhCbuMAIZPU0dDe+kDR2zww2zzyABoYFwA6+Ez4S/hK+EP4QsjL/8s/z4POWcjOAcjOzc3J7VQBMoj4SfhKxwXy6GXIz4UIzoBvz0DJgQCg+wAZACZNZXRob2QgZm9yIE5GVCBvbmx5AELtRNDT/9M/0wAx+kDU0dD6QNTR0PpA0fhs+Gv4avhj+GIACvhG8uBMAgr0pCD0oR4dABRzb2wgMC41OC4yAAAADCD4Ye0e2Q==`;
-
-    // Gettind a code from Index StateInit
-    const tvc = await provider.splitTvc(INDEX_BASE_64);
-    if (!tvc.code) throw new Error("tvc code is empty");
-    const ZERO_ADDRESS =
-      "0:0000000000000000000000000000000000000000000000000000000000000000";
-
-    // Salt structure that we already know
-    const saltStruct = [
-      // { name: "collection", type: "address" },
-      { name: "owner", type: "address" },
-      { name: "type", type: "fixedbytes3" }, // according on standards, each index salted with string 'nft'
-    ];
-    const { code: saltedCode } = await provider.setCodeSalt({
-      code: tvc.code,
-      salt: {
-        structure: saltStruct,
-        abiVersion: "2.1",
-        data: {
-          collection: new Address(ZERO_ADDRESS),
-          owner: new Address(ownerAddress),
-          type: btoa("nft"),
-        },
-      },
-    });
-
-    return saltedCode;
-  };
-
-  // Method, that return Index'es addresses by single query with fetched code hash
-  const getAddressesFromIndex = async (codeHash) => {
-    const addresses = await standaloneProvider?.getAccountsByCodeHash({
-      codeHash,
-    });
-    return addresses?.accounts;
-  };
+    "0:e0503cdd6dfc9a3203b2745d2636022d94b2f11da10d3c5550c25a00bd85ee34";
 
   const mint_nft = async (provider) => {
-    const standalone = await venomConnect?.getStandalone("venomwallet");
-    console.log(standalone);
+    // const standalone = await venomConnect?.getStandalone("venomwallet");
+    // console.log(standalone);
     const json = {
       type: "Basic NFT",
       name: "Sample Name",
@@ -321,43 +188,98 @@ export default function App({ Component, pageProps }) {
       collectionAbi,
       collection_address_devnet
     );
+    const count = await contract.methods.totalSupply({ answerId: 0 }).call();
 
-    console.log({ contract });
+    console.log({ count });
+
     const outputs = await contract.methods
       .mintNft({ json: JSON.stringify(json) })
       .send({
         from: new Address(signer_address),
-        amount: "2",
+        amount: "1",
       });
-
-    console.log({ outputs });
   };
 
   useEffect(() => {
     init();
   }, []);
 
+  const check_standal = async () => {
+    const standalone = await venomConnect?.getStandalone("venomwallet");
+    console.log({ standalone });
+  };
+
   // connect event handler
   useEffect(() => {
     const off = venomConnect?.on("connect", onConnect);
+    if (venomConnect) {
+      //   console.log({ venomConnect });
+      //   initStandalone();
+      checkAuth(venomConnect);
+    }
 
     return () => {
       off?.();
     };
-    // const main_func = async () => {
-    //   const off = venomConnect?.on("connect", onConnect);
-    //   if (venomConnect) {
-    //     const standaloneProvider = await initStandalone();
-    //     checkAuth(venomConnect);
-    //     if (!signer_address) return;
-    //     user_nfts(standaloneProvider, signer_address);
-    //   }
-    //   return () => {
-    //     off?.();
-    //   };
-    // };
-    // main_func();
-  }, [venomConnect, signer_address]);
+  }, [venomConnect]);
+
+  // functions for nft fetching
+  const getNftImage = async (provider, nftAddress) => {
+    const nftContract = new provider.Contract(nftAbi, nftAddress);
+    // calling getJson function of NFT contract
+    const getJsonAnswer = await nftContract.methods
+      .getJson({ answerId: 0 })
+      .call();
+    const json = JSON.parse(getJsonAnswer.json ?? "{}");
+    return json.preview?.source || "";
+  };
+
+  // Returns array with NFT's images urls
+  const getCollectionItems = async (provider, nftAddresses) => {
+    return Promise.all(
+      nftAddresses.map(async (nftAddress) => {
+        const imgInfo = await getNftImage(provider, nftAddress);
+        return imgInfo;
+      })
+    );
+  };
+
+  // function CollectionItems({ standaloneProvider }: Props) {
+  //   // Just a strings array. Each string is an URL of NFT image.
+  //   const [collectionItems, setCollectionItem] = useState<string[] | []>([]);
+  //   const [listIsEmpty, setListIsEmpty] = useState(false);
+  //   // This method returns an NFT code hash by calling Collection contract. We need code hash for searching all NFTs
+  //   // Returned code hash is a code hash ONLY for NFT of concrete collection
+  //   const getNftCodeHash = async (provider: ProviderRpcClient): Promise<string> => {
+  //     const collectionAddress = new Address(COLLECTION_ADDRESS);
+  //     const contract = new provider.Contract(collectionAbi, collectionAddress);
+  //     const { codeHash } = await contract.methods.nftCodeHash({ answerId: 0 } as never).call({ responsible: true });
+  //     return BigInt(codeHash).toString(16);
+  //   };
+  //   // Method, that return NFT's addresses by single query with fetched code hash
+  //   const getNftAddresses = async (codeHash) => {
+  //     const addresses = await standaloneProvider?.getAccountsByCodeHash({ codeHash });
+  //     return addresses?.accounts;
+  //   };
+  // Main method of this component.
+  const loadNFTs = async (provider) => {
+    setListIsEmpty(false);
+    try {
+      const nftCodeHash = await getNftCodeHash(provider);
+      if (!nftCodeHash) {
+        return;
+      }
+      const nftAddresses = await getNftAddresses(nftCodeHash);
+      if (!nftAddresses || !nftAddresses.length) {
+        if (nftAddresses && !nftAddresses.length) setListIsEmpty(true);
+        return;
+      }
+      const nftURLs = await getCollectionItems(provider, nftAddresses);
+      setCollectionItem(nftURLs);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <>
@@ -367,6 +289,14 @@ export default function App({ Component, pageProps }) {
         connect_wallet={connect_wallet}
         onDisconnect={onDisconnect}
       />
+      {/* <button
+        onClick={async () => {
+          loadNFTs();
+        }}
+        className="mt-52"
+      >
+        Press ME
+      </button> */}
       <Component
         {...pageProps}
         create_user={create_user}
@@ -375,7 +305,6 @@ export default function App({ Component, pageProps }) {
         create_nft={create_nft}
         mint_nft={mint_nft}
         standaloneProvider={venomProvider}
-        loadNFTs={loadNFTs}
         theme={"dark"}
         signer_address={signer_address}
         blockURL={blockURL}
