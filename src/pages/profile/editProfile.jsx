@@ -47,8 +47,10 @@ const EditProfile = ({
   };
 
   const handle_submit = async (e) => {
+    set_loading(true);
     e.preventDefault();
-    update_profile(data);
+    await update_profile(data);
+    set_loading(false);
   };
 
   const main_func = async () => {
@@ -86,9 +88,9 @@ const EditProfile = ({
               src={
                 typeof data.coverImage == "string"
                   ? data.coverImage.replace(
-                      "ipfs://",
-                      "https://gateway.ipfscdn.io/ipfs/"
-                    )
+                    "ipfs://",
+                    "https://gateway.ipfscdn.io/ipfs/"
+                  )
                   : coverImg_preview
               }
               alt="banner"
@@ -253,9 +255,9 @@ const EditProfile = ({
                           src={
                             typeof data.profileImage == "string"
                               ? data.profileImage.replace(
-                                  "ipfs://",
-                                  "https://gateway.ipfscdn.io/ipfs/"
-                                )
+                                "ipfs://",
+                                "https://gateway.ipfscdn.io/ipfs/"
+                              )
                               : profImg_preview
                           }
                           width={100}
