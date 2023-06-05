@@ -7,12 +7,15 @@
       "name": "constructor",
       "inputs": [
         { "name": "_state", "type": "uint256" },
-        { "name": "codeNft", "type": "cell" }
+        { "name": "codeNft", "type": "cell" },
+        { "name": "codeIndex", "type": "cell" },
+        { "name": "codeIndexBasis", "type": "cell" },
+        { "name": "json", "type": "string" }
       ],
       "outputs": []
     },
     {
-      "name": "mint",
+      "name": "mintNft",
       "inputs": [{ "name": "json", "type": "string" }],
       "outputs": []
     },
@@ -27,12 +30,34 @@
       "outputs": [{ "name": "_state", "type": "uint256" }]
     },
     {
-      "name": "mintNft",
-      "inputs": [
-        { "name": "id", "type": "uint256" },
-        { "name": "json", "type": "string" }
-      ],
-      "outputs": []
+      "name": "indexBasisCode",
+      "inputs": [{ "name": "answerId", "type": "uint32" }],
+      "outputs": [{ "name": "code", "type": "cell" }]
+    },
+    {
+      "name": "indexBasisCodeHash",
+      "inputs": [{ "name": "answerId", "type": "uint32" }],
+      "outputs": [{ "name": "hash", "type": "uint256" }]
+    },
+    {
+      "name": "resolveIndexBasis",
+      "inputs": [{ "name": "answerId", "type": "uint32" }],
+      "outputs": [{ "name": "indexBasis", "type": "address" }]
+    },
+    {
+      "name": "indexCode",
+      "inputs": [{ "name": "answerId", "type": "uint32" }],
+      "outputs": [{ "name": "code", "type": "cell" }]
+    },
+    {
+      "name": "indexCodeHash",
+      "inputs": [{ "name": "answerId", "type": "uint32" }],
+      "outputs": [{ "name": "hash", "type": "uint256" }]
+    },
+    {
+      "name": "getJson",
+      "inputs": [{ "name": "answerId", "type": "uint32" }],
+      "outputs": [{ "name": "json", "type": "string" }]
     },
     {
       "name": "totalSupply",
@@ -66,7 +91,10 @@
       "outputs": [{ "name": "value0", "type": "bool" }]
     }
   ],
-  "data": [{ "key": 1, "name": "_nonce", "type": "uint16" }],
+  "data": [
+    { "key": 1, "name": "nounce", "type": "uint256" },
+    { "key": 2, "name": "owner", "type": "uint256" }
+  ],
   "events": [
     {
       "name": "StateChange",
@@ -102,8 +130,15 @@
     { "name": "_supportedInterfaces", "type": "optional(cell)" },
     { "name": "_codeNft", "type": "cell" },
     { "name": "_totalSupply", "type": "uint128" },
-    { "name": "_nonce", "type": "uint16" },
-    { "name": "state", "type": "uint256" },
-    { "name": "nft_id", "type": "uint256" }
+    { "name": "_json", "type": "string" },
+    { "name": "_codeIndex", "type": "cell" },
+    { "name": "_codeIndexBasis", "type": "cell" },
+    { "name": "_indexDeployValue", "type": "uint128" },
+    { "name": "_indexDestroyValue", "type": "uint128" },
+    { "name": "_deployIndexBasisValue", "type": "uint128" },
+    { "name": "_remainOnNft", "type": "uint128" },
+    { "name": "nounce", "type": "uint256" },
+    { "name": "owner", "type": "uint256" },
+    { "name": "state", "type": "uint256" }
   ]
 }

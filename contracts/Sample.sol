@@ -3,6 +3,7 @@ pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
 import "./Collection.sol";
+
 contract Sample is Collection {
     uint static nounce;
     uint static owner;
