@@ -146,10 +146,10 @@ export default function Home() {
       {/* features*/}
       <div className="relative py-24 dark:bg-jacarta-800">
         <div className="container">
-          <h2 className="mb-16 text-center font-display text-3xl text-jacarta-700 dark:text-white">
+          <h2 className="mb-24 text-center font-display text-3xl text-jacarta-700 dark:text-white">
             Features which venomart offers
           </h2>
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 text-center">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 text-center">
             <div className="text-center">
               <div className="mb-6 inline-flex rounded-full bg-[#CDBCFF] p-3">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-accent">
@@ -173,6 +173,28 @@ export default function Home() {
               </p>
             </div>
             <div className="text-center">
+              <div className="mb-6 inline-flex rounded-full bg-[#C4F2E3] p-3">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-green">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    className="h-5 w-5 fill-white"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="mb-4 font-display text-lg text-jacarta-700 dark:text-white">
+                2. Create AI NFTs
+              </h3>
+              <p className="dark:text-jacarta-300">
+                Generate AI NFTS by writing some information about a situation or condition
+              </p>
+            </div>
+            <div className="text-center">
               <div className="mb-6 inline-flex rounded-full bg-[#CDDFFB] p-3">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue">
                   <svg
@@ -188,7 +210,7 @@ export default function Home() {
                 </div>
               </div>
               <h3 className="mb-4 font-display text-lg text-jacarta-700 dark:text-white">
-                2. Create Collections
+                3. Create Collections
               </h3>
               <p className="dark:text-jacarta-300">
                 Create your own on-chain NFT collection on Venomart.
@@ -210,7 +232,7 @@ export default function Home() {
                 </div>
               </div>
               <h3 className="mb-4 font-display text-lg text-jacarta-700 dark:text-white">
-                3. Launch Your NFTs
+                4. Launch Your NFTs
               </h3>
               <p className="dark:text-jacarta-300">
                 Launch your NFT collections via venomart's exclusive NFT launchpad.
