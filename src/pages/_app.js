@@ -382,15 +382,6 @@ export default function App({ Component, pageProps }) {
         connect_wallet={connect_wallet}
         onDisconnect={onDisconnect}
       />
-      <button
-        onClick={async () => {
-          // user_nfts();
-          loadNFTs();
-        }}
-        className="mt-52"
-      >
-        Press ME
-      </button>
       <Component
         {...pageProps}
         create_user={create_user}
@@ -402,6 +393,7 @@ export default function App({ Component, pageProps }) {
         theme={"dark"}
         signer_address={signer_address}
         blockURL={blockURL}
+        collection_address_devnet={collection_address_devnet}
       />
       <Footer theme={"dark"} />
     </>

@@ -135,6 +135,18 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                 </li>
                 <li className="js-nav-dropdown group relative">
                   <Link
+                    href="/nft/CreateAINFT"
+                    className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-[#189C87] focus:text-[#189C87] dark:text-white dark:hover:text-[#189C87] dark:focus:text-[#189C87] lg:px-5"
+                    id="navDropdown-1"
+                    aria-expanded="false"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    Create AI NFT
+                  </Link>
+                </li>
+                <li className="js-nav-dropdown group relative">
+                  <Link
                     href="/nft/launchpad"
                     className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-[#189C87] focus:text-[#189C87] dark:text-white dark:hover:text-[#189C87] dark:focus:text-[#189C87] lg:px-5"
                     id="navDropdown-1"
