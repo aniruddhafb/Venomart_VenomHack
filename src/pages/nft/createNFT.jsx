@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 
 const CreateNFT = ({
-  defaultCollectionAddress = "",
+  collection_address_devnet,
   signer_address,
   create_nft,
 }) => {
@@ -21,13 +21,13 @@ const CreateNFT = ({
     image: "",
     name: "",
     description: "",
-    collection: defaultCollectionAddress,
+    collection: collection_address_devnet,
     properties: [{ type: "", value: "" }],
   });
 
   const handle_submit = async (e) => {
     e.preventDefault();
-    create_nft(data)
+    create_nft(data);
   };
 
   const handleChange = (e) => {
@@ -192,7 +192,7 @@ const CreateNFT = ({
                   required
                 >
                   <option>Select Collection</option>
-                  <option value={defaultCollectionAddress}>
+                  <option value={collection_address_devnet}>
                     Default Marketplace Collection
                   </option>
                   {user_collections?.map((e, index) => {

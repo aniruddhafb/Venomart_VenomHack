@@ -1,40 +1,56 @@
-import CollectionCard from '@/components/cards/CollectionCard';
-import Head from 'next/head';
-import Image from 'next/image'
-import Link from 'next/link'
+import CollectionCard from "@/components/cards/CollectionCard";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 
-import img1 from "../../public/img1.jpg"
-import NftCard from '@/components/cards/NftCard';
-
-export default function Home() {
+import img1 from "../../public/img1.jpg";
+import NftCard from "@/components/cards/NftCard";
+import { useEffect, useState } from "react";
+export default function Home({ fetch_nfts }) {
+  const [nfts, set_nfts] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const nfts = await fetch_nfts();
+      console.log({ nfts });
+      set_nfts(nfts.data);
+    })();
+  }, []);
   return (
     <>
       <Head>
-        <title>Venomart Marketplace - Trusted NFT Marketplace on Venom Blockchain</title>
+        <title>
+          Venomart Marketplace - Trusted NFT Marketplace on Venom Blockchain
+        </title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav.png" />
       </Head>
 
       {/* hero section */}
-      <section className="relative pb-10 pt-20 md:pt-32 lg:h-[88vh]" id='heroBack'>
+      <section
+        className="relative pb-10 pt-20 md:pt-32 lg:h-[88vh]"
+        id="heroBack"
+      >
         <div className="container h-full">
           <div className="grid h-full items-center gap-4 md:grid-cols-12">
-            <div
-              className="col-span-6 flex h-full flex-col items-center justify-center py-10 md:items-start md:py-20 xl:col-span-4">
-              <h1
-                className="mb-6 text-center font-display text-5xl text-jacarta-700 dark:text-white md:text-left lg:text-6xl xl:text-7xl">
+            <div className="col-span-6 flex h-full flex-col items-center justify-center py-10 md:items-start md:py-20 xl:col-span-4">
+              <h1 className="mb-6 text-center font-display text-5xl text-jacarta-700 dark:text-white md:text-left lg:text-6xl xl:text-7xl">
                 Buy, sell and collect NFTs.
               </h1>
               <p className="mb-8 text-center text-lg dark:text-jacarta-200 md:text-left">
-                Collect you favourite NFTs on venom blockchain <br /> Trade NFTs for free on venomart..
+                Collect you favourite NFTs on venom blockchain <br /> Trade NFTs
+                for free on venomart..
               </p>
               <div className="flex space-x-4">
-                <Link href="/nft/createNFT"
-                  className="w-36 rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white transition-all hover:bg-[#087160]">
+                <Link
+                  href="/nft/createNFT"
+                  className="w-36 rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white transition-all hover:bg-[#087160]"
+                >
                   Create
                 </Link>
-                <Link href="/nft/exploreNFTs"
-                  className="w-36 rounded-full bg-white py-3 px-8 text-center font-semibold text-[#189C87] transition-all hover:bg-[#087160] hover:text-white">
+                <Link
+                  href="/nft/exploreNFTs"
+                  className="w-36 rounded-full bg-white py-3 px-8 text-center font-semibold text-[#189C87] transition-all hover:bg-[#087160] hover:text-white"
+                >
                   Explore
                 </Link>
               </div>
@@ -42,8 +58,17 @@ export default function Home() {
 
             <div className="col-span-6 xl:col-span-8">
               <div className="relative text-center md:pl-8 md:text-right">
-                <img src="../../1.png" alt="" className="mt-8 inline-block w-72 rotate-[8deg] sm:w-full lg:w-[24rem] xl:w-[31rem]" style={{ borderRadius: "12%" }} />
-                <img src="../../3D_elements.png" alt="" className="absolute top-[-20px] animate-fly md:-right-[13%]" />
+                <img
+                  src="../../1.png"
+                  alt=""
+                  className="mt-8 inline-block w-72 rotate-[8deg] sm:w-full lg:w-[24rem] xl:w-[31rem]"
+                  style={{ borderRadius: "12%" }}
+                />
+                <img
+                  src="../../3D_elements.png"
+                  alt=""
+                  className="absolute top-[-20px] animate-fly md:-right-[13%]"
+                />
               </div>
             </div>
           </div>
@@ -81,18 +106,25 @@ export default function Home() {
             )} */}
 
             {/* test nft 00 */}
-            <NftCard
-              ImageSrc={"ipfs://Qmc6WoM29v824AebK4YpiaFvkhTQpLTJDxTu51jY6pb7WV/671.gif".replace(
-                "ipfs://",
-                "https://gateway.ipfscdn.io/ipfs/"
-              )}
-              Name={"NFT Name"}
-              Description={"NFT Descript"}
-              Address={"0:00edkfdkfkr4444"}
-              tokenId={2}
-              listedBool={true}
-              listingPrice={"0.2"}
-            />
+            {nfts.map((e) => {
+              console.log(e);
+              const nft_info = JSON.parse(e.json);
+              // console.log(nft_info);
+              return (
+                <NftCard
+                  ImageSrc={nft_info.nft_image?.replace(
+                    "ipfs://",
+                    "https://gateway.ipfscdn.io/ipfs/"
+                  )}
+                  Name={nft_info?.name}
+                  Description={nft_info?.description}
+                  Address={nft_info?.collection}
+                  tokenId={e?.tokenId}
+                  listedBool={e?.isListed}
+                  listingPrice={"0.2"}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
@@ -123,8 +155,12 @@ export default function Home() {
             {/* test card  */}
             <CollectionCard
               key={1}
-              Cover={"ipfs://QmcgjtD4qf55wtoutEt7ng5yb68YV8T8zSsSLkroVsrpEC/0x2a84808279ff8316fbd559b781a1397622257376.gif"}
-              Logo={"ipfs://QmcgjtD4qf55wtoutEt7ng5yb68YV8T8zSsSLkroVsrpEC/0x2a84808279ff8316fbd559b781a1397622257376.gif"}
+              Cover={
+                "ipfs://QmcgjtD4qf55wtoutEt7ng5yb68YV8T8zSsSLkroVsrpEC/0x2a84808279ff8316fbd559b781a1397622257376.gif"
+              }
+              Logo={
+                "ipfs://QmcgjtD4qf55wtoutEt7ng5yb68YV8T8zSsSLkroVsrpEC/0x2a84808279ff8316fbd559b781a1397622257376.gif"
+              }
               Name={"test Collection"}
               Description={"test desc"}
               OwnerAddress={"0:39334"}
@@ -191,7 +227,8 @@ export default function Home() {
                 2. Create AI NFTs
               </h3>
               <p className="dark:text-jacarta-300">
-                Generate AI NFTS by writing some information about a situation or condition
+                Generate AI NFTS by writing some information about a situation
+                or condition
               </p>
             </div>
             <div className="text-center">
@@ -235,12 +272,13 @@ export default function Home() {
                 4. Launch Your NFTs
               </h3>
               <p className="dark:text-jacarta-300">
-                Launch your NFT collections via venomart's exclusive NFT launchpad.
+                Launch your NFT collections via venomart's exclusive NFT
+                launchpad.
               </p>
             </div>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
