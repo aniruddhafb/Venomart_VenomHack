@@ -11,6 +11,7 @@ contract Sample is Collection {
 
     event StateChange(uint _state);
 
+
     constructor(
         uint _state,
         TvmCell codeNft,

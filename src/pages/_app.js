@@ -16,10 +16,15 @@ import indexAbi from "../../abi/Index.abi.json";
 import nftAbi from "../../abi/Nft.abi.json";
 import collectionAbi from "../../abi/Sample.abi.json";
 
-import { Address, ProviderRpcClient } from "everscale-inpage-provider";
+import {
+  Address,
+  ProviderRpcClient,
+  Subscriber,
+} from "everscale-inpage-provider";
 import { useEffect, useState } from "react";
 import { initVenomConnect } from "../components/test_config";
 import mongoose from "mongoose";
+// import { toNano } from "locklift";
 
 export default function App({ Component, pageProps }) {
   const BaseURL = "http://localhost:3000/api";
@@ -160,7 +165,7 @@ export default function App({ Component, pageProps }) {
   //COLLECTION FUNCTIONS
 
   const collection_address_devnet =
-    "0:8dba3217cec3285eab43c3424efb509446301254b913312be65cc11adf88a1cf";
+    "0:bf51c69a34b0662a0ac14bb8655f8eeb9939553ae3c5a7ba2adc53dfb1d9a15f";
   // "0:e0503cdd6dfc9a3203b2745d2636022d94b2f11da10d3c5550c25a00bd85ee34";
 
   const mint_nft = async (provider) => {
@@ -195,11 +200,19 @@ export default function App({ Component, pageProps }) {
 
     console.log({ id });
 
+    const subscriber = new Subscriber(venomProvider);
+    contract
+      .events(subscriber)
+      .filter((event) => event.event === "tokenCreated")
+      .on(async (event) => {
+        console.log({ event });
+      });
+
     const outputs = await contract.methods
       .mintNft({ json: JSON.stringify(json) })
       .send({
         from: new Address(signer_address),
-        amount: "1",
+        amount: "1000000000",
       });
 
     const { nft: nftAddress } = await contract.methods
@@ -365,7 +378,7 @@ export default function App({ Component, pageProps }) {
       //   if (nftAddresses && !nftAddresses.length) setListIsEmpty(true);
       //   return;
       // }
-      console.log({ nftAddresses });
+      // console.log({ nftAddresses });
       const nftURLs = await getCollectionItems(provider, nftAddresses);
       console.log({ nftURLs });
       // setCollectionItem(nftURLs);

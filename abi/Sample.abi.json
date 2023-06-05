@@ -102,6 +102,14 @@
       "outputs": []
     },
     {
+      "name": "tokenCreated",
+      "inputs": [
+        { "name": "tokenURI", "type": "string" },
+        { "name": "tokenId", "type": "uint256" }
+      ],
+      "outputs": []
+    },
+    {
       "name": "NftCreated",
       "inputs": [
         { "name": "id", "type": "uint256" },
