@@ -9,14 +9,6 @@ IFREF {
 }
 GETGLOB 6
 THROWIF 51
-OVER
-PUSHCONT {
-	LDREF
-	ENDS
-	CTOS
-}
-IF
-LDU 256
 LDREF
 LDREF
 LDREF
@@ -104,158 +96,11 @@ CALLREF {
 }
 .loc ../contracts/NFTCollection.sol, 39
 ACCEPT
-.loc ../contracts/Sample.sol, 26
-ACCEPT
-.loc ../contracts/Sample.sol, 28
-CALLREF {
-	CALL $setState_a9e966b7_internal_macro$
-}
-.loc ../contracts/Sample.sol, 0
+.loc ../contracts/NFTCollection.sol, 0
 CALLREF {
 	CALL $c7_to_c4$
 }
 THROW 0
-
-.macro mintNft
-DROP
-GETGLOB 6
-THROWIFNOT 76
-GETGLOB 2
-ISNULL
-IFREF {
-	CALL $c4_to_c7$
-}
-.loc ../contracts/Sample.sol, 31
-LDREF
-ENDS
-.loc ../contracts/Sample.sol, 0
-CALLREF {
-	CALL $mintNft_da86f4a9_internal_macro$
-}
-DROP
-CALLREF {
-	CALL $c7_to_c4$
-}
-THROW 0
-
-.globl	mintNft_da86f4a9_internal
-.type	mintNft_da86f4a9_internal, @function
-CALL $mintNft_da86f4a9_internal_macro$
-
-.macro mintNft_da86f4a9_internal_macro
-.loc ../contracts/Sample.sol, 32
-DUP
-CALLREF {
-	CALL $_mintNft_4d0b706c_internal_macro$
-}
-.loc ../contracts/Sample.sol, 33
-GETGLOB 12
-SWAP
-PUSHSLICE xc000000000000000000000000059d304c4
-NEWC
-STSLICE
-STREF
-STU 256
-ENDC
-PUSHINT 0
-SENDRAWMSG
-.loc ../contracts/Sample.sol, 0
-
-.macro setState
-DROP
-GETGLOB 6
-THROWIFNOT 76
-GETGLOB 2
-ISNULL
-IFREF {
-	CALL $c4_to_c7$
-}
-.loc ../contracts/Sample.sol, 39
-OVER
-PUSHCONT {
-	LDREF
-	ENDS
-	CTOS
-}
-IF
-LDU 256
-ENDS
-.loc ../contracts/Sample.sol, 0
-CALLREF {
-	CALL $setState_a9e966b7_internal_macro$
-}
-DROP
-CALLREF {
-	CALL $c7_to_c4$
-}
-THROW 0
-
-.globl	setState_a9e966b7_internal
-.type	setState_a9e966b7_internal, @function
-CALL $setState_a9e966b7_internal_macro$
-
-.macro setState_a9e966b7_internal_macro
-.loc ../contracts/Sample.sol, 40
-ACCEPT
-.loc ../contracts/Sample.sol, 41
-DUP
-SETGLOB 22
-.loc ../contracts/Sample.sol, 43
-PUSHSLICE xc0000000000000000000000000633b31a8
-NEWC
-STSLICE
-STU 256
-ENDC
-PUSHINT 0
-SENDRAWMSG
-.loc ../contracts/Sample.sol, 0
-
-.macro getDetails
-DROP
-GETGLOB 6
-THROWIFNOT 76
-GETGLOB 2
-ISNULL
-IFREF {
-	CALL $c4_to_c7$
-}
-.loc ../contracts/Sample.sol, 46
-ENDS
-.loc ../contracts/Sample.sol, 0
-CALLREF {
-	CALL $getDetails_fbbf93a0_internal_macro$
-}
-OVER
-PUSHCONT {
-	PUSH S3
-	CTOS
-	LDU 2
-	LDMSGADDR
-	DROP
-	NIP
-	NEWC
-	STSLICECONST xc
-	STSLICE
-	PUSHINT 2690825242
-	STUR 130
-	STU 256
-	ENDC
-	PUSHINT 0
-	SENDRAWMSG
-}
-PUSHCONT {
-	DROP
-}
-IFELSE
-IFREF {
-	CALL $upd_only_time_in_c4$
-}
-THROW 0
-
-.macro getDetails_fbbf93a0_internal_macro
-.loc ../contracts/Sample.sol, 52
-GETGLOB 22
-.loc ../contracts/Sample.sol, 0
 
 .globl	_mintNft_4d0b706c_internal
 .type	_mintNft_4d0b706c_internal, @function
@@ -1923,16 +1768,7 @@ LDU 128
 LDU 128
 LDU 128
 LDU 128
-LDU 256
-LDREF
 ENDS
-CTOS
-LDU 256
-LDU 256
-ENDS
-SETGLOB 22
-SETGLOB 21
-SETGLOB 20
 SETGLOB 19
 SETGLOB 18
 SETGLOB 17
@@ -1965,28 +1801,6 @@ PUSHCONT {
 	BLKPUSH 2, 0
 	PUSHINT 0
 	BLKPUSH 3, 0
-	PUSHINT 1
-	PUSH S11
-	PUSHINT 64
-	DICTUGET
-	ZEROSWAPIFNOT
-	PUSHCONT {
-		PLDU 256
-	}
-	IF
-	PUSHINT 2
-	PUSH S12
-	PUSHINT 64
-	DICTUGET
-	ZEROSWAPIFNOT
-	PUSHCONT {
-		PLDU 256
-	}
-	IF
-	PUSHINT 0
-	SETGLOB 22
-	SETGLOB 21
-	SETGLOB 20
 	SETGLOB 19
 	SETGLOB 18
 	SETGLOB 17
@@ -2018,9 +1832,6 @@ IFREFELSE {
 }
 
 .macro c7_to_c4
-GETGLOB 22
-GETGLOB 21
-GETGLOB 20
 GETGLOB 19
 GETGLOB 18
 GETGLOB 17
@@ -2041,7 +1852,7 @@ STDICT
 STREF
 STU 128
 STREF
-ROLLREV 9
+ROLLREV 6
 NEWC
 STREF
 STREF
@@ -2049,12 +1860,6 @@ STU 128
 STU 128
 STU 128
 STU 128
-STU 256
-ROTREV
-NEWC
-STU 256
-STU 256
-STBREFR
 STBREFR
 ENDC
 POPROOT
@@ -2178,7 +1983,7 @@ THROW 60
 
 .macro public_function_selector
 DUP
-PUSHINT 543341594
+PUSHINT 502829540
 LEQ
 IFJMPREF {
 	DUP
@@ -2200,14 +2005,14 @@ IFJMPREF {
 		CALL $indexCodeHash$
 	}
 	DUP
-	PUSHINT 543341594
+	PUSHINT 502829540
 	EQUAL
 	IFJMPREF {
-		CALL $getDetails$
+		CALL $constructor$
 	}
 }
 DUP
-PUSHINT 839183401
+PUSHINT 880007004
 LEQ
 IFJMPREF {
 	DUP
@@ -2215,12 +2020,6 @@ IFJMPREF {
 	EQUAL
 	IFJMPREF {
 		CALL $getJson$
-	}
-	DUP
-	PUSHINT 781733344
-	EQUAL
-	IFJMPREF {
-		CALL $setState$
 	}
 	DUP
 	PUSHINT 786351675
@@ -2234,34 +2033,11 @@ IFJMPREF {
 	IFJMPREF {
 		CALL $supportsInterface$
 	}
-}
-DUP
-PUSHINT 1383720816
-LEQ
-IFJMPREF {
 	DUP
 	PUSHINT 880007004
 	EQUAL
 	IFJMPREF {
 		CALL $indexBasisCodeHash$
-	}
-	DUP
-	PUSHINT 953907334
-	EQUAL
-	IFJMPREF {
-		CALL $resolveIndexBasis$
-	}
-	DUP
-	PUSHINT 1228550237
-	EQUAL
-	IFJMPREF {
-		CALL $constructor$
-	}
-	DUP
-	PUSHINT 1383720816
-	EQUAL
-	IFJMPREF {
-		CALL $nftAddress$
 	}
 }
 DUP
@@ -2269,16 +2045,22 @@ PUSHINT 1629421668
 LEQ
 IFJMPREF {
 	DUP
+	PUSHINT 953907334
+	EQUAL
+	IFJMPREF {
+		CALL $resolveIndexBasis$
+	}
+	DUP
+	PUSHINT 1383720816
+	EQUAL
+	IFJMPREF {
+		CALL $nftAddress$
+	}
+	DUP
 	PUSHINT 1479945602
 	EQUAL
 	IFJMPREF {
 		CALL $indexBasisCode$
-	}
-	DUP
-	PUSHINT 1560788864
-	EQUAL
-	IFJMPREF {
-		CALL $mintNft$
 	}
 	DUP
 	PUSHINT 1629421668

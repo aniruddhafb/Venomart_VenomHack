@@ -6,37 +6,12 @@
 		{
 			"name": "constructor",
 			"inputs": [
-				{"name":"_state","type":"uint256"},
 				{"name":"codeNft","type":"cell"},
 				{"name":"codeIndex","type":"cell"},
 				{"name":"codeIndexBasis","type":"cell"},
 				{"name":"json","type":"string"}
 			],
 			"outputs": [
-			]
-		},
-		{
-			"name": "mintNft",
-			"inputs": [
-				{"name":"json","type":"string"}
-			],
-			"outputs": [
-			]
-		},
-		{
-			"name": "setState",
-			"inputs": [
-				{"name":"_state","type":"uint256"}
-			],
-			"outputs": [
-			]
-		},
-		{
-			"name": "getDetails",
-			"inputs": [
-			],
-			"outputs": [
-				{"name":"_state","type":"uint256"}
 			]
 		},
 		{
@@ -142,27 +117,8 @@
 		}
 	],
 	"data": [
-		{"key":1,"name":"nounce","type":"uint256"},
-		{"key":2,"name":"owner","type":"uint256"}
 	],
 	"events": [
-		{
-			"name": "StateChange",
-			"inputs": [
-				{"name":"_state","type":"uint256"}
-			],
-			"outputs": [
-			]
-		},
-		{
-			"name": "tokenCreated",
-			"inputs": [
-				{"name":"tokenURI","type":"string"},
-				{"name":"tokenId","type":"uint256"}
-			],
-			"outputs": [
-			]
-		},
 		{
 			"name": "NftCreated",
 			"inputs": [
@@ -200,9 +156,6 @@
 		{"name":"_indexDeployValue","type":"uint128"},
 		{"name":"_indexDestroyValue","type":"uint128"},
 		{"name":"_deployIndexBasisValue","type":"uint128"},
-		{"name":"_remainOnNft","type":"uint128"},
-		{"name":"nounce","type":"uint256"},
-		{"name":"owner","type":"uint256"},
-		{"name":"state","type":"uint256"}
+		{"name":"_remainOnNft","type":"uint128"}
 	]
 }

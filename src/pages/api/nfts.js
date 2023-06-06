@@ -10,10 +10,10 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const users = await Nft.find({}).populate("owner");
-        res.status(200).json({ success: true, data: users });
+        const nfts = await Nft.find({}).populate("owner");
+        res.status(200).json({ success: true, data: nfts });
       } catch (error) {
-        res.status(400).json({ success: false });
+        res.status(400).json({ success: false, data: error.message });
       }
       break;
     case "POST":
