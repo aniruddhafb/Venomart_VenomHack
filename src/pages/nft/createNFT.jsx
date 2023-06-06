@@ -6,7 +6,6 @@ import Head from "next/head";
 
 const CreateNFT = ({
   collection_address_devnet,
-  signer_address,
   create_nft,
 }) => {
   const router = useRouter();
@@ -26,8 +25,11 @@ const CreateNFT = ({
   });
 
   const handle_submit = async (e) => {
+    set_loading(true);
     e.preventDefault();
-    create_nft(data);
+    await create_nft(data);
+    set_loading(false);
+    router.push("/nft/exploreNFTs")
   };
 
   const handleChange = (e) => {

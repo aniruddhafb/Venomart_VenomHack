@@ -8,7 +8,7 @@ import Head from "next/head";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const CreateAINFT = ({ collection_address_devnet, signer_address }) => {
+const CreateAINFT = ({ collection_address_devnet, create_nft }) => {
 
     const randomAIText = [
         "highly detailed wide portrait young woman anime, by atey ghailan, by greg rutkowski, by greg tocchini, by james gilleard, by joe fenton, by kaethe butcher, gradient light blue, brown, blonde cream and white color scheme, grunge aesthetic, 8 k, optimistic",
@@ -68,17 +68,12 @@ const CreateAINFT = ({ collection_address_devnet, signer_address }) => {
         set_data({ ...data, properties: values });
     };
 
-    const handleSubmit = async (e) => {
+    const handle_submit = async (e) => {
+        set_loading(true);
         e.preventDefault();
-        // if (!signer) return alert("Please provide a signer");
-        try {
-            set_loading(true);
-            // await mint_nft(data, signer);
-            router.push(`/profile/${signer_address}`);
-        } catch (error) {
-            console.log(error);
-        }
+        await create_nft(data);
         set_loading(false);
+        router.push("/nft/exploreNFTs")
     };
 
     const handleAISubmit = async (e) => {
@@ -274,7 +269,7 @@ const CreateAINFT = ({ collection_address_devnet, signer_address }) => {
 
                     {/* minting form  */}
                     {showMintForm && (
-                        <form onSubmit={handleSubmit} className="relative py-24" id="heroBack">
+                        <form onSubmit={handle_submit} className="relative py-24" id="heroBack">
                             <div className="container">
                                 <h1 className="py-16 text-center font-display text-4xl font-medium text-white">
                                     Create AI NFT

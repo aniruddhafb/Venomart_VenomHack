@@ -15,7 +15,6 @@ import Navbar from "@/components/Navbar";
 import indexAbi from "../../abi/Index.abi.json";
 import nftAbi from "../../abi/Nft.abi.json";
 import collectionAbi from "../../abi/Sample.abi.json";
-
 import {
   Address,
   ProviderRpcClient,
