@@ -61,13 +61,13 @@ export default function Home({ fetch_nfts }) {
               <div className="relative text-center md:pl-8 md:text-right">
                 <img
                   src="../../1.png"
-                  alt=""
+                  alt="Hero"
                   className="mt-8 inline-block w-72 rotate-[8deg] sm:w-full lg:w-[24rem] xl:w-[31rem]"
                   style={{ borderRadius: "12%" }}
                 />
                 <img
                   src="../../3D_elements.png"
-                  alt=""
+                  alt="3D"
                   className="absolute top-[-20px] animate-fly md:-right-[13%]"
                 />
               </div>

@@ -3,7 +3,7 @@ import CollectionCard from "@/components/cards/CollectionCard";
 import Head from "next/head";
 
 const TopCollections = ({ all_collections, standaloneProvider, mint_nft }) => {
-  useEffect(() => {}, [standaloneProvider]);
+  useEffect(() => { }, [standaloneProvider]);
 
   return (
     <>
@@ -25,7 +25,6 @@ const TopCollections = ({ all_collections, standaloneProvider, mint_nft }) => {
           <h1 className="py-16 text-center font-display text-4xl font-medium text-jacarta-700 dark:text-white">
             Explore Collections
           </h1>
-          <button onClick={() => mint_nft(standaloneProvider)}>Mint NFT</button>
 
           {/* loop collections here  */}
           <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-3 lg:grid-cols-4">
