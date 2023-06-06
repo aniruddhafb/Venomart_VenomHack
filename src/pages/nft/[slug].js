@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import testNFT from "../../../public/img2.jpg";
+import testNFT from "../../../public/img1.jpg";
 import Image from "next/image";
 import Head from "next/head";
 import Loader from "@/components/Loader";
