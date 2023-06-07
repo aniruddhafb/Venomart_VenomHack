@@ -131,7 +131,7 @@ const CreateAINFT = ({ collection_address_devnet, create_nft }) => {
             <Head>
                 <title>Create AI NFT - Venomart Marketplace</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="icon" href="/favicon.png" />
+                <link rel="icon" href="/fav.png" />
             </Head>
 
             {loading ? (
