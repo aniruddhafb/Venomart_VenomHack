@@ -81,6 +81,7 @@
 		{"name":"nft_code","type":"cell"},
 		{"name":"codeIndex","type":"cell"},
 		{"name":"codeIndexBasis","type":"cell"},
+		{"name":"nft_collection_code","type":"cell"},
 		{"name":"owner","type":"address"},
 		{"components":[{"name":"collectionId","type":"uint256"},{"name":"name","type":"string"},{"name":"symbol","type":"string"},{"name":"description","type":"string"},{"name":"image","type":"string"},{"name":"logo","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"userToCollections","type":"map(address,tuple[])"},
 		{"components":[{"name":"collectionId","type":"uint256"},{"name":"name","type":"string"},{"name":"symbol","type":"string"},{"name":"description","type":"string"},{"name":"image","type":"string"},{"name":"logo","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"idToCollection","type":"map(uint256,tuple)"}

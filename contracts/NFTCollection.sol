@@ -10,7 +10,7 @@ import '@itgold/everscale-tip/contracts/TIP4_3/TIP4_3Collection.sol';
 import './NftBase.sol';
 
 
-contract Collection is TIP4_2Collection, TIP4_3Collection {
+contract NFTCollection is TIP4_2Collection, TIP4_3Collection {
 
     /**
     * Errors

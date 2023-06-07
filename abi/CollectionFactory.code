@@ -14,20 +14,20 @@ LDREF
 LDREF
 LDREF
 ENDS
-.loc ../contracts/CollectionFactory.sol, 50
+.loc ../contracts/CollectionFactory.sol, 51
 DROP
 ACCEPT
-.loc ../contracts/CollectionFactory.sol, 51
+.loc ../contracts/CollectionFactory.sol, 52
 ROT
 SETGLOB 12
-.loc ../contracts/CollectionFactory.sol, 52
+.loc ../contracts/CollectionFactory.sol, 53
 SWAP
 SETGLOB 13
-.loc ../contracts/CollectionFactory.sol, 53
-SETGLOB 14
 .loc ../contracts/CollectionFactory.sol, 54
+SETGLOB 14
+.loc ../contracts/CollectionFactory.sol, 56
 GETGLOB 9
-SETGLOB 15
+SETGLOB 16
 .loc ../contracts/CollectionFactory.sol, 0
 CALLREF {
 	CALL $c7_to_c4$
@@ -43,7 +43,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/CollectionFactory.sol, 57
+.loc ../contracts/CollectionFactory.sol, 59
 LDREF
 LDREF
 LDREF
@@ -69,9 +69,9 @@ THROW 0
 CALL $create_collection_8aa04fec_internal_macro$
 
 .macro create_collection_8aa04fec_internal_macro
-.loc ../contracts/CollectionFactory.sol, 65
-GETGLOB 10
 .loc ../contracts/CollectionFactory.sol, 67
+GETGLOB 10
+.loc ../contracts/CollectionFactory.sol, 69
 PUSHINT 0
 NEWC
 STU 256
@@ -82,14 +82,14 @@ DICTUSETB
 NEWC
 STDICT
 ENDC
-GETGLOB 12
+GETGLOB 15
 NEWC
 STSLICECONST x2_
 STOPTREF
 STOPTREF
 STZERO
 ENDC
-.loc ../contracts/CollectionFactory.sol, 74
+.loc ../contracts/CollectionFactory.sol, 76
 ROLL 7
 GETGLOB 14
 GETGLOB 13
@@ -107,8 +107,8 @@ PUSH S5
 NEWC
 STSLICECONST x62_
 STSLICE
-PUSHINT 2949852426645541256083542794369173188247555
-STUR 143
+PUSHINT 41700634145107834391635548644048899
+STUR 119
 OVER
 CALLREF {
 	CTOS
@@ -141,15 +141,45 @@ STREF
 ENDC
 PUSHINT 1
 SENDRAWMSG
-.loc ../contracts/CollectionFactory.sol, 80
-PUSH3 S1, S6, S5
-PUSH3 S5, S7, S6
+.loc ../contracts/CollectionFactory.sol, 82
+DUP
 GETGLOB 9
-PUSH S7
+PUSH3 S5, S6, S4
+PUSH3 S10, S11, S6
+PUSHSLICE xc0000000000000000000000001
+NEWC
+STSLICE
+ROLLREV 8
+NEWC
+STSLICECONST x293225eb
+STU 256
+STREF
+STREF
+STREF
+ROLLREV 4
+NEWC
+STREF
+STREF
+STSLICE
+SWAP
+NEWC
+STSLICE
+STBREFR
+STBREFR
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/CollectionFactory.sol, 93
+OVER
+BLKSWAP 5, 3
+ROTREV
+GETGLOB 9
+ROLL 7
 TUPLE 8
-.loc ../contracts/CollectionFactory.sol, 91
+.loc ../contracts/CollectionFactory.sol, 104
 GETGLOB 9
-GETGLOB 16
+GETGLOB 17
 DUP2
 PUSHINT 267
 DICTGET
@@ -201,11 +231,10 @@ STDICT
 ROTREV
 PUSHINT 267
 DICTSETB
-SETGLOB 16
-.loc ../contracts/CollectionFactory.sol, 92
-PUSH S2
-GETGLOB 17
-ROT
+SETGLOB 17
+.loc ../contracts/CollectionFactory.sol, 105
+GETGLOB 18
+SWAP
 CALLREF {
 	UNTUPLE 8
 	REVERSE 8, 0
@@ -229,40 +258,11 @@ ENDC
 ROTREV
 PUSHPOW2 8
 DICTUSETREF
-SETGLOB 17
-.loc ../contracts/CollectionFactory.sol, 93
+SETGLOB 18
+.loc ../contracts/CollectionFactory.sol, 106
 GETGLOB 10
 INC
 SETGLOB 10
-.loc ../contracts/CollectionFactory.sol, 95
-GETGLOB 9
-REVERSE 4, 0
-ROLLREV 5
-REVERSE 7, 1
-PUSHSLICE xc0000000000000000000000001
-NEWC
-STSLICE
-ROLLREV 8
-NEWC
-STSLICECONST x293225eb
-STU 256
-STREF
-STREF
-STREF
-ROLLREV 4
-NEWC
-STREF
-STREF
-STSLICE
-SWAP
-NEWC
-STSLICE
-STBREFR
-STBREFR
-STBREFR
-ENDC
-PUSHINT 0
-SENDRAWMSG
 .loc ../contracts/CollectionFactory.sol, 0
 
 .macro getAllCollections
@@ -274,7 +274,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/CollectionFactory.sol, 107
+.loc ../contracts/CollectionFactory.sol, 111
 ENDS
 .loc ../contracts/CollectionFactory.sol, 0
 CALLREF {
@@ -316,12 +316,12 @@ THROW 0
 CALL $getAllCollections_6804a958_internal_macro$
 
 .macro getAllCollections_6804a958_internal_macro
-.loc ../contracts/CollectionFactory.sol, 108
+.loc ../contracts/CollectionFactory.sol, 112
 GETGLOB 10
-.loc ../contracts/CollectionFactory.sol, 109
+.loc ../contracts/CollectionFactory.sol, 113
 DUP
 PUSHREF
-.compute $default_tuple_builder_t_uint256_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_address_t_contract$_NFTCollection_$483$
+.compute $default_tuple_builder_t_uint256_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_address_t_contract$_NFTCollection_$489$
 PUSHINT 0
 NEWDICT
 PUSH S3
@@ -336,16 +336,16 @@ PUSHCONT {
 REPEAT
 BLKDROP2 2, 1
 PAIR
-.loc ../contracts/CollectionFactory.sol, 111
+.loc ../contracts/CollectionFactory.sol, 115
 PUSHINT 0
 PUSHCONT {
 	PUSH2 S0, S2
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/CollectionFactory.sol, 112
+	.loc ../contracts/CollectionFactory.sol, 116
 	DUP
-	GETGLOB 17
+	GETGLOB 18
 	PUSHPOW2 8
 	DICTUGETREF
 	PUSHCONT {
@@ -381,7 +381,7 @@ PUSHCONT {
 		TUPLE 8
 	}
 	IFELSE
-	.loc ../contracts/CollectionFactory.sol, 113
+	.loc ../contracts/CollectionFactory.sol, 117
 	PUSH S2
 	UNPAIR
 	PUXC S3, S-1
@@ -414,13 +414,13 @@ PUSHCONT {
 	DICTUSETREF
 	PAIR
 	POP S2
-	.loc ../contracts/CollectionFactory.sol, 111
+	.loc ../contracts/CollectionFactory.sol, 115
 	INC
 	.loc ../contracts/CollectionFactory.sol, 0
 }
 WHILE
 DROP
-.loc ../contracts/CollectionFactory.sol, 115
+.loc ../contracts/CollectionFactory.sol, 119
 NIP
 .loc ../contracts/CollectionFactory.sol, 0
 
@@ -433,7 +433,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/CollectionFactory.sol, 118
+.loc ../contracts/CollectionFactory.sol, 122
 OVER
 PUSHCONT {
 	LDREF
@@ -499,8 +499,8 @@ THROW 0
 CALL $getCollectionById_e547cb85_internal_macro$
 
 .macro getCollectionById_e547cb85_internal_macro
-.loc ../contracts/CollectionFactory.sol, 119
-GETGLOB 17
+.loc ../contracts/CollectionFactory.sol, 123
+GETGLOB 18
 PUSHPOW2 8
 DICTUGETREF
 PUSHCONT {
@@ -547,7 +547,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/CollectionFactory.sol, 122
+.loc ../contracts/CollectionFactory.sol, 126
 ENDS
 .loc ../contracts/CollectionFactory.sol, 0
 CALLREF {
@@ -589,20 +589,20 @@ THROW 0
 CALL $getMyCollections_d6101980_internal_macro$
 
 .macro getMyCollections_d6101980_internal_macro
-.loc ../contracts/CollectionFactory.sol, 123
+.loc ../contracts/CollectionFactory.sol, 127
 GETGLOB 10
-.loc ../contracts/CollectionFactory.sol, 124
+.loc ../contracts/CollectionFactory.sol, 128
 PUSHINT 0
 BLKPUSH 2, 0
-.loc ../contracts/CollectionFactory.sol, 127
+.loc ../contracts/CollectionFactory.sol, 131
 PUSHCONT {
 	PUSH2 S0, S3
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/CollectionFactory.sol, 128
+	.loc ../contracts/CollectionFactory.sol, 132
 	DUP
-	GETGLOB 17
+	GETGLOB 18
 	PUSHPOW2 8
 	DICTUGETREF
 	PUSHCONT {
@@ -642,23 +642,23 @@ PUSHCONT {
 	GETGLOB 9
 	SDEQ
 	PUSHCONT {
-		.loc ../contracts/CollectionFactory.sol, 129
+		.loc ../contracts/CollectionFactory.sol, 133
 		PUSH S2
 		INC
 		POP S3
 		.loc ../contracts/CollectionFactory.sol, 0
 	}
 	IF
-	.loc ../contracts/CollectionFactory.sol, 127
+	.loc ../contracts/CollectionFactory.sol, 131
 	INC
 	.loc ../contracts/CollectionFactory.sol, 0
 }
 WHILE
 DROP
-.loc ../contracts/CollectionFactory.sol, 133
+.loc ../contracts/CollectionFactory.sol, 137
 SWAP
 PUSHREF
-.compute $default_tuple_builder_t_uint256_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_address_t_contract$_NFTCollection_$483$
+.compute $default_tuple_builder_t_uint256_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_address_t_contract$_NFTCollection_$489$
 PUSHINT 0
 NEWDICT
 PUSH S3
@@ -673,16 +673,16 @@ PUSHCONT {
 REPEAT
 BLKDROP2 2, 1
 PAIR
-.loc ../contracts/CollectionFactory.sol, 134
+.loc ../contracts/CollectionFactory.sol, 138
 PUSHINT 0
 PUSHCONT {
 	PUSH2 S0, S3
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/CollectionFactory.sol, 135
+	.loc ../contracts/CollectionFactory.sol, 139
 	DUP
-	GETGLOB 17
+	GETGLOB 18
 	PUSHPOW2 8
 	DICTUGETREF
 	PUSHCONT {
@@ -722,9 +722,9 @@ PUSHCONT {
 	GETGLOB 9
 	SDEQ
 	PUSHCONT {
-		.loc ../contracts/CollectionFactory.sol, 136
+		.loc ../contracts/CollectionFactory.sol, 140
 		DUP
-		GETGLOB 17
+		GETGLOB 18
 		PUSHPOW2 8
 		DICTUGETREF
 		PUSHCONT {
@@ -760,7 +760,7 @@ PUSHCONT {
 			TUPLE 8
 		}
 		IFELSE
-		.loc ../contracts/CollectionFactory.sol, 137
+		.loc ../contracts/CollectionFactory.sol, 141
 		PUSH S2
 		UNPAIR
 		PUXC S5, S-1
@@ -793,20 +793,20 @@ PUSHCONT {
 		DICTUSETREF
 		PAIR
 		POP S2
-		.loc ../contracts/CollectionFactory.sol, 138
+		.loc ../contracts/CollectionFactory.sol, 142
 		PUSH S2
 		INC
 		POP S3
 		.loc ../contracts/CollectionFactory.sol, 0
 	}
 	IF
-	.loc ../contracts/CollectionFactory.sol, 134
+	.loc ../contracts/CollectionFactory.sol, 138
 	INC
 	.loc ../contracts/CollectionFactory.sol, 0
 }
 WHILE
 DROP
-.loc ../contracts/CollectionFactory.sol, 141
+.loc ../contracts/CollectionFactory.sol, 145
 BLKDROP2 2, 1
 .loc ../contracts/CollectionFactory.sol, 0
 
@@ -828,10 +828,12 @@ LDREF
 LDREF
 ENDS
 CTOS
+LDREF
 LDMSGADDR
 LDDICT
 LDDICT
 ENDS
+SETGLOB 18
 SETGLOB 17
 SETGLOB 16
 SETGLOB 15
@@ -859,12 +861,13 @@ PUSHCONT {
 	}
 	PUSHREF {
 	}
-	BLKPUSH 2, 0
+	BLKPUSH 3, 0
 	PUSHREFSLICE {
 		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
 	}
 	NEWDICT
 	DUP
+	SETGLOB 18
 	SETGLOB 17
 	SETGLOB 16
 	SETGLOB 15
@@ -886,6 +889,7 @@ IFREFELSE {
 }
 
 .macro c7_to_c4
+GETGLOB 18
 GETGLOB 17
 GETGLOB 16
 GETGLOB 15
@@ -901,14 +905,15 @@ STU 256
 STU 64
 STONE
 STU 256
-ROLLREV 7
+ROLLREV 8
 NEWC
 STSLICE
 STREF
 STREF
 STREF
-ROLLREV 3
+ROLLREV 4
 NEWC
+STREF
 STSLICE
 STDICT
 STDICT
@@ -1026,7 +1031,7 @@ CALLREF {
 }
 THROW 60
 
-.macro default_tuple_builder_t_uint256_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_address_t_contract$_NFTCollection_$483
+.macro default_tuple_builder_t_uint256_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_string_ptr_t_address_t_contract$_NFTCollection_$489
 PUSHINT 0
 PUSHREF {
 }
