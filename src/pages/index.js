@@ -1,9 +1,6 @@
 import CollectionCard from "@/components/cards/CollectionCard";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
-
-import img1 from "../../public/img1.jpg";
 import NftCard from "@/components/cards/NftCard";
 import { useEffect, useState } from "react";
 export default function Home({ fetch_nfts }) {
