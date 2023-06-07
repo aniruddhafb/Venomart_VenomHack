@@ -103,6 +103,14 @@ const Footer = ({ theme }) => {
                             </li>
                             <li>
                                 <Link
+                                    href="/nft/createAINFT"
+                                    className="hover:text-accent dark:hover:text-white"
+                                >
+                                    Create AI NFT
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
                                     href="/collection/createCollection"
                                     className="hover:text-accent dark:hover:text-white"
                                 >
