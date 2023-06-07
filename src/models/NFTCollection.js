@@ -1,17 +1,22 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const CollectionSchema = new mongoose.Schema({
   collection_address: String,
-  // owner: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "User",
-  // },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   coverImage: String,
   logo: String,
   name: String,
   symbol: String,
   description: String,
-  nfts: [String],
+  nfts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "NFT",
+    },
+  ],
 });
 
 module.exports =

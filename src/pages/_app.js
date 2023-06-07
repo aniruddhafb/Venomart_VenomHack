@@ -173,7 +173,7 @@ export default function App({ Component, pageProps }) {
       url: `${BaseURL}/collections`,
       method: "POST",
       data: {
-        collection_address: uuidv4().toString(),
+        collection_address: collection_address_devnet,
         coverImage: ipfsUrl_cover,
         logo: ipfsUrl_logo,
         name: data.name,
@@ -416,7 +416,6 @@ export default function App({ Component, pageProps }) {
     }
   };
 
-  // const create_nft = async (data) => {
   //   console.log({ data });
   //   try {
   //     const ipfs_image = await storage.upload(data.image);
@@ -476,39 +475,76 @@ export default function App({ Component, pageProps }) {
   //   }
   // };
   //COLLECTION FACTORY
-  const create_new_collection = async () => {
+  const create_new_collection = async (data) => {
     const contract = new venomProvider.Contract(
       collectionFactory,
       collection_factory_address
     );
 
-    const subscriber = new Subscriber(venomProvider);
+    console.log({ data });
 
-    contract
-      .events(subscriber)
-      .filter((event) => event.event === "CollectionCreated")
-      .on(async (event) => {
-        console.log({ event });
+    const cover_ips = await storage.upload(data.image);
+    const logo_ipfs = await storage.upload(data.logo);
+
+    const res = await axios({
+      url: `${BaseURL}/collections`,
+      method: "POST",
+      data: {
+        collection_address: collection_address_devnet,
+        user_wallet: signer_address,
+        cover_image: cover_ips,
+        logo: logo_ipfs,
+        name: data.name,
+        symbol: data.symbol,
+        description: data.description,
+      },
+    });
+
+    console.log(res.data);
+
+    // const subscriber = new Subscriber(venomProvider);
+
+    // contract
+    //   .events(subscriber)
+    //   .filter((event) => event.event === "CollectionCreated")
+    //   .on(async (event) => {
+    //     console.log({ event });
+    //   });
+
+    // // const collections = await contract.methods.getAllCollections().call();
+    // // console.log({ collections });
+
+    // const new_collection = await contract.methods
+    //   .create_collection({
+    //     json: "json",
+    //     collection_name: "col_name",
+    //     collection_symbol: "symbol",
+    //     collection_image: "img",
+    //     collection_logo: "logo",
+    //     collection_description: "desc",
+    //   })
+    //   .send({
+    //     from: new Address(signer_address),
+    //     amount: "1000000000",
+    //   });
+
+    // console.log({ new_collection });
+  };
+
+  const get_collection_by_owner = async (user_id) => {
+    try {
+      const res = await axios({
+        url: `${BaseURL}/get_collection`,
+        method: "POST",
+        data: {
+          wallet_address: user_id,
+        },
       });
-
-    // const collections = await contract.methods.getAllCollections().call();
-    // console.log({ collections });
-
-    const new_collection = await contract.methods
-      .create_collection({
-        json: "json",
-        collection_name: "col_name",
-        collection_symbol: "symbol",
-        collection_image: "img",
-        collection_logo: "logo",
-        collection_description: "desc",
-      })
-      .send({
-        from: new Address(signer_address),
-        amount: "1000000000",
-      });
-
-    console.log({ new_collection });
+      return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
   };
 
   return (
@@ -519,11 +555,10 @@ export default function App({ Component, pageProps }) {
         connect_wallet={connect_wallet}
         onDisconnect={onDisconnect}
       />
-      <button onClick={create_new_collection} className="mt-52">
-        Press me
-      </button>
       <Component
         {...pageProps}
+        get_collection_by_owner={get_collection_by_owner}
+        create_new_collection={create_new_collection}
         fetch_nfts={fetch_nfts}
         create_user={create_user}
         update_profile={update_profile}

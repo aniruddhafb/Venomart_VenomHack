@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import Collection from "../../models/NFTCollection";
+import User from "../../models/User";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -19,13 +20,32 @@ export default async function handler(req, res) {
       try {
         console.log(req.body);
         let collection;
-        collection = await Collection.findOne({
-          collection_address: req.body.collection_address,
+        const {
+          collection_address,
+          user_wallet,
+          cover_image,
+          logo,
+          name,
+          symbol,
+          description,
+        } = req.body;
+
+        const owner = await User.findOne({ wallet_id: user_wallet });
+        if (!owner)
+          return res
+            .status(400)
+            .json({ success: false, data: "cannot find the user" });
+
+        collection = await Collection.create({
+          collection_address,
+          owner,
+          coverImage: cover_image,
+          logo,
+          name,
+          symbol,
+          description,
         });
-        if (collection)
-          return res.status(201).json({ success: true, data: collection });
-        collection = await Collection.create(req.body);
-        res.status(201).json({ success: true, data: collection });
+        res.status(200).json({ success: true, data: collection });
       } catch (error) {
         res.status(400).json({ success: false, data: error.message });
       }

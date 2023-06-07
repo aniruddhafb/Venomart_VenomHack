@@ -8,7 +8,7 @@ import Head from "next/head";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const CreateAINFT = ({ collection_address_devnet, create_nft }) => {
+const CreateAINFT = ({ collection_address_devnet, create_nft , get_collection_by_owner}) => {
 
     const randomAIText = [
         "highly detailed wide portrait young woman anime, by atey ghailan, by greg rutkowski, by greg tocchini, by james gilleard, by joe fenton, by kaethe butcher, gradient light blue, brown, blonde cream and white color scheme, grunge aesthetic, 8 k, optimistic",

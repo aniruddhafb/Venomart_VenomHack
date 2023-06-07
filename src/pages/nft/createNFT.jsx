@@ -7,6 +7,8 @@ import Head from "next/head";
 const CreateNFT = ({
   collection_address_devnet,
   create_nft,
+  get_collection_by_owner,
+  signer_address,
 }) => {
   const router = useRouter();
   const [loading, set_loading] = useState(false);
@@ -29,7 +31,7 @@ const CreateNFT = ({
     e.preventDefault();
     await create_nft(data);
     set_loading(false);
-    router.push("/nft/exploreNFTs")
+    router.push("/nft/exploreNFTs");
   };
 
   const handleChange = (e) => {
@@ -54,6 +56,15 @@ const CreateNFT = ({
     values.splice(index, 1);
     set_data({ ...data, properties: values });
   };
+
+  useEffect(() => {
+    (async () => {
+      if (!signer_address) return;
+      const collections = await get_collection_by_owner(signer_address);
+      set_user_collections(collections);
+      console.log({ collections });
+    })();
+  }, [signer_address]);
 
   return (
     <>
@@ -197,7 +208,7 @@ const CreateNFT = ({
                   <option value={collection_address_devnet}>
                     Default Marketplace Collection
                   </option>
-                  {user_collections?.map((e, index) => {
+                  {user_collections?.data?.map((e, index) => {
                     return (
                       <option key={index} value={e.collection_address}>
                         {e.name}
