@@ -26,9 +26,8 @@ import mongoose from "mongoose";
 // import { toNano } from "locklift";
 
 export default function App({ Component, pageProps }) {
-
-  const BaseURL = "https://venomart.space/api";
-  // const BaseURL = "http://localhost:3000/api";
+  // const BaseURL = "https://venomart.space/api";
+  const BaseURL = "http://localhost:3000/api";
 
   const blockURL = "https://testnet.venomscan.com/";
   const storage = new ThirdwebStorage();
@@ -62,6 +61,7 @@ export default function App({ Component, pageProps }) {
         walletAddress: "",
         profileImage: "",
         coverImage: "",
+        isArtist: false,
       },
     });
     return res.data;
@@ -173,6 +173,7 @@ export default function App({ Component, pageProps }) {
   };
 
   const update_profile = async (data) => {
+    console.log(data.isArtist);
     const profile_img = data?.profileImage
       ? await storage.upload(data.profileImage)
       : "";
@@ -189,9 +190,11 @@ export default function App({ Component, pageProps }) {
         bio: data.bio,
         profileImage: profile_img,
         coverImage: cover_img,
+        isArtist: data.isArtist,
         socials: [data.twitter, data.instagram, data.customLink],
       },
     });
+    console.log(res.data);
   };
 
   const create_collection = async (data) => {
@@ -306,6 +309,7 @@ export default function App({ Component, pageProps }) {
     init();
     //fetch all collection
     fetch_all_collections();
+    fetch_artists();
   }, []);
 
   // connect event handler
@@ -425,6 +429,20 @@ export default function App({ Component, pageProps }) {
       const nftURLs = await getCollectionItems(provider, nftAddresses);
     } catch (e) {
       console.error(e);
+    }
+  };
+
+  const fetch_artists = async () => {
+    try {
+      const artists = await axios({
+        url: `${BaseURL}/fetch_artists`,
+        method: "GET",
+      });
+      console.log(artists.data);
+      return artists.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
     }
   };
 

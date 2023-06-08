@@ -27,6 +27,7 @@ const EditProfile = ({
     twitter: "",
     instagram: "",
     customLink: "",
+    isArtist: "",
   });
 
   const handleChange = (e) => {
@@ -34,20 +35,23 @@ const EditProfile = ({
   };
 
   const get_user = async () => {
-    //this function checks if wallet_id exists then simply returns the user else creates a new user.
+    // this function checks if wallet_id exists then simply returns the user else creates a new user.
     const user_data = await create_user({ wallet_id: signer_address });
+    console.log(user_data);
     set_data({
       ...user_data?.user,
       twitter: user_data?.user?.socials[0],
       instagram: user_data?.user?.socials[1],
       customLink: user_data?.user?.socials[2],
       walletAddress: signer_address,
+      isArtist: user_data?.user?.isArtist,
     });
   };
 
   const handle_submit = async (e) => {
-    set_loading(true);
     e.preventDefault();
+    console.log(data);
+    set_loading(true);
     await update_profile(data);
     set_loading(false);
   };
@@ -87,9 +91,9 @@ const EditProfile = ({
               src={
                 typeof data.coverImage == "string"
                   ? data.coverImage.replace(
-                    "ipfs://",
-                    "https://gateway.ipfscdn.io/ipfs/"
-                  )
+                      "ipfs://",
+                      "https://gateway.ipfscdn.io/ipfs/"
+                    )
                   : coverImg_preview
               }
               alt="banner"
@@ -201,8 +205,12 @@ const EditProfile = ({
                     name="isArtist"
                     className="bg-gray-300 text-black w-full rounded-lg border-jacarta-100 py-3 px-3 hover:ring-2 hover:ring-accent/10 dark:border-jacarta-600 dark:bg-jacarta-700 dark:placeholder:text-jacarta-300"
                   >
-                    <option value={false}>No</option>
-                    <option value={true}>Yes</option>
+                    <option selected={data.isArtist === false} value={false}>
+                      No
+                    </option>
+                    <option selected={data.isArtist === true} value={true}>
+                      Yes
+                    </option>
                   </select>
                 </div>
 
@@ -254,9 +262,9 @@ const EditProfile = ({
                           src={
                             typeof data.profileImage == "string"
                               ? data.profileImage.replace(
-                                "ipfs://",
-                                "https://gateway.ipfscdn.io/ipfs/"
-                              )
+                                  "ipfs://",
+                                  "https://gateway.ipfscdn.io/ipfs/"
+                                )
                               : profImg_preview
                           }
                           width={100}
