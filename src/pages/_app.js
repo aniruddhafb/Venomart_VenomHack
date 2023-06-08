@@ -547,6 +547,26 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  // SELL NFTS
+  const NFT_ADDRESS = new Address("");
+  const AUCTION_ADDRESS = new Address(
+    "0:6bdbcd439ba96f803cba9477ab27ffdea2c82db5467d9af35ba05ad9f4585b86"
+  );
+
+  const sell_nft = async (nft_address) => {
+    const nft_contract = new venomProvider.Contract(nftAbi, nft_address);
+    await nftInstance.methods
+      .transfer({
+        to: AUCTION_ADDRESS,
+        sendGasTo: signer_address,
+        callbacks: [[AUCTION_ADDRESS, { value: toNano(0.1), payload: "" }]],
+      })
+      .send({
+        from: someAccount.address,
+        amount: toNano(2),
+      });
+  };
+
   return (
     <>
       <Navbar
@@ -555,6 +575,9 @@ export default function App({ Component, pageProps }) {
         connect_wallet={connect_wallet}
         onDisconnect={onDisconnect}
       />
+      <button className="mt-52" onClick={sell_nft}>
+        Press{" "}
+      </button>
       <Component
         {...pageProps}
         get_collection_by_owner={get_collection_by_owner}

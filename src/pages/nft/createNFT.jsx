@@ -65,7 +65,7 @@ const CreateNFT = ({
       console.log({ collections });
     })();
   }, [signer_address]);
-
+  
   return (
     <>
       <Head>
