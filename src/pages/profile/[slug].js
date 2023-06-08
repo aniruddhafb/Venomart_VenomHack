@@ -6,7 +6,12 @@ import Loader from "@/components/Loader";
 import Head from "next/head";
 import Link from "next/link";
 
-const Profile = ({ signer_address, blockURL, get_collection_by_owner }) => {
+const Profile = ({
+  signer_address,
+  blockURL,
+  get_collection_by_owner,
+  get_nfts_by_owner,
+}) => {
   const router = useRouter();
   const { slug } = router.query;
   const [user_data, set_user_data] = useState({});
@@ -17,12 +22,17 @@ const Profile = ({ signer_address, blockURL, get_collection_by_owner }) => {
 
   const [nfts, set_nfts] = useState([]);
 
+  const fetch_data = async () => {
+    const user_collections = await get_collection_by_owner(slug);
+    const user_nfts = await get_nfts_by_owner(slug);
+    console.log(user_collections);
+    console.log(user_nfts);
+  };
+
   useEffect(() => {
-    (async () => {
-      if (!signer_address) return;
-      const collections = await get_collection_by_owner(signer_address);
-    })();
-  }, [signer_address]);
+    if (!slug) return;
+    fetch_data();
+  }, [slug]);
   return loading ? (
     <Loader />
   ) : (

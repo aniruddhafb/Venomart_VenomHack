@@ -17,12 +17,8 @@
 		{
 			"name": "create_collection",
 			"inputs": [
-				{"name":"json","type":"string"},
-				{"name":"collection_name","type":"string"},
-				{"name":"collection_symbol","type":"string"},
-				{"name":"collection_image","type":"string"},
-				{"name":"collection_logo","type":"string"},
-				{"name":"collection_description","type":"string"}
+				{"name":"_state","type":"uint256"},
+				{"name":"_json","type":"string"}
 			],
 			"outputs": [
 			]
@@ -32,7 +28,7 @@
 			"inputs": [
 			],
 			"outputs": [
-				{"components":[{"name":"collectionId","type":"uint256"},{"name":"name","type":"string"},{"name":"symbol","type":"string"},{"name":"description","type":"string"},{"name":"image","type":"string"},{"name":"logo","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"value0","type":"tuple[]"}
+				{"components":[{"name":"collectionId","type":"uint256"},{"name":"json","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"value0","type":"tuple[]"}
 			]
 		},
 		{
@@ -41,7 +37,7 @@
 				{"name":"collection_id","type":"uint256"}
 			],
 			"outputs": [
-				{"components":[{"name":"collectionId","type":"uint256"},{"name":"name","type":"string"},{"name":"symbol","type":"string"},{"name":"description","type":"string"},{"name":"image","type":"string"},{"name":"logo","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"value0","type":"tuple"}
+				{"components":[{"name":"collectionId","type":"uint256"},{"name":"json","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"value0","type":"tuple"}
 			]
 		},
 		{
@@ -49,7 +45,7 @@
 			"inputs": [
 			],
 			"outputs": [
-				{"components":[{"name":"collectionId","type":"uint256"},{"name":"name","type":"string"},{"name":"symbol","type":"string"},{"name":"description","type":"string"},{"name":"image","type":"string"},{"name":"logo","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"value0","type":"tuple[]"}
+				{"components":[{"name":"collectionId","type":"uint256"},{"name":"json","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"value0","type":"tuple[]"}
 			]
 		}
 	],
@@ -60,11 +56,7 @@
 			"name": "CollectionCreated",
 			"inputs": [
 				{"name":"collectionId","type":"uint256"},
-				{"name":"name","type":"string"},
-				{"name":"symbol","type":"string"},
-				{"name":"description","type":"string"},
-				{"name":"image","type":"string"},
-				{"name":"logo","type":"string"},
+				{"name":"json","type":"string"},
 				{"name":"owner","type":"address"},
 				{"name":"collection_address","type":"address"}
 			],
@@ -83,7 +75,8 @@
 		{"name":"codeIndexBasis","type":"cell"},
 		{"name":"nft_collection_code","type":"cell"},
 		{"name":"owner","type":"address"},
-		{"components":[{"name":"collectionId","type":"uint256"},{"name":"name","type":"string"},{"name":"symbol","type":"string"},{"name":"description","type":"string"},{"name":"image","type":"string"},{"name":"logo","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"userToCollections","type":"map(address,tuple[])"},
-		{"components":[{"name":"collectionId","type":"uint256"},{"name":"name","type":"string"},{"name":"symbol","type":"string"},{"name":"description","type":"string"},{"name":"image","type":"string"},{"name":"logo","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"idToCollection","type":"map(uint256,tuple)"}
+		{"components":[{"name":"collectionId","type":"uint256"},{"name":"json","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"userToCollections","type":"map(address,tuple[])"},
+		{"components":[{"name":"collectionId","type":"uint256"},{"name":"json","type":"string"},{"name":"owner","type":"address"},{"name":"collection_address","type":"address"}],"name":"idToCollection","type":"map(uint256,tuple)"},
+		{"name":"_remainOnNft","type":"uint128"}
 	]
 }

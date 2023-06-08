@@ -36,7 +36,6 @@ const EditProfile = ({
   const get_user = async () => {
     //this function checks if wallet_id exists then simply returns the user else creates a new user.
     const user_data = await create_user({ wallet_id: signer_address });
-    console.log({ user_data });
     set_data({
       ...user_data?.user,
       twitter: user_data?.user?.socials[0],

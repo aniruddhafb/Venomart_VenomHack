@@ -4,9 +4,9 @@ pragma AbiHeader pubkey;
 
 import "./NFTCollection.sol";
 
-contract Sample is NFTCollection {
+contract NFTContract is NFTCollection {
     uint static nounce;
-    uint static owner;
+    address static owner;
     uint state;
 
     event StateChange(uint _state);

@@ -8,7 +8,10 @@ const CollectionSchema = new mongoose.Schema({
   },
   coverImage: String,
   logo: String,
-  name: String,
+  name: {
+    type: String,
+    unique: true,
+  },
   symbol: String,
   description: String,
   nfts: [

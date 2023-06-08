@@ -37,10 +37,9 @@ export default function App({ Component, pageProps }) {
   const [signer_address, setSignerAddress] = useState();
 
   const [standaloneProvider, setStandAloneProvider] = useState();
-  const [nfts, set_nfts] = useState([]);
 
   const collection_address_devnet =
-    "0:0a8ccae73333dfa782d9cc0c6b0acab9d38d864d0173b6e93f8eae87506b9d8f";
+    "0:ed149312db64ae4f123785fce15cde133c388d37a943c01736fcf1e36e48c9a3";
 
   const collection_factory_address =
     "0:88b78baad2ac1e959ce5ad7e83f7a39bc0ecb4c2cbc119a84fc381d990d508fb";
@@ -68,58 +67,50 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
-    console.log({ data });
+    console.log(data);
     try {
       const ipfs_image = await storage.upload(data.image);
       const nft_json = JSON.stringify({
         nft_image: ipfs_image,
         name: data.name,
         description: data.description,
-        collection: data.collection,
+        collection_name: data.collection,
         properties: data.properties.filter((e) => e.type.length > 0),
       });
-
       const contract = new venomProvider.Contract(
         collectionAbi,
         collection_address_devnet
       );
-
       const { count: id } = await contract.methods
         .totalSupply({ answerId: 0 })
         .call();
-
       console.log({ id });
-
       const subscriber = new Subscriber(venomProvider);
-
       contract
         .events(subscriber)
         .filter((event) => event.event === "tokenCreated")
         .on(async (event) => {
+          console.log({ event });
           const res = await axios({
             url: `${BaseURL}/nfts`,
             method: "POST",
             data: {
               tokenId: event.data.tokenId,
-              nft_collection: data.collection,
+              collection_name: data.collection,
               json: nft_json,
               owner: signer_address,
             },
           });
-          console.log({ res: res.data });
         });
-
       const outputs = await contract.methods
         .mintNft({ json: JSON.stringify(nft_json) })
         .send({
           from: new Address(signer_address),
           amount: "1000000000",
         });
-
       const { nft: nftAddress } = await contract.methods
         .nftAddress({ answerId: 0, id: id })
         .call();
-
       console.log({ nftAddress });
     } catch (error) {
       alert(error.message);
@@ -134,7 +125,6 @@ export default function App({ Component, pageProps }) {
         method: "GET",
       });
       if (!res.data.data) return;
-      set_nfts(res.data.data);
       return res.data;
     } catch (error) {
       alert(error.message);
@@ -142,8 +132,46 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const get_nft_by_tokenId = async (tokenId) => {
+    try {
+      const res = await axios({
+        url: `${BaseURL}/get_nft_tokenId`,
+        method: "POST",
+        data: {
+          tokenId,
+        },
+      });
+
+      const obj = {
+        ...res.data.data[0],
+        ...JSON.parse(res.data.data[0].json),
+      };
+
+      return obj;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
+  const get_nfts_by_collection = async (collection_name) => {
+    try {
+      const nfts = await axios({
+        url: `${BaseURL}/get_nft_by_collection`,
+        method: "POST",
+        data: {
+          collection_name,
+        },
+      });
+
+      return nfts.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
   const update_profile = async (data) => {
-    console.log(data);
     const profile_img = data?.profileImage
       ? await storage.upload(data.profileImage)
       : "";
@@ -163,7 +191,6 @@ export default function App({ Component, pageProps }) {
         socials: [data.twitter, data.instagram, data.customLink],
       },
     });
-    console.log(res.data);
   };
 
   const create_collection = async (data) => {
@@ -181,7 +208,6 @@ export default function App({ Component, pageProps }) {
         description: data.description,
       },
     });
-    console.log(res.data);
   };
 
   const getAddress = async (provider) => {
@@ -196,14 +222,12 @@ export default function App({ Component, pageProps }) {
 
   const initStandalone = async () => {
     const standalone = await venomConnect?.getStandalone();
-    console.log({ standalone });
     setStandAloneProvider(standalone);
     return standalone;
   };
 
   const onConnect = async (provider) => {
     await onProviderReady(provider);
-
     setVenomProvider(provider);
   };
 
@@ -230,7 +254,6 @@ export default function App({ Component, pageProps }) {
 
   const mint_nft = async (provider) => {
     // const standalone = await venomConnect?.getStandalone("venomwallet");
-    // console.log(standalone);
     const json = {
       type: "Basic NFT",
       name: "Sample Name",
@@ -258,8 +281,6 @@ export default function App({ Component, pageProps }) {
       .totalSupply({ answerId: 0 })
       .call();
 
-    console.log({ id });
-
     const subscriber = new Subscriber(venomProvider);
     contract
       .events(subscriber)
@@ -278,20 +299,17 @@ export default function App({ Component, pageProps }) {
     const { nft: nftAddress } = await contract.methods
       .nftAddress({ answerId: 0, id: id })
       .call();
-
-    console.log({ nftAddress });
   };
 
   useEffect(() => {
     init();
+    fetch_all_collections();
   }, []);
 
   // connect event handler
   useEffect(() => {
     const off = venomConnect?.on("connect", onConnect);
     if (venomConnect) {
-      //   console.log({ venomConnect });
-      //   initStandalone();
       checkAuth(venomConnect);
     }
 
@@ -308,7 +326,6 @@ export default function App({ Component, pageProps }) {
       .getJson({ answerId: 0 })
       .call();
     const json = JSON.parse(getJsonAnswer.json ?? "{}");
-    // console.log({ json });
     return json;
   };
 
@@ -317,7 +334,6 @@ export default function App({ Component, pageProps }) {
     return Promise.all(
       nftAddresses.map(async (nftAddress) => {
         const imgInfo = await getNftImage(provider, nftAddress);
-        console.log({ imgInfo });
         return JSON.parse(imgInfo);
       })
     );
@@ -334,11 +350,9 @@ export default function App({ Component, pageProps }) {
 
   // Method, that return NFT's addresses by single query with fetched code hash
   const getNftAddresses = async (codeHash) => {
-    console.log({ codeHash });
     const addresses = await venomProvider?.getAccountsByCodeHash({
       codeHash,
     });
-    console.log({ addresses });
     return addresses?.accounts;
   };
 
@@ -396,7 +410,6 @@ export default function App({ Component, pageProps }) {
   // Main method of this component.
   const loadNFTs = async () => {
     const provider = venomProvider;
-    // setListIsEmpty(false);
     try {
       const nftCodeHash = await getNftCodeHash(provider);
       if (!nftCodeHash) {
@@ -407,81 +420,35 @@ export default function App({ Component, pageProps }) {
         // if (nftAddresses && !nftAddresses.length) setListIsEmpty(true);
         return;
       }
-      console.log({ nftAddresses });
       const nftURLs = await getCollectionItems(provider, nftAddresses);
-      console.log({ nftURLs });
-      set_nfts(nftURLs);
     } catch (e) {
       console.error(e);
     }
   };
 
-  //   console.log({ data });
-  //   try {
-  //     const ipfs_image = await storage.upload(data.image);
-  //     const nft_json = JSON.stringify({
-  //       nft_image: ipfs_image,
-  //       name: data.name,
-  //       description: data.description,
-  //       collection: data.collection,
-  //       properties: data.properties.filter((e) => e.type.length > 0),
-  //     });
+  const get_nfts_by_owner = async (wallet_id) => {
+    try {
+      const res = await axios({
+        url: `${BaseURL}/get_nft_owner`,
+        method: "POST",
+        data: {
+          wallet_id,
+        },
+      });
 
-  //     const contract = new venomProvider.Contract(
-  //       collectionAbi,
-  //       collection_address_devnet
-  //     );
+      return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
 
-  //     const { count: id } = await contract.methods
-  //       .totalSupply({ answerId: 0 })
-  //       .call();
-
-  //     console.log({ id });
-
-  //     const subscriber = new Subscriber(venomProvider);
-
-  //     contract
-  //       .events(subscriber)
-  //       .filter((event) => event.event === "tokenCreated")
-  //       .on(async (event) => {
-  //         const res = await axios({
-  //           url: `${BaseURL}/nfts`,
-  //           method: "POST",
-  //           data: {
-  //             tokenId: event.data.tokenId,
-  //             nft_collection: data.collection,
-  //             json: nft_json,
-  //             owner: signer_address,
-  //           },
-  //         });
-  //         console.log({ res: res.data });
-  //       });
-
-  //     const outputs = await contract.methods
-  //       .mintNft({ json: JSON.stringify(nft_json) })
-  //       .send({
-  //         from: new Address(signer_address),
-  //         amount: "1000000000",
-  //       });
-
-  //     const { nft: nftAddress } = await contract.methods
-  //       .nftAddress({ answerId: 0, id: id })
-  //       .call();
-
-  //     console.log({ nftAddress });
-  //   } catch (error) {
-  //     alert(error.message);
-  //     console.log(error.message);
-  //   }
-  // };
   //COLLECTION FACTORY
   const create_new_collection = async (data) => {
     const contract = new venomProvider.Contract(
       collectionFactory,
       collection_factory_address
     );
-
-    console.log({ data });
 
     const cover_ips = await storage.upload(data.image);
     const logo_ipfs = await storage.upload(data.logo);
@@ -499,42 +466,12 @@ export default function App({ Component, pageProps }) {
         description: data.description,
       },
     });
-
-    console.log(res.data);
-
-    // const subscriber = new Subscriber(venomProvider);
-
-    // contract
-    //   .events(subscriber)
-    //   .filter((event) => event.event === "CollectionCreated")
-    //   .on(async (event) => {
-    //     console.log({ event });
-    //   });
-
-    // // const collections = await contract.methods.getAllCollections().call();
-    // // console.log({ collections });
-
-    // const new_collection = await contract.methods
-    //   .create_collection({
-    //     json: "json",
-    //     collection_name: "col_name",
-    //     collection_symbol: "symbol",
-    //     collection_image: "img",
-    //     collection_logo: "logo",
-    //     collection_description: "desc",
-    //   })
-    //   .send({
-    //     from: new Address(signer_address),
-    //     amount: "1000000000",
-    //   });
-
-    // console.log({ new_collection });
   };
 
   const get_collection_by_owner = async (user_id) => {
     try {
       const res = await axios({
-        url: `${BaseURL}/get_collection`,
+        url: `${BaseURL}/get_collection_owner`,
         method: "POST",
         data: {
           wallet_address: user_id,
@@ -547,19 +484,51 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const fetch_all_collections = async () => {
+    try {
+      const res = await axios({
+        url: `${BaseURL}/get_all_collections`,
+        method: "GET",
+      });
+      return res.data.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
   // SELL NFTS
-  const NFT_ADDRESS = new Address("");
+  const NFT_ADDRESS = new Address(
+    "0:f5a48f12fc9d3208d5b885b8d839834faff4c36fd653e5812e48cfb6ed187d60"
+  );
   const AUCTION_ADDRESS = new Address(
     "0:6bdbcd439ba96f803cba9477ab27ffdea2c82db5467d9af35ba05ad9f4585b86"
   );
 
   const sell_nft = async (nft_address) => {
-    const nft_contract = new venomProvider.Contract(nftAbi, nft_address);
-    await nftInstance.methods
+    const nft_contract = new venomProvider.Contract(nftAbi, NFT_ADDRESS);
+    const txn = await nft_contract.methods
       .transfer({
         to: AUCTION_ADDRESS,
         sendGasTo: signer_address,
-        callbacks: [[AUCTION_ADDRESS, { value: toNano(0.1), payload: "" }]],
+        callbacks: [[AUCTION_ADDRESS, { value: "100000000", payload: "" }]],
+      })
+      .send({
+        from: signer_address,
+        amount: "2000000000",
+      });
+    console.log({ txn });
+  };
+
+  const buy_nft = async (nft_address) => {
+    await tokenWalletInstance.methods
+      .transfer({
+        amount: "1000000000", // with decimals
+        recipient: AUCTION_ADDRESS, // because it got it's own wallet
+        deployWalletValue: 0, // we know, that auction wallet deployed already
+        remainingGasTo: signer_address,
+        notify: true, // IMPORTANT to set it "true" for onAcceptTokensTransfer to be called
+        payload: "",
       })
       .send({
         from: someAccount.address,
@@ -575,11 +544,19 @@ export default function App({ Component, pageProps }) {
         connect_wallet={connect_wallet}
         onDisconnect={onDisconnect}
       />
+      {/* <button className="mt-52" onClick={sell_nft}>
+        Press{" "}
+      </button> */}
       <Component
         {...pageProps}
+        get_nfts_by_collection={get_nfts_by_collection}
+        get_nft_by_tokenId={get_nft_by_tokenId}
+        get_nfts_by_owner={get_nfts_by_owner}
+        fetch_all_collections={fetch_all_collections}
         get_collection_by_owner={get_collection_by_owner}
         create_new_collection={create_new_collection}
         fetch_nfts={fetch_nfts}
+        loadNFTs={loadNFTs}
         create_user={create_user}
         update_profile={update_profile}
         create_collection={create_collection}

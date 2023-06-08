@@ -3,16 +3,17 @@ import Head from "next/head";
 import Link from "next/link";
 import NftCard from "@/components/cards/NftCard";
 import { useEffect, useState } from "react";
-export default function Home({ fetch_nfts }) {
+export default function Home({ fetch_nfts, loadNFTs, standaloneProvider }) {
   const [nfts, set_nfts] = useState([]);
   useEffect(() => {
     (async () => {
       const nfts = await fetch_nfts();
-      console.log({ nfts });
       if (!nfts) return;
       set_nfts(nfts.data);
+      if (!standaloneProvider) return;
+      loadNFTs();
     })();
-  }, []);
+  }, [standaloneProvider]);
   return (
     <>
       <Head>
@@ -82,34 +83,11 @@ export default function Home({ fetch_nfts }) {
           </h2>
 
           <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4">
-            {/* {nfts.map(
-              (e, index) =>
-                index < 12 && (
-                  <NftCard
-                    ImageSrc={e.ipfsData.image.replace(
-                      "ipfs://",
-                      "https://gateway.ipfscdn.io/ipfs/"
-                    )}
-                    Name={e.ipfsData.name}
-                    Description={e.ipfsData.description}
-                    Address={e.ipfsData.collection}
-                    tokenId={e.tokenId}
-                    chainID={e.chainId}
-                    listedBool={e.isListed}
-                    listingPrice={e.listingPrice}
-                    chain_image={e.chain_image}
-                    chain_symbol={e.chain_symbol}
-                  />
-                )
-            )} */}
-
-            {/* test nft 00 */}
-            {nfts.map((e) => {
-              console.log(e);
+            {nfts.map((e, index) => {
               const nft_info = JSON.parse(e.json);
-              // console.log(nft_info);
               return (
                 <NftCard
+                  key={index}
                   ImageSrc={nft_info.nft_image?.replace(
                     "ipfs://",
                     "https://gateway.ipfscdn.io/ipfs/"
