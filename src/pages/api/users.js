@@ -17,8 +17,7 @@ export default async function handler(req, res) {
       break;
     case "POST":
       try {
-        console.log(req.body);
-        let user;
+       let user;
         user = await User.findOne({ wallet_id: req.body.wallet_id });
         if (user) return res.status(201).json({ success: true, user: user });
         user = await User.create(req.body);
@@ -28,7 +27,6 @@ export default async function handler(req, res) {
       }
       break;
     case "PUT":
-      console.log(req.body);
       try {
         const {
           wallet_id,

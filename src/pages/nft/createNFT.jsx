@@ -62,7 +62,6 @@ const CreateNFT = ({
       if (!signer_address) return;
       const collections = await get_collection_by_owner(signer_address);
       set_user_collections(collections);
-      console.log({ collections });
     })();
   }, [signer_address]);
   

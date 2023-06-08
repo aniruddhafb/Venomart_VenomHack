@@ -18,11 +18,9 @@ export default async function handler(req, res) {
       break;
     case "POST":
       try {
-        console.log(req.body);
         let nft;
         nft = await Nft.findOne({ tokenId: req.body.tokenId });
         let user = await User.findOne({ wallet_id: req.body.owner });
-        console.log({ user });
         if (!user)
           return res
             .status(400)
