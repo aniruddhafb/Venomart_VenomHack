@@ -8,7 +8,7 @@ import Head from "next/head";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const CreateAINFT = ({ collection_address_devnet, create_nft , get_collection_by_owner}) => {
+const CreateAINFT = ({ collection_address_devnet, create_nft, get_collection_by_owner, signer_address }) => {
 
     const randomAIText = [
         "highly detailed wide portrait young woman anime, by atey ghailan, by greg rutkowski, by greg tocchini, by james gilleard, by joe fenton, by kaethe butcher, gradient light blue, brown, blonde cream and white color scheme, grunge aesthetic, 8 k, optimistic",
@@ -124,7 +124,13 @@ const CreateAINFT = ({ collection_address_devnet, create_nft , get_collection_by
 
     useEffect(() => {
         set_data({ ...data, image: predictionOutput });
-    }, [predictionOutput, randomPrompt]);
+        (async () => {
+            if (!signer_address) return;
+            const collections = await get_collection_by_owner(signer_address);
+            console.log(collections);
+            set_user_collections(collections);
+        })();
+    }, [predictionOutput, randomPrompt, signer_address]);
 
     return (
         <>
@@ -381,9 +387,9 @@ const CreateAINFT = ({ collection_address_devnet, create_nft , get_collection_by
                                             <option value={collection_address_devnet}>
                                                 Venomart Marketplace Collection
                                             </option>
-                                            {user_collections?.map((e, index) => {
+                                            {user_collections?.data?.map((e, index) => {
                                                 return (
-                                                    <option key={index} value={e.collection_address}>
+                                                    <option key={index} value={e.name}>
                                                         {e.name}
                                                     </option>
                                                 );
