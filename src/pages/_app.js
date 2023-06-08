@@ -303,6 +303,7 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     init();
+    //fetch all collection
     fetch_all_collections();
   }, []);
 
