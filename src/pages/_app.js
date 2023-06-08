@@ -575,9 +575,6 @@ export default function App({ Component, pageProps }) {
         connect_wallet={connect_wallet}
         onDisconnect={onDisconnect}
       />
-      <button className="mt-52" onClick={sell_nft}>
-        Press{" "}
-      </button>
       <Component
         {...pageProps}
         get_collection_by_owner={get_collection_by_owner}
