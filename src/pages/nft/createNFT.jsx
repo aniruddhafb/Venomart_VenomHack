@@ -31,7 +31,7 @@ const CreateNFT = ({
     e.preventDefault();
     await create_nft(data);
     set_loading(false);
-    router.push("/nft/exploreNFTs");
+    // router.push("/nft/exploreNFTs");
   };
 
   const handleChange = (e) => {
@@ -61,10 +61,11 @@ const CreateNFT = ({
     (async () => {
       if (!signer_address) return;
       const collections = await get_collection_by_owner(signer_address);
+      console.log(collections);
       set_user_collections(collections);
     })();
   }, [signer_address]);
-  
+
   return (
     <>
       <Head>
@@ -209,7 +210,7 @@ const CreateNFT = ({
                   </option>
                   {user_collections?.data?.map((e, index) => {
                     return (
-                      <option key={index} value={e.collection_address}>
+                      <option key={index} value={e.name}>
                         {e.name}
                       </option>
                     );

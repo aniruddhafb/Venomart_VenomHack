@@ -67,27 +67,25 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
+    console.log(data);
     try {
       const ipfs_image = await storage.upload(data.image);
       const nft_json = JSON.stringify({
         nft_image: ipfs_image,
         name: data.name,
         description: data.description,
-        collection: data.collection,
+        collection_name: data.collection,
         properties: data.properties.filter((e) => e.type.length > 0),
       });
-
       const contract = new venomProvider.Contract(
         collectionAbi,
         collection_address_devnet
       );
-
       const { count: id } = await contract.methods
         .totalSupply({ answerId: 0 })
         .call();
-
+      console.log({ id });
       const subscriber = new Subscriber(venomProvider);
-
       contract
         .events(subscriber)
         .filter((event) => event.event === "tokenCreated")
@@ -98,24 +96,21 @@ export default function App({ Component, pageProps }) {
             method: "POST",
             data: {
               tokenId: event.data.tokenId,
-              nft_collection: data.collection,
+              collection_name: data.collection,
               json: nft_json,
               owner: signer_address,
             },
           });
         });
-
       const outputs = await contract.methods
         .mintNft({ json: JSON.stringify(nft_json) })
         .send({
           from: new Address(signer_address),
           amount: "1000000000",
         });
-
       const { nft: nftAddress } = await contract.methods
         .nftAddress({ answerId: 0, id: id })
         .call();
-
       console.log({ nftAddress });
     } catch (error) {
       alert(error.message);
@@ -131,6 +126,28 @@ export default function App({ Component, pageProps }) {
       });
       if (!res.data.data) return;
       return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
+  const get_nft_by_tokenId = async (tokenId) => {
+    try {
+      const res = await axios({
+        url: `${BaseURL}/get_nft_tokenId`,
+        method: "POST",
+        data: {
+          tokenId,
+        },
+      });
+
+      const obj = {
+        ...res.data.data[0],
+        ...JSON.parse(res.data.data[0].json),
+      };
+
+      return obj;
     } catch (error) {
       alert(error.message);
       console.log(error.message);
@@ -515,6 +532,7 @@ export default function App({ Component, pageProps }) {
       </button> */}
       <Component
         {...pageProps}
+        get_nft_by_tokenId={get_nft_by_tokenId}
         get_nfts_by_owner={get_nfts_by_owner}
         fetch_all_collections={fetch_all_collections}
         get_collection_by_owner={get_collection_by_owner}

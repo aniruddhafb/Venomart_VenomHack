@@ -29,6 +29,15 @@ export default async function handler(req, res) {
           description,
         } = req.body;
 
+        const check_col = await Collection.findOne({ name });
+        if (check_col)
+          return res
+            .status(400)
+            .json({
+              success: false,
+              data: "A collection with this name already exists",
+            });
+
         const owner = await User.findOne({ wallet_id: user_wallet });
         if (!owner)
           return res
