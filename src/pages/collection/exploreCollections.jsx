@@ -2,8 +2,18 @@ import React, { useEffect, useState } from "react";
 import CollectionCard from "@/components/cards/CollectionCard";
 import Head from "next/head";
 
-const TopCollections = ({ all_collections, standaloneProvider, mint_nft }) => {
-  useEffect(() => { }, [standaloneProvider]);
+const TopCollections = ({
+  all_collections,
+  standaloneProvider,
+  mint_nft,
+  fetch_all_collections,
+}) => {
+  useEffect(() => {
+    (async () => {
+      const collections = await fetch_all_collections();
+      console.log({ collections });
+    })();
+  }, [standaloneProvider]);
 
   return (
     <>

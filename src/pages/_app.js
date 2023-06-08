@@ -37,7 +37,6 @@ export default function App({ Component, pageProps }) {
   const [signer_address, setSignerAddress] = useState();
 
   const [standaloneProvider, setStandAloneProvider] = useState();
-  const [nfts, set_nfts] = useState([]);
 
   const collection_address_devnet =
     "0:ed149312db64ae4f123785fce15cde133c388d37a943c01736fcf1e36e48c9a3";
@@ -131,7 +130,6 @@ export default function App({ Component, pageProps }) {
         method: "GET",
       });
       if (!res.data.data) return;
-      set_nfts(res.data.data);
       return res.data;
     } catch (error) {
       alert(error.message);
@@ -389,7 +387,6 @@ export default function App({ Component, pageProps }) {
         return;
       }
       const nftURLs = await getCollectionItems(provider, nftAddresses);
-      set_nfts(nftURLs);
     } catch (e) {
       console.error(e);
     }
@@ -519,6 +516,7 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         get_nfts_by_owner={get_nfts_by_owner}
+        fetch_all_collections={fetch_all_collections}
         get_collection_by_owner={get_collection_by_owner}
         create_new_collection={create_new_collection}
         fetch_nfts={fetch_nfts}
