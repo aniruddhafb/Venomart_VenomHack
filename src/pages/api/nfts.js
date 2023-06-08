@@ -30,7 +30,7 @@ export default async function handler(req, res) {
         const nft_collection = await NFTCollection.findOne({
           name: collection_name,
         });
-
+        
         if (!nft_collection)
           return res
             .status(400)
@@ -46,9 +46,11 @@ export default async function handler(req, res) {
         nft = await Nft.create({
           tokenId,
           nft_collection,
+          collection_name,
           json,
           owner: nft_owner,
         });
+
         res.status(201).json({ success: true, data: nft });
       } catch (error) {
         res.status(400).json({ success: false, data: error.message });

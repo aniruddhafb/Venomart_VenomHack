@@ -154,6 +154,23 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const get_nfts_by_collection = async (collection_name) => {
+    try {
+      const nfts = await axios({
+        url: `${BaseURL}/get_nft_by_collection`,
+        method: "POST",
+        data: {
+          collection_name,
+        },
+      });
+
+      return nfts.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
   const update_profile = async (data) => {
     const profile_img = data?.profileImage
       ? await storage.upload(data.profileImage)
@@ -532,6 +549,7 @@ export default function App({ Component, pageProps }) {
       </button> */}
       <Component
         {...pageProps}
+        get_nfts_by_collection={get_nfts_by_collection}
         get_nft_by_tokenId={get_nft_by_tokenId}
         get_nfts_by_owner={get_nfts_by_owner}
         fetch_all_collections={fetch_all_collections}
