@@ -176,10 +176,10 @@ export default function App({ Component, pageProps }) {
     console.log(data.isArtist);
     const profile_img = data?.profileImage
       ? await storage.upload(data.profileImage)
-      : "";
+      : data.profileImage;
     const cover_img = data?.coverImage
       ? await storage.upload(data.coverImage)
-      : "";
+      : data.coverImage;
     const res = await axios({
       url: `${BaseURL}/users`,
       method: "PUT",
