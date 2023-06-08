@@ -370,7 +370,6 @@ const CreateAINFT = ({ collection_address_devnet, create_nft, get_collection_by_
                                                     This is the collection where your nft will appear.{" "}
                                                     <Link
                                                         href="/collection/createCollection"
-                                                        target="_blank"
                                                         className="underline"
                                                     >
                                                         Create a new collection{" "}

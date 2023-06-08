@@ -16,7 +16,7 @@ const NftCard = ({
   return (
     <div
       className="relative block rounded-2.5xl border border-[#189C87] bg-transparent p-[1.1875rem] transition-shadow hover:shadow-lg"
-      style={{ maxWidth: "300px" }}
+      style={{ maxWidth: "300px", margin: "20px", height: "auto", width: "350px", overflow: "hidden" }}
     >
       <div className="relative">
         {onClickOpen == true ? (

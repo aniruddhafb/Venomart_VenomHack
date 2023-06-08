@@ -87,7 +87,7 @@ export default function Home({
             Trending NFTs
           </h2>
 
-          <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4">
+          <div className="flex flex-wrap justify-center align-middle">
             {nfts.map((e, index) => {
               const nft_info = JSON.parse(e.json);
               return (
@@ -133,21 +133,6 @@ export default function Home({
                 )
               );
             })} */}
-
-            {/* test card  */}
-            <CollectionCard
-              key={1}
-              Cover={
-                "ipfs://QmcgjtD4qf55wtoutEt7ng5yb68YV8T8zSsSLkroVsrpEC/0x2a84808279ff8316fbd559b781a1397622257376.gif"
-              }
-              Logo={
-                "ipfs://QmcgjtD4qf55wtoutEt7ng5yb68YV8T8zSsSLkroVsrpEC/0x2a84808279ff8316fbd559b781a1397622257376.gif"
-              }
-              Name={"test Collection"}
-              Description={"test desc"}
-              OwnerAddress={"0:39334"}
-              CollectionAddress={"0:39334"}
-            />
           </div>
 
           <div className="mt-10 text-center">

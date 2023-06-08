@@ -86,7 +86,7 @@ const Marketplace = ({ fetch_nfts, collection_address_devnet }) => {
             <div>
               <div className="container">
                 {propShow ? (
-                  <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4">
+                  <div className="flex flex-wrap justify-start align-middle">
                     {nfts.map((e, index) => {
                       const nft_info = JSON.parse(e.json);
                       return (
@@ -108,8 +108,9 @@ const Marketplace = ({ fetch_nfts, collection_address_devnet }) => {
                     })}
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4">
+                  <div className="flex flex-wrap justify-start align-middle">
                     {/* fetch listed nft here */}
+                    <h2>No Listed NFTs</h2>
                   </div>
                 )}
               </div>

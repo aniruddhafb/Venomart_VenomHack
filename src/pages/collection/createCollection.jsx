@@ -24,7 +24,7 @@ const CreateNFTCollection = ({ signer_address, create_new_collection }) => {
     e.preventDefault();
     await create_new_collection(data);
     set_loading(false);
-    // router.push("/collection/exploreCollections")
+    router.push("/collection/exploreCollections");
   };
 
   return (
