@@ -2,7 +2,8 @@ pragma ever-solidity >= 0.61.2;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "./NFTCollection.sol";
+import "./NFTContract.sol";
+
 pragma AbiHeader pubkey;
 
 contract CollectionFactory  {
@@ -18,90 +19,75 @@ contract CollectionFactory  {
 
      struct Collection{
         uint256 collectionId;
-        string name;
-        string symbol;
-        string description;
-        string image;
-        string logo;
+        string json;
         address owner;
-        NFTCollection collection_address; 
+        address collection_address; 
     }
 
     event CollectionCreated (
         uint256 collectionId,
-        string name,
-        string symbol,
-        string description,
-        string image,
-        string logo,
+        string json,
         address owner,
-        NFTCollection collection_address
+        address collection_address
     );
-
     
     mapping(address => Collection[]) private userToCollections;
     mapping(uint256 => Collection) private idToCollection;
+    uint8 constant value_is_less_than_required = 102;
+    uint128 _remainOnNft = 0.3 ever;
 
     constructor(
         TvmCell _nft_code,
         TvmCell _codeIndex,
         TvmCell _codeIndexBasis,
-        TvmCell _nft_collection_code        
+        TvmCell _nft_collection_code       
     ) public{
         tvm.accept();
+        
         nft_code = _nft_code;
         codeIndex = _codeIndex;
         codeIndexBasis = _codeIndexBasis;
-        _nft_collection_code = _nft_collection_code;
+        nft_collection_code = _nft_collection_code;
         owner = msg.sender;
     }
 
     function create_collection(
-        string json,
-        string  collection_name,
-        string  collection_symbol,
-        string  collection_image,
-        string  collection_logo,
-        string  collection_description
+        uint _state,
+        string _json
     ) public {
+        require(msg.value > _remainOnNft);
+
         uint256 collectionCount = collectionId;
-        
+        tvm.rawReserve(0, 4);
+
         TvmCell stateCol = tvm.buildStateInit({
-            contr: NFTCollection,
-            varInit: {},
+            contr: NFTContract,
+            varInit: {owner: msg.sender},
             code: nft_collection_code
         });
 
-        NFTCollection new_nft_collection = new NFTCollection{    
+        address new_nft_collection = new NFTContract{    
             stateInit: stateCol,
-            value: 1,
-            flag: 1 
-        }(nft_code, codeIndex, codeIndexBasis, json);
+            value: 0,
+            flag: 128
+        }(_state, nft_code, codeIndex, codeIndexBasis, _json);
+
+        // Collection newCollection = Collection(
+        //     collectionId,
+        //     _json,
+        //     msg.sender,
+        //     new_nft_collection
+        // );
 
         emit CollectionCreated(
-            collectionCount,
-            collection_name,
-            collection_symbol,
-            collection_description,
-            collection_image,
-            collection_logo,
-            msg.sender,
-            new_nft_collection
-            );
-        
-        Collection  newCollection = Collection(
-            collectionCount,
-            collection_name,
-            collection_symbol,
-            collection_description,
-            collection_image,
-            collection_logo,
+            collectionId,
+            _json,
             msg.sender,
             new_nft_collection
         );
 
-        userToCollections[msg.sender].push(newCollection);
-        idToCollection[collectionCount] = newCollection;
+        // userToCollections[msg.sender].push(newCollection);
+        // idToCollection[collectionCount] = newCollection;
         collectionId++;        
     }
 
