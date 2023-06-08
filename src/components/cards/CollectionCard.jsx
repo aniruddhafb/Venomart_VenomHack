@@ -6,7 +6,6 @@ const CollectionCard = ({
     Cover,
     Logo,
     Name,
-    Description,
     OwnerAddress,
     CollectionAddress
 }) => {

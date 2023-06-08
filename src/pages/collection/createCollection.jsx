@@ -20,8 +20,11 @@ const CreateNFTCollection = ({ signer_address, create_new_collection }) => {
   };
 
   const handle_submit = async (e) => {
+    set_loading(true);
     e.preventDefault();
-    create_new_collection(data);
+    await create_new_collection(data);
+    set_loading(false);
+    // router.push("/collection/exploreCollections")
   };
 
   return (
