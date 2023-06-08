@@ -309,7 +309,6 @@ export default function App({ Component, pageProps }) {
     init();
     //fetch all collection
     fetch_all_collections();
-    fetch_artists();
   }, []);
 
   // connect event handler
@@ -446,6 +445,23 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const fetch_collection_by_name = async (collection_name) => {
+    try {
+      const res = await axios({
+        url: `${BaseURL}/get_collection_by_name`,
+        method: "POST",
+        data: {
+          collection_name,
+        },
+      });
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
   const get_nfts_by_owner = async (wallet_id) => {
     try {
       const res = await axios({
@@ -569,6 +585,7 @@ export default function App({ Component, pageProps }) {
       </button> */}
       <Component
         {...pageProps}
+        fetch_collection_by_name={fetch_collection_by_name}
         get_nfts_by_collection={get_nfts_by_collection}
         get_nft_by_tokenId={get_nft_by_tokenId}
         get_nfts_by_owner={get_nfts_by_owner}
