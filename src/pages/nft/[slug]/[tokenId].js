@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import testNFT from "../../../public/img1.jpg";
+import testNFT from "../../../../public/img1.jpg";
 import Image from "next/image";
 import Head from "next/head";
 import Loader from "@/components/Loader";
@@ -14,7 +14,7 @@ const NFTPage = ({
   collection_address_devnet,
 }) => {
   const router = useRouter();
-  const { tokenId } = router.query;
+  const { slug, tokenId } = router.query;
 
   const [pageLoading, setPageLoading] = useState(false);
   const [loading, set_loading] = useState(false);

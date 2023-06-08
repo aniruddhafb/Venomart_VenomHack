@@ -11,6 +11,7 @@ const NftCard = ({
   onClickOpen = true,
   listedBool = false,
   listingPrice,
+  collection_address_devnet,
 }) => {
   return (
     <div
@@ -19,7 +20,7 @@ const NftCard = ({
     >
       <div className="relative">
         {onClickOpen == true ? (
-          <Link href={`/nft/${tokenId}`}>
+          <Link href={`/nft/${collection_address_devnet}/${tokenId}`}>
             <Image
               src={ImageSrc}
               height={100}

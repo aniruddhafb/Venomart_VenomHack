@@ -3,7 +3,12 @@ import Head from "next/head";
 import Link from "next/link";
 import NftCard from "@/components/cards/NftCard";
 import { useEffect, useState } from "react";
-export default function Home({ fetch_nfts, loadNFTs, standaloneProvider }) {
+export default function Home({
+  fetch_nfts,
+  loadNFTs,
+  standaloneProvider,
+  collection_address_devnet,
+}) {
   const [nfts, set_nfts] = useState([]);
   useEffect(() => {
     (async () => {
@@ -98,6 +103,7 @@ export default function Home({ fetch_nfts, loadNFTs, standaloneProvider }) {
                   tokenId={e?.tokenId}
                   listedBool={e?.isListed}
                   listingPrice={"0.2"}
+                  collection_address_devnet={collection_address_devnet}
                 />
               );
             })}
