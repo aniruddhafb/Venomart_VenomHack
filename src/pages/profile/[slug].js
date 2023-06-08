@@ -5,12 +5,14 @@ import Image from "next/image";
 import Loader from "@/components/Loader";
 import Head from "next/head";
 import Link from "next/link";
+import NftCard from "@/components/cards/NftCard";
 
 const Profile = ({
   signer_address,
   blockURL,
   get_collection_by_owner,
   get_nfts_by_owner,
+  collection_address_devnet
 }) => {
   const router = useRouter();
   const { slug } = router.query;
@@ -19,14 +21,17 @@ const Profile = ({
 
   const [myNFTsActive, setMyNFTSActive] = useState(true);
   const [my_collections, set_my_collections] = useState([]);
-
   const [nfts, set_nfts] = useState([]);
 
   const fetch_data = async () => {
     const user_collections = await get_collection_by_owner(slug);
     const user_nfts = await get_nfts_by_owner(slug);
-    console.log(user_collections);
-    console.log(user_nfts);
+
+    console.log({ user_collections: user_collections });
+    set_my_collections(user_collections.data);
+
+    console.log({ user_nfts: user_nfts });
+    set_nfts(user_nfts.data);
   };
 
   useEffect(() => {
@@ -162,9 +167,8 @@ const Profile = ({
               onClick={() => setMyNFTSActive(true)}
             >
               <button
-                className={`nav-link ${
-                  myNFTsActive && "active relative"
-                } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-400 hover:text-jacarta-700 dark:hover:text-white`}
+                className={`nav-link ${myNFTsActive && "active relative"
+                  } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-400 hover:text-jacarta-700 dark:hover:text-white`}
                 type="button"
               >
                 <svg
@@ -190,9 +194,8 @@ const Profile = ({
               onClick={() => setMyNFTSActive(false)}
             >
               <button
-                className={`nav-link ${
-                  !myNFTsActive && "active relative"
-                } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-400 hover:text-jacarta-700 dark:hover:text-white`}
+                className={`nav-link ${!myNFTsActive && "active relative"
+                  } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-400 hover:text-jacarta-700 dark:hover:text-white`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -222,13 +225,33 @@ const Profile = ({
                   role="tabpanel"
                   aria-labelledby="on-sale-tab"
                 >
-                  <div className="grid grid-cols-1 gap-[2rem] md:grid-cols-3 lg:grid-cols-4">
-                    {/* loop here  */}
+                  <div className="flex flex-wrap justify-center align-middle mt-[-80px]">
+                    {nfts.map((e, index) => {
+                      const nft_info = JSON.parse(e.json);
+                      return (
+                        <NftCard
+                          key={index}
+                          ImageSrc={nft_info.nft_image?.replace(
+                            "ipfs://",
+                            "https://gateway.ipfscdn.io/ipfs/"
+                          )}
+                          Name={nft_info?.name}
+                          Description={nft_info?.description}
+                          Address={nft_info?.collection}
+                          tokenId={e?.tokenId}
+                          listedBool={e?.isListed}
+                          listingPrice={"0.2"}
+                          collection_address_devnet={collection_address_devnet}
+                        />
+                      );
+                    })}
                   </div>
                   <div className="flex justify-center">
-                    <h2 className="text-xl font-display font-thin">
-                      No NFTs to show!
-                    </h2>
+                    {nfts.length <= 0 &&
+                      <h2 className="text-xl font-display font-thin">
+                        No NFTs to show!
+                      </h2>
+                    }
                   </div>
                 </div>
               </div>

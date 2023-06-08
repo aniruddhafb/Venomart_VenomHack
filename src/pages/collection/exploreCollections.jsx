@@ -40,7 +40,7 @@ const TopCollections = ({
 
             {/* loop collections here  */}
             <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-3 lg:grid-cols-4">
-              {collections?.map((e, index) => {
+              {/* {collections?.map((e, index) => {
                 const collection_info = JSON.parse(e.json);
                 return (
                   <CollectionCard
@@ -52,7 +52,7 @@ const TopCollections = ({
                     OwnerAddress={collection_info.owner}
                   />
                 );
-              })}
+              })} */}
             </div>
           </div>
         </section>
