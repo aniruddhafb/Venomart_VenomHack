@@ -6,9 +6,7 @@ import { ThirdwebStorage } from "@thirdweb-dev/storage";
 import { v4 as uuidv4 } from "uuid";
 import User from "../models/User";
 import dbConnect from "@/lib/dbConnect";
-
 // import { toNano } from "locklift";
-// import {} from ""
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
@@ -28,7 +26,10 @@ import mongoose from "mongoose";
 // import { toNano } from "locklift";
 
 export default function App({ Component, pageProps }) {
-  const BaseURL = "http://localhost:3000/api";
+
+  const BaseURL = "https://venomart.space/api";
+  // const BaseURL = "http://localhost:3000/api";
+
   const blockURL = "https://testnet.venomscan.com/";
   const storage = new ThirdwebStorage();
 
