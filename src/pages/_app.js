@@ -70,7 +70,10 @@ export default function App({ Component, pageProps }) {
   const create_nft = async (data) => {
     console.log(data);
     try {
-      const ipfs_image = await storage.upload(data.image);
+      const ipfs_image =
+        typeof data.image == "string"
+          ? data.image
+          : await storage.upload(data.image);
 
       const nft_json = JSON.stringify({
         type: "Basic NFT",
@@ -151,37 +154,6 @@ export default function App({ Component, pageProps }) {
       //     tokenId: tokenId
       //   },
       // });
-    } catch (error) {
-      alert(error.message);
-      console.log(error.message);
-    }
-  };
-
-  const create_launchpad = async (data) => {
-    console.log("fun called");
-    const ipfs_logo = await storage.upload(data.logo);
-    const ipfs_coverImage = await storage.upload(data.coverImage);
-    try {
-      const res = await axios({
-        url: `${BaseURL}/launchpad`,
-        method: "POST",
-        data: {
-          logo: ipfs_logo,
-          coverImage: ipfs_coverImage,
-          name: data.name,
-          description: data.description,
-          address: data.address,
-          max_supply: data.max_supply,
-          mint_price: data.mint_price,
-          json: data.json,
-          start_date: data.start_date,
-          email: data.email,
-          isActive: data.isActive,
-        },
-      });
-
-      console.log(res.data);
-      return res.data;
     } catch (error) {
       alert(error.message);
       console.log(error.message);
@@ -561,6 +533,64 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const get_launchpad_by_address = async (address) => {
+    try {
+      const res = await axios({
+        url: `${BaseURL}/get_launchpad_by_address`,
+        method: "POST",
+        data: {
+          address,
+        },
+      });
+
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
+  const create_launchpad = async (data) => {
+    console.log("fun called");
+    const ipfs_logo = await storage.upload(data.logo);
+    const ipfs_coverImage = await storage.upload(data.coverImage);
+    try {
+      const res = await axios({
+        url: `${BaseURL}/launchpad`,
+        method: "POST",
+        data: {
+          logo: ipfs_logo,
+          coverImage: ipfs_coverImage,
+          name: data.name,
+          description: data.description,
+          address: data.address,
+          max_supply: data.max_supply,
+          mint_price: data.mint_price,
+          json: data.json,
+          start_date: data.start_date,
+          email: data.email,
+          isActive: data.isActive,
+        },
+      });
+
+      const collection_data = {
+        image: data.coverImage,
+        logo: data.logo,
+        collection_address: data.address,
+        name: data.name,
+        description: data.desccription,
+      };
+
+      create_new_collection(collection_data);
+
+      return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
   //COLLECTION FACTORY
   const create_new_collection = async (data) => {
     const contract = new venomProvider.Contract(
@@ -580,10 +610,11 @@ export default function App({ Component, pageProps }) {
         cover_image: cover_ips,
         logo: logo_ipfs,
         name: data.name,
-        symbol: data.symbol,
+        symbol: data.symbol || "",
         description: data.description,
       },
     });
+    console.log(res.data);
   };
 
   const get_collection_info_by_id = async (collection_id) => {
@@ -715,6 +746,7 @@ export default function App({ Component, pageProps }) {
       </button> */}
       <Component
         {...pageProps}
+        get_launchpad_by_address={get_launchpad_by_address}
         fetch_launchpads={fetch_launchpads}
         create_launchpad={create_launchpad}
         buy_nft={buy_nft}
