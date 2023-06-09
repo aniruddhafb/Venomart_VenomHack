@@ -7,17 +7,17 @@ import { BsFillExclamationCircleFill } from "react-icons/bs";
 import Head from "next/head";
 import Loader from "@/components/Loader";
 
-const Collection = ({ signer_address, get_nfts_by_collection }) => {
+const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
   const router = useRouter();
-
-  //GET COLLECTION NAME IN SLUG
   const { slug } = router.query;
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const nfts = await get_nfts_by_collection("shravan collection");
-      console.log(nfts);
+      const collection_info = await get_collection_info_by_id(slug);
+      const nfts = await get_nfts_by_collection(slug);
+      console.log({ nfts: nfts });
+      console.log({ collection_info: collection_info });
     })();
   }, []);
 

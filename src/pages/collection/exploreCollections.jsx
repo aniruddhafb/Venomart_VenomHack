@@ -44,7 +44,8 @@ const TopCollections = ({ standaloneProvider, fetch_all_collections }) => {
                     Cover={e.coverImage}
                     Logo={e.logo}
                     CollectionAddress={e.collection_address}
-                    OwnerAddress={e.owner}
+                    OwnerAddress={e.owner.wallet_id}
+                    collection_id={e._id}
                   />
                 );
               })}

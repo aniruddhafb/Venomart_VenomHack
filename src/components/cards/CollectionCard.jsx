@@ -68,7 +68,7 @@ const CollectionCard = ({
           {!OwnerAddress == "" ? (
             <Link href={`/profile/${OwnerAddress}`} className="text-[#189C87]">
               <span>
-                {/* {OwnerAddress.slice(0, 5) + "..." + OwnerAddress.slice(38)} */}
+                {OwnerAddress.slice(0, 5) + "..." + OwnerAddress.slice(62)}
               </span>
             </Link>
           ) : (

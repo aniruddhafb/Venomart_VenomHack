@@ -7,7 +7,7 @@ import Head from "next/head";
 const CreateNFT = ({
   collection_address_devnet,
   create_nft,
-  get_collection_by_owner,
+  get_collections_by_owner,
   signer_address,
 }) => {
   const router = useRouter();
@@ -60,7 +60,7 @@ const CreateNFT = ({
   useEffect(() => {
     (async () => {
       if (!signer_address) return;
-      const collections = await get_collection_by_owner(signer_address);
+      const collections = await get_collections_by_owner(signer_address);
       console.log(collections);
       set_user_collections(collections);
     })();
