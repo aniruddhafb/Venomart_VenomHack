@@ -9,11 +9,32 @@ import Loader from "@/components/Loader";
 const launch = ({
     blockURL,
     collection_address_devnet,
+    get_launchpad_by_address,
+    create_nft
 }) => {
     const router = useRouter();
     const { slug } = router.query;
 
     const [loading, setLoading] = useState(false);
+    const [collectionInfo, setCollectionInfo] = useState("");
+
+    const createNFT = async (data) => {
+        setLoading(true);
+        const createNF = await create_nft(data);
+        console.log({ createNF: createNF })
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        (async () => {
+            if (!slug) return;
+            setLoading(true);
+            const getCollectionInfo = await get_launchpad_by_address(slug);
+            console.log(getCollectionInfo.data);
+            setCollectionInfo(getCollectionInfo.data);
+            setLoading(false);
+        })();
+    }, [slug]);
 
     return (
         <>
@@ -71,13 +92,13 @@ const launch = ({
                                 </div>
 
                                 <h2 className="mb-2 mt-2 font-display text-4xl font-medium text-jacarta-700 dark:text-white">
-                                    Col name
+                                    {collectionInfo?.name}
                                 </h2>
                                 <div className="mb-4"></div>
 
                                 {/* desc  */}
                                 <p className="mx-auto mb-14 max-w-xl text-lg dark:text-jacarta-300">
-                                    Desc
+                                    {collectionInfo?.description}
                                 </p>
 
                                 {/* <div className="mb-8 inline-flex items-center justify-center rounded-xl border border-[#189C87] bg-transparent py-1.5 px-4 dark:border-jacarta-600 dark:bg-jacarta-700">
@@ -128,7 +149,7 @@ const launch = ({
                                 </div>
 
                                 <div className="mb-8">
-                                    <button className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
+                                    <button onClick={() => createNFT("https://ipfs.io/ipfs/QmPgdfAeXTazC9xdKAXhmZa9hUY6jrhNP4YvwB7ZSvbauH/1.json")} className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
                                         Mint NFT
                                     </button>
                                 </div>
