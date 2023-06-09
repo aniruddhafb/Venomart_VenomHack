@@ -12,8 +12,8 @@ export default async function handler(req, res) {
   switch (method) {
     case "POST":
       try {
-        const { launchpad_id } = req.body;
-        const launchpad = await Launchpad.findById(launchpad_id);
+        const { address } = req.body;
+        const launchpad = await Launchpad.findOne({ address });
         if (!launchpad)
           return res
             .status(400)

@@ -533,13 +533,13 @@ export default function App({ Component, pageProps }) {
     }
   };
 
-  const get_launchpad_byId = async (launchpad_id) => {
+  const get_launchpad_by_address = async (address) => {
     try {
       const res = await axios({
-        url: `${BaseURL}/get_launchpad_by_id`,
+        url: `${BaseURL}/get_launchpad_by_address`,
         method: "POST",
         data: {
-          launchpad_id,
+          address,
         },
       });
 
@@ -746,7 +746,7 @@ export default function App({ Component, pageProps }) {
       </button> */}
       <Component
         {...pageProps}
-        get_launchpad_byId={get_launchpad_byId}
+        get_launchpad_by_address={get_launchpad_by_address}
         fetch_launchpads={fetch_launchpads}
         create_launchpad={create_launchpad}
         buy_nft={buy_nft}
