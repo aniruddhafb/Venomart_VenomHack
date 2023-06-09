@@ -13,7 +13,8 @@ const Profile = ({
   blockURL,
   get_collection_by_owner,
   get_nfts_by_owner,
-  collection_address_devnet
+  collection_address_devnet,
+  create_user
 }) => {
   const router = useRouter();
   const { slug } = router.query;
@@ -25,20 +26,23 @@ const Profile = ({
   const [nfts, set_nfts] = useState([]);
 
   const fetch_data = async () => {
+
+    set_loading(true);
+    const user_details = await create_user({ wallet_id: signer_address });
     const user_collections = await get_collection_by_owner(slug);
     const user_nfts = await get_nfts_by_owner(slug);
-
-    console.log({ user_collections: user_collections });
+    set_user_data(user_details.user);
     set_my_collections(user_collections.data);
-
-    console.log({ user_nfts: user_nfts });
     set_nfts(user_nfts.data);
+    set_loading(false);
+
   };
 
   useEffect(() => {
     if (!slug) return;
     fetch_data();
   }, [slug]);
+
   return loading ? (
     <Loader />
   ) : (
@@ -96,7 +100,7 @@ const Profile = ({
                   <span>{slug}</span>
                 </a>
               </div>
-              <h2 className=" mb-2 font-display text-4xl font-medium text-jacarta-700 dark:text-white">
+              <h2 className=" mb-2 font-display text-4xl font-medium text-white dark:text-white">
                 {user_data?.user_name}
               </h2>
 
