@@ -31,9 +31,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
       })
       .then((response) => {
         SetExplorerLog(response.data);
-        const balance = parseFloat(response.data.balance / 1000000000).toFixed(
-          2
-        );
+        const balance = parseFloat(response.data.balance / 1000000000).toFixed(2);
         setVnmBalance(balance);
       });
   }, [signer_address]);

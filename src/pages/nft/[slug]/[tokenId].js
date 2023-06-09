@@ -26,16 +26,23 @@ const NFTPage = ({
   const [listingPrice, set_listing_price] = useState(0);
   const [nft, set_nft_info] = useState({});
 
+  const balance = parseFloat(nft?.listingPrice / 1000000000).toFixed(2);
+
+
   const sell_user_nft = async (e) => {
     set_loading(true);
     e.preventDefault();
     if (listingPrice < 0) alert("Please give a valid listing price");
     await sell_nft(nft.nft_address, tokenId, listingPrice);
     set_loading(false);
+    router.reload();
   };
 
   const purchase_nft = async () => {
+    set_loading(true);
     await buy_nft(tokenId);
+    set_loading(false);
+    router.reload();
   };
 
   useEffect(() => {
@@ -128,9 +135,9 @@ const NFTPage = ({
                           src={
                             nft?.owner?.profileImage
                               ? nft?.owner?.profileImage.replace(
-                                  "ipfs://",
-                                  "https://gateway.ipfscdn.io/ipfs/"
-                                )
+                                "ipfs://",
+                                "https://gateway.ipfscdn.io/ipfs/"
+                              )
                               : testNFT
                           }
                           height={40}
@@ -175,29 +182,16 @@ const NFTPage = ({
                 {/* -------------------------- all action buttons start ------------------------  */}
                 {/* <!-- list nft --> */}
                 {listSale == false ? (
-                  nft?.owner?.wallet_id === signer_address && (
+                  nft?.isListed == false && nft?.owner?.wallet_id == signer_address && (
                     <div className="rounded-2lg  border-jacarta-100 bg-transparent p-8 dark:border-jacarta-600 dark:bg-jacarta-700">
-                      {nft?.chainId == chainIdMain ? (
-                        <button
-                          onClick={() => setListSale(true)}
-                          href="#"
-                          type="button"
-                          className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
-                        >
-                          List For Sale
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() =>
-                            alert("Please switch to respective chain")
-                          }
-                          type="button"
-                          href="#"
-                          className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
-                        >
-                          List For Sale
-                        </button>
-                      )}
+                      <button
+                        onClick={() => setListSale(true)}
+                        href="#"
+                        type="button"
+                        className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
+                      >
+                        List For Sale
+                      </button>
                     </div>
                   )
                 ) : (
@@ -311,7 +305,7 @@ const NFTPage = ({
                 )}
 
                 {/* buy now section  */}
-                {nft?.isListed && nft?.onwer?.wallet_id !== signer_address && (
+                {nft?.isListed == true && nft?.owner?.wallet_id !== signer_address && (
                   <div className="rounded-2lg border-jacarta-100 bg-transparent p-8 dark:border-jacarta-600 dark:bg-jacarta-700">
                     <div className="mb-8 sm:flex sm:flex-wrap">
                       <div className="sm:w-1/2 sm:pr-4 lg:pr-8">
@@ -324,12 +318,12 @@ const NFTPage = ({
                           <div>
                             <div className="flex items-center whitespace-nowrap">
                               <span className="text-lg font-medium leading-tight tracking-tight text-green">
-                                {nft?.listingPrice ? nft?.listingPrice : "0.00"}{" "}
+                                {nft?.listingPrice ? balance : "0.00"}{" "}
                               </span>
-                              <span className="text-[19px] text-jacarta-700 ml-2">
+                              <span className="text-[19px] text-white ml-2">
                                 {nft?.chain_symbol
                                   ? nft?.chain_symbol
-                                  : "MATIC"}
+                                  : "DVENOM"}
                               </span>
                             </div>
                           </div>
@@ -387,27 +381,16 @@ const NFTPage = ({
                 )}
 
                 {/* <!-- cancel nft sale --> */}
-                {nft?.seller == signer_address && nft?.isListed == true && (
+                {nft?.owner?.wallet_id == signer_address && nft?.isListed == true && (
                   <div className="rounded-2lg  border-jacarta-100 bg-transparent p-8 dark:border-jacarta-600 dark:bg-jacarta-700">
-                    {nft?.chainId == chainIdMain ? (
-                      <button
-                        type="button"
-                        onClick={() => cancelListingToken(slug, tokenId)}
-                        className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
-                      >
-                        Cancel Sale
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() =>
-                          alert("Please switch to respective chain")
-                        }
-                        className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
-                      >
-                        Cancel Sale
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      // onClick={() => cancelListingToken(slug, tokenId)}
+                      onClick={() => alert("Currently you dont have the permission to cancel sale!!")}
+                      className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
+                    >
+                      Cancel Sale
+                    </button>
                   </div>
                 )}
 
@@ -439,10 +422,9 @@ const NFTPage = ({
                     onClick={() => setPropShow(true)}
                   >
                     <button
-                      className={` ${
-                        propShow &&
+                      className={` ${propShow &&
                         "text-[#189C87] active relative border-b-2 border-b-[#189C87]"
-                      } flex items-center whitespace-nowrap py-3 px-6  hover:text-jacarta-200`}
+                        } flex items-center whitespace-nowrap py-3 px-6  hover:text-jacarta-200`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -467,10 +449,9 @@ const NFTPage = ({
                     onClick={() => setPropShow(false)}
                   >
                     <button
-                      className={`${
-                        !propShow &&
+                      className={`${!propShow &&
                         "text-[#189C87] active relative border-b-2 border-b-[#189C87]"
-                      } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-200`}
+                        } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-200`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
