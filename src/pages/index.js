@@ -17,7 +17,7 @@ export default function Home({
     (async () => {
       const nfts = await fetch_nfts();
       const collections = await fetch_all_collections();
-      console.log(collections);
+      console.log(nfts);
       if (!nfts) return;
       set_nfts(nfts.data);
       setCollections(collections);

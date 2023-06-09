@@ -7,22 +7,25 @@ import { BsFillExclamationCircleFill } from "react-icons/bs";
 import Head from "next/head";
 import Loader from "@/components/Loader";
 
-const Collection = ({ get_nfts_by_collection, get_collection_info_by_id, blockURL }) => {
+const Collection = ({ get_nfts_by_collection, get_collection_info_by_id, blockURL, collection_address_devnet }) => {
 
   const router = useRouter();
   const { slug } = router.query;
 
   const [loading, setLoading] = useState(false);
   const [collection_data, set_collection_data] = useState();
+  const [nft_data, set_nft_data] = useState();
 
   useEffect(() => {
     (async () => {
       if (!slug) return;
       setLoading(true);
-      const nfts = await get_nfts_by_collection(slug);
       const collection_info = await get_collection_info_by_id(slug);
       set_collection_data(collection_info.data);
-      console.log({ collection_data: collection_data })
+
+      const nfts = await get_nfts_by_collection(collection_info.data.name);
+      set_nft_data(nfts.data);
+      console.log(nfts.data)
       setLoading(false);
     })();
   }, [slug]);
@@ -104,7 +107,7 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id, blockUR
                     className="w-1/2 rounded-l-xl border-r border-jacarta-100 py-4 hover:shadow-md dark:border-jacarta-600 sm:w-32"
                   >
                     <div className="mb-1 text-base font-bold text-jacarta-700 dark:text-white">
-                      {collection_data?.nfts?.length}
+                      {nft_data?.length}
                     </div>
                     <div className="text-2xs font-medium tracking-tight dark:text-jacarta-400">
                       Items
@@ -151,7 +154,7 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id, blockUR
           </section>
 
           {/* nft section  */}
-          <section className="relative py-24 pt-20">
+          <section className="relative py-24 pt-20" style={{ backgroundColor: "#080808" }}>
             <div className="container">
               <div className="tab-content">
                 <div
@@ -161,31 +164,32 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id, blockUR
                   aria-labelledby="on-sale-tab"
                 >
                   <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4">
-                    {/* {nfts?.map((e, index) => {
-                                            return (
-                                                <NftCard
-                                                    key={index}
-                                                    ImageSrc={e.ipfsData.image.replace(
-                                                        "ipfs://",
-                                                        "https://gateway.ipfscdn.io/ipfs/"
-                                                    )}
-                                                    Name={e.ipfsData.name}
-                                                    Description={e.ipfsData.description}
-                                                    Address={e.ipfsData.collection}
-                                                    tokenId={e.tokenId}
-                                                    listedBool={e.isListed}
-                                                    listingPrice={e.listingPrice}
-                                                    chainImgPre={"../"}
-                                                    chain_image={e.chain_image}
-                                                    chain_symbol={e.chain_symbol}
-                                                />
-                                            );
-                                        })} */}
+                    {nft_data?.map((e, index) => {
+                      const nft_info = JSON.parse(e.json);
+                      return (
+                        <NftCard
+                          key={index}
+                          ImageSrc={nft_info.nft_image?.replace(
+                            "ipfs://",
+                            "https://gateway.ipfscdn.io/ipfs/"
+                          )}
+                          Name={nft_info?.name}
+                          Description={nft_info?.description}
+                          Address={nft_info?.nft_collection}
+                          tokenId={e?.tokenId}
+                          listedBool={e?.isListed}
+                          listingPrice={"0.2"}
+                          collection_address_devnet={collection_address_devnet}
+                        />
+                      );
+                    })}
                   </div>
                   <div className="flex justify-center">
-                    <h2 className="text-xl font-display font-thin">
-                      This collection has no NFTs !!
-                    </h2>
+                    {nft_data?.length <= 0 &&
+                      <h2 className="text-xl font-display font-thin">
+                        This collection has no NFTs !!
+                      </h2>
+                    }
                   </div>
                 </div>
               </div>
