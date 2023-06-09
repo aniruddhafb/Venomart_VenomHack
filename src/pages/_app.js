@@ -157,6 +157,50 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const create_launchpad = async (data) => {
+    console.log("fun called");
+    const ipfs_logo = await storage.upload(data.logo);
+    const ipfs_coverImage = await storage.upload(data.coverImage);
+    try {
+      const res = await axios({
+        url: `${BaseURL}/launchpad`,
+        method: "POST",
+        data: {
+          logo: ipfs_logo,
+          coverImage: ipfs_coverImage,
+          name: data.name,
+          description: data.description,
+          address: data.address,
+          max_supply: data.max_supply,
+          mint_price: data.mint_price,
+          json: data.json,
+          start_date: data.start_date,
+          email: data.email,
+          isActive: data.isActive,
+        },
+      });
+
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
+  const fetch_launchpads = async () => {
+    try {
+      const res = await axios({
+        url: `${BaseURL}/launchpad`,
+        method: "GET",
+      });
+      return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
   const fetch_nfts = async (data) => {
     try {
       const res = await axios({
@@ -671,6 +715,8 @@ export default function App({ Component, pageProps }) {
       </button> */}
       <Component
         {...pageProps}
+        fetch_launchpads={fetch_launchpads}
+        create_launchpad={create_launchpad}
         buy_nft={buy_nft}
         sell_nft={sell_nft}
         fetch_collection_by_name={fetch_collection_by_name}
