@@ -132,7 +132,7 @@ export default function Home({
                   Cover={e.coverImage}
                   Logo={e.logo}
                   CollectionAddress={e.collection_address}
-                  OwnerAddress={e.owner}
+                  OwnerAddress={e.owner.wallet_id}
                   collection_id={e._id}
                 />
               );

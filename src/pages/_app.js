@@ -504,13 +504,29 @@ export default function App({ Component, pageProps }) {
     });
   };
 
-  const get_collection_by_owner = async (user_id) => {
+  const get_collection_info_by_id = async (user_id) => {
     try {
       const res = await axios({
         url: `${BaseURL}/get_collection_owner`,
         method: "POST",
         data: {
           wallet_address: user_id,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
+  const get_collections_by_owner = async (signer_address) => {
+    try {
+      const res = await axios({
+        url: `${BaseURL}/get_collection_owner`,
+        method: "POST",
+        data: {
+          wallet_address: signer_address,
         },
       });
       return res.data;
@@ -601,7 +617,8 @@ export default function App({ Component, pageProps }) {
         get_nft_by_tokenId={get_nft_by_tokenId}
         get_nfts_by_owner={get_nfts_by_owner}
         fetch_all_collections={fetch_all_collections}
-        get_collection_by_owner={get_collection_by_owner}
+        get_collections_by_owner={get_collections_by_owner}
+        get_collection_info_by_id={get_collection_info_by_id}
         create_new_collection={create_new_collection}
         fetch_nfts={fetch_nfts}
         loadNFTs={loadNFTs}

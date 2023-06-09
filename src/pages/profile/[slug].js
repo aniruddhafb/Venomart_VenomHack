@@ -11,7 +11,7 @@ import CollectionCard from "@/components/cards/CollectionCard";
 const Profile = ({
   signer_address,
   blockURL,
-  get_collection_by_owner,
+  get_collections_by_owner,
   get_nfts_by_owner,
   collection_address_devnet,
   create_user
@@ -28,8 +28,8 @@ const Profile = ({
   const fetch_data = async () => {
 
     set_loading(true);
-    const user_details = await create_user({ wallet_id: signer_address });
-    const user_collections = await get_collection_by_owner(slug);
+    const user_details = await create_user({ wallet_id: slug });
+    const user_collections = await get_collections_by_owner(slug);
     const user_nfts = await get_nfts_by_owner(slug);
     set_user_data(user_details.user);
     set_my_collections(user_collections.data);
@@ -282,7 +282,8 @@ const Profile = ({
                           Cover={e.coverImage}
                           Logo={e.logo}
                           CollectionAddress={e.collection_address}
-                          OwnerAddress={e.owner}
+                          OwnerAddress={e.owner.wallet_id}
+                          collection_id={e._id}
                         />
                       );
                     })}
