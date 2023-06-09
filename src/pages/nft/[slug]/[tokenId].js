@@ -13,6 +13,7 @@ const NFTPage = ({
   get_nft_by_tokenId,
   blockURL,
   sell_nft,
+  buy_nft,
 }) => {
   const router = useRouter();
   const { slug, tokenId } = router.query;
@@ -31,6 +32,10 @@ const NFTPage = ({
     if (listingPrice < 0) alert("Please give a valid listing price");
     await sell_nft(nft.nft_address, tokenId, listingPrice);
     set_loading(false);
+  };
+
+  const purchase_nft = async () => {
+    await buy_nft(tokenId);
   };
 
   useEffect(() => {
@@ -360,9 +365,7 @@ const NFTPage = ({
                         {nft?.chainId == chainIdMain ? (
                           <button
                             type="button"
-                            onClick={() =>
-                              buyNFT(tokenId, slug, nft?.listingPrice)
-                            }
+                            onClick={() => buy_nft(tokenId)}
                             className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                           >
                             Buy Now
@@ -535,7 +538,9 @@ const NFTPage = ({
                             target="_blank"
                             className="text-[#189C87] hover:text-[#189C87]"
                           >
-                            {nft?.nft_address.slice(0, 7) + "..." + nft?.nft_address.slice(58)}
+                            {nft?.nft_address.slice(0, 7) +
+                              "..." +
+                              nft?.nft_address.slice(58)}
                           </a>
                         </div>
                         <div className="mb-2 flex items-center">
