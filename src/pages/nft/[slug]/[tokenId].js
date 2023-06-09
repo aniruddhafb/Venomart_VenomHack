@@ -93,7 +93,7 @@ const NFTPage = ({
                       href={`/collection/${nft?.nft_collection}`}
                       className="mr-2 text-sm font-bold text-[#189C87]"
                     >
-                      Default Collection
+                      View Collection
                     </Link>
                     <MdVerified
                       style={{ color: "#4f87ff", marginLeft: "-4px" }}
@@ -121,9 +121,9 @@ const NFTPage = ({
                           src={
                             nft?.owner?.profileImage
                               ? nft?.owner?.profileImage.replace(
-                                  "ipfs://",
-                                  "https://gateway.ipfscdn.io/ipfs/"
-                                )
+                                "ipfs://",
+                                "https://gateway.ipfscdn.io/ipfs/"
+                              )
                               : testNFT
                           }
                           height={40}
@@ -436,10 +436,9 @@ const NFTPage = ({
                     onClick={() => setPropShow(true)}
                   >
                     <button
-                      className={` ${
-                        propShow &&
+                      className={` ${propShow &&
                         "text-[#189C87] active relative border-b-2 border-b-[#189C87]"
-                      } flex items-center whitespace-nowrap py-3 px-6  hover:text-jacarta-200`}
+                        } flex items-center whitespace-nowrap py-3 px-6  hover:text-jacarta-200`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -464,10 +463,9 @@ const NFTPage = ({
                     onClick={() => setPropShow(false)}
                   >
                     <button
-                      className={`${
-                        !propShow &&
+                      className={`${!propShow &&
                         "text-[#189C87] active relative border-b-2 border-b-[#189C87]"
-                      } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-200`}
+                        } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-200`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
