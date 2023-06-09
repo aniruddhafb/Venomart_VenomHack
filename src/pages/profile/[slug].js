@@ -6,6 +6,7 @@ import Loader from "@/components/Loader";
 import Head from "next/head";
 import Link from "next/link";
 import NftCard from "@/components/cards/NftCard";
+import CollectionCard from "@/components/cards/CollectionCard";
 
 const Profile = ({
   signer_address,
@@ -268,13 +269,26 @@ const Profile = ({
                   role="tabpanel"
                   aria-labelledby="on-sale-tab"
                 >
-                  <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-3 lg:grid-cols-4">
-                    {/* loop here  */}
+                  <div className="flex flex-wrap justify-center align-middle mt-[-80px]">
+                    {my_collections?.map((e, index) => {
+                      return (
+                        <CollectionCard
+                          key={index}
+                          Name={e.name}
+                          Cover={e.coverImage}
+                          Logo={e.logo}
+                          CollectionAddress={e.collection_address}
+                          OwnerAddress={e.owner}
+                        />
+                      );
+                    })}
                   </div>
                   <div className="flex justify-center">
-                    <h2 className="text-xl font-display font-thin">
-                      No Collections to show!
-                    </h2>
+                    {my_collections.length <= 0 &&
+                      <h2 className="text-xl font-display font-thin">
+                        No Collections to show!
+                      </h2>
+                    }
                   </div>
                 </div>
               </div>

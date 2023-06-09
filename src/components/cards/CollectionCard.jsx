@@ -10,7 +10,7 @@ const CollectionCard = ({
     CollectionAddress
 }) => {
     return (
-        <div className="relative rounded-2.5xl border border-[#189C87] bg-transparent p-[1.1875rem] transition-shadow hover:shadow-lg dark:border-jacarta-700 dark:bg-jacarta-700 h-[290px] overflow-hidden">
+        <div className="relative rounded-2.5xl border border-[#189C87] bg-transparent p-[1.1875rem] transition-shadow hover:shadow-lg h-[290px] overflow-hidden" style={{ maxWidth: "350px", margin: "20px", height: "auto", width: "100%", overflow: "hidden" }}>
             <Link
                 href={`/collection/${CollectionAddress}`}
                 className="relative flex space-x-[0.625rem]"
@@ -40,7 +40,7 @@ const CollectionCard = ({
             <div className="flex">
                 <Link
                     href={`/collection/${CollectionAddress}`}
-                    className=" mt-8 font-display text-[22px] text-jacarta-700 hover:text-[#189C87] dark:text-white dark:hover:text-accent"
+                    className=" mt-8 font-display text-[22px] text-jacarta-700 hover:text-[#189C87] dark:text-white dark:hover:text-[#189C87]"
                     style={{
                         width: "180px",
                         whiteSpace: "nowrap",

@@ -35,7 +35,7 @@ const TopCollections = ({ standaloneProvider, fetch_all_collections }) => {
             </h1>
 
             {/* loop collections here  */}
-            <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-3 lg:grid-cols-4">
+            <div className="flex flex-wrap justify-center align-middle">
               {collections?.map((e, index) => {
                 return (
                   <CollectionCard
