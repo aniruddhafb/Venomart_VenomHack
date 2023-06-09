@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const collections = await Collection.find();
+        const collections = await Collection.find().populate("owner");
         return res.status(200).json({ success: true, data: collections });
       } catch (error) {
         res.status(400).json({ success: false, data: error.message });

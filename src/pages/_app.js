@@ -445,13 +445,13 @@ export default function App({ Component, pageProps }) {
     }
   };
 
-  const fetch_collection_by_name = async (collection_name) => {
+  const fetch_collection_by_name = async (collection_id) => {
     try {
       const res = await axios({
         url: `${BaseURL}/get_collection_by_name`,
         method: "POST",
         data: {
-          collection_name,
+          collection_id,
         },
       });
       console.log(res.data);

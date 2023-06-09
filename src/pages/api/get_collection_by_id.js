@@ -9,8 +9,10 @@ export default async function handler(req, res) {
   switch (method) {
     case "POST":
       try {
-        const { collection_name } = req.body;
-        const collection = await Collection.findOne({ name: collection_name });
+        const { collection_id } = req.body;
+        const collection = await Collection.findById(collection_id).populate(
+          "owner"
+        );
         return res.status(200).json({ success: true, data: collection });
       } catch (error) {
         res.status(400).json({ success: false, data: error.message });

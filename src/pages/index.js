@@ -8,9 +8,8 @@ export default function Home({
   loadNFTs,
   standaloneProvider,
   collection_address_devnet,
-  fetch_all_collections
+  fetch_all_collections,
 }) {
-
   const [nfts, set_nfts] = useState([]);
   const [collections, setCollections] = useState([]);
 
@@ -18,6 +17,7 @@ export default function Home({
     (async () => {
       const nfts = await fetch_nfts();
       const collections = await fetch_all_collections();
+      console.log(collections);
       if (!nfts) return;
       set_nfts(nfts.data);
       setCollections(collections);
@@ -133,6 +133,7 @@ export default function Home({
                   Logo={e.logo}
                   CollectionAddress={e.collection_address}
                   OwnerAddress={e.owner}
+                  collection_id={e._id}
                 />
               );
             })}
