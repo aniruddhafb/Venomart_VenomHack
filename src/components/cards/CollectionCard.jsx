@@ -49,7 +49,7 @@ const CollectionCard = ({
 
       <div className="flex">
         <Link
-          href={`/collection/${CollectionAddress}`}
+          href={`/collection/${collection_id}`}
           className=" mt-8 font-display text-[22px] text-jacarta-700 hover:text-[#189C87] dark:text-white dark:hover:text-[#189C87]"
           style={{
             width: "180px",

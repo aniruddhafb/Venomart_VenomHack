@@ -25,9 +25,9 @@ const Collection = ({
       if (!slug) return;
       setLoading(true);
       const collection_info = await get_collection_info_by_id(slug);
-      set_collection_data(collection_info.data);
+      set_collection_data(collection_info?.data);
 
-      const nfts = await get_nfts_by_collection(collection_info.data.name);
+      const nfts = await get_nfts_by_collection(collection_info?.data?.name);
       set_nft_data(nfts.data);
       console.log(nfts.data);
       setLoading(false);
