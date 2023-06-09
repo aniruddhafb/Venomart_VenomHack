@@ -77,6 +77,7 @@ const NFTPage = ({
         <section
           className="relative pt-12 pb-24 lg:py-24"
           style={{ paddingTop: "160px" }}
+          id="heroBack"
         >
           <div className="container">
             <div className="md:flex md:flex-wrap">
