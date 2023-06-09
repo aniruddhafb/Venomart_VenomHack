@@ -34,10 +34,12 @@ const NFTPage = ({
     if (listingPrice < 0) alert("Please give a valid listing price");
     await sell_nft(nft.nft_address, tokenId, listingPrice);
     set_loading(false);
-    router.reload();
+    setTimeout(() => {
+      router.reload();
+    }, 1000);
   };
 
-  const purchase_nft = async () => {
+  const purchase_nft = async (tokenId) => {
     set_loading(true);
     await buy_nft(tokenId);
     set_loading(false);
@@ -355,25 +357,13 @@ const NFTPage = ({
                       </button>
                     ) : (
                       <>
-                        {nft?.chainId == chainIdMain ? (
-                          <button
-                            type="button"
-                            onClick={() => buy_nft(tokenId)}
-                            className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
-                          >
-                            Buy Now
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={() =>
-                              alert("Please switch to respective chain")
-                            }
-                            className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
-                          >
-                            Buy Now
-                          </button>
-                        )}
+                        <button
+                          type="button"
+                          onClick={() => purchase_nft(tokenId)}
+                          className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
+                        >
+                          Buy Now
+                        </button>
                       </>
                     )}
                   </div>
@@ -399,7 +389,7 @@ const NFTPage = ({
                     <div className="rounded-2lg  border-jacarta-100 bg-transparent p-8 dark:border-jacarta-600 dark:bg-jacarta-700">
                       <button
                         type="button"
-                        className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                        className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white  transition-all hover:bg-[#189C87]"
                       >
                         Not Listed
                       </button>

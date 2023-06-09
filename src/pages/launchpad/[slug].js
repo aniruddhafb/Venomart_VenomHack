@@ -62,10 +62,10 @@ const launch = ({
                             <div className="text-center">
 
                                 <div className="mb-8">
-                                    <button class="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
+                                    <button className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
                                         View on Explorer
                                     </button>
-                                    <button class="bg-transparent hover:bg-[#189C87] border border-whit text-white font-bold py-2 px-4 rounded">
+                                    <button className="bg-transparent hover:bg-[#189C87] border border-whit text-white font-bold py-2 px-4 rounded">
                                         View Collection
                                     </button>
                                 </div>
@@ -128,7 +128,7 @@ const launch = ({
                                 </div>
 
                                 <div className="mb-8">
-                                    <button class="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
+                                    <button className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
                                         Mint NFT
                                     </button>
                                 </div>
