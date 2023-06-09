@@ -245,7 +245,7 @@ const Profile = ({
                           Address={nft_info?.collection}
                           tokenId={e?.tokenId}
                           listedBool={e?.isListed}
-                          listingPrice={"0.2"}
+                          listingPrice={e?.listingPrice}
                           collection_address_devnet={collection_address_devnet}
                         />
                       );

@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import venomLogo from "../../../public/venom.svg";
+
 
 const NftCard = ({
   ImageSrc,
@@ -13,6 +15,7 @@ const NftCard = ({
   listingPrice,
   collection_address_devnet,
 }) => {
+  const balance = parseFloat(listingPrice / 1000000000).toFixed(2);
   return (
     <div
       className="relative block rounded-2.5xl border border-[#189C87] bg-transparent p-[1.1875rem] transition-shadow hover:shadow-lg"
@@ -68,8 +71,19 @@ const NftCard = ({
         </div>
         {listedBool && (
           <span className="flex items-center whitespace-nowrap rounded-md border border-jacarta-100 py-1 px-2 dark:border-jacarta-600">
-            <span className=" text-sm font-medium tracking-tight text-green">
-              {listingPrice}{" "}
+            <span className="flex text-sm font-medium tracking-tight text-green">
+              {balance}{" "}
+              <Image
+                src={venomLogo}
+                height={100}
+                width={100}
+                style={{
+                  height: "11px",
+                  width: "11px",
+                  marginLeft: "5px",
+                  marginTop: "5px"
+                }}
+              />
             </span>
           </span>
         )}
