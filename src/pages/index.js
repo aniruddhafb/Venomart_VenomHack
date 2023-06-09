@@ -71,13 +71,13 @@ export default function Home({
                 <img
                   src="../../1.png"
                   alt="Hero"
-                  className="mt-8 inline-block w-72 rotate-[8deg] sm:w-full lg:w-[24rem] xl:w-[31rem]"
+                  className="customHeroImg mt-8 inline-block w-72 rotate-[8deg] sm:w-[90%] lg:w-[21rem] xl:w-[28rem]"
                   style={{ borderRadius: "12%" }}
                 />
                 <img
                   src="../../3D_elements.png"
                   alt="3D"
-                  className="absolute top-[-20px] animate-fly md:-right-[13%]"
+                  className="absolute top-[-20px] animate-fly md:-right-[13%] sm:w-full lg:w-[30rem] xl:w-[44rem]"
                 />
               </div>
             </div>
