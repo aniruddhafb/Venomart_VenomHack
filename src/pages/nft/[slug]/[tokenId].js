@@ -390,7 +390,7 @@ const NFTPage = ({
                     <div className="rounded-2lg  border-jacarta-100 bg-transparent p-8 dark:border-jacarta-600 dark:bg-jacarta-700">
                       <button
                         type="button"
-                        className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                        className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white  transition-all hover:bg-[#189C87]"
                       >
                         Not Listed
                       </button>

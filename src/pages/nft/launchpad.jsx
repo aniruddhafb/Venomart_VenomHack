@@ -96,7 +96,7 @@ const Launchpad = ({
                   </div>
                   <Link
                     href={"/launchpad/launch"}
-                    class="bg-[#050505] hover:bg-[#189C87] border border-[white] text-white font-bold py-2 px-4 rounded flex"
+                    className="bg-[#050505] hover:bg-[#189C87] border border-[white] text-white font-bold py-2 px-4 rounded flex"
                   >
                     Mint for 1
                     <Image

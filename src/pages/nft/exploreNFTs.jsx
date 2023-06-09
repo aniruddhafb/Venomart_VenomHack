@@ -108,8 +108,26 @@ const Marketplace = ({ fetch_nfts, collection_address_devnet }) => {
                   </div>
                 ) : (
                   <div className="flex flex-wrap justify-start align-middle">
-                    {/* fetch listed nft here */}
-                    <h2>No Listed NFTs</h2>
+                    {nfts.map((e, index) => {
+                      const nft_info = JSON.parse(e.json);
+                      return (
+                        e?.isListed == true &&
+                        <NftCard
+                          key={index}
+                          ImageSrc={nft_info.nft_image?.replace(
+                            "ipfs://",
+                            "https://gateway.ipfscdn.io/ipfs/"
+                          )}
+                          Name={nft_info?.name}
+                          Description={nft_info?.description}
+                          Address={nft_info?.collection}
+                          tokenId={e?.tokenId}
+                          listedBool={e?.isListed}
+                          listingPrice={e?.listingPrice}
+                          collection_address_devnet={collection_address_devnet}
+                        />
+                      );
+                    })}
                   </div>
                 )}
               </div>
