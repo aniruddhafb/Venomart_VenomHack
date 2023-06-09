@@ -12,6 +12,7 @@ const NFTPage = ({
   chainIdMain,
   get_nft_by_tokenId,
   blockURL,
+  sell_nft,
 }) => {
   const router = useRouter();
   const { slug, tokenId } = router.query;
@@ -23,6 +24,12 @@ const NFTPage = ({
   const [propShow, setPropShow] = useState(true);
   const [listingPrice, set_listing_price] = useState(0);
   const [nft, set_nft_info] = useState({});
+
+  const sell_user_nft = async (e) => {
+    e.preventDefault();
+    if (listingPrice < 0) alert("Please give a valid listing price");
+    await sell_nft("", tokenId, listingPrice);
+  };
 
   useEffect(() => {
     if (!tokenId) return;
@@ -161,12 +168,13 @@ const NFTPage = ({
                 {/* -------------------------- all action buttons start ------------------------  */}
                 {/* <!-- list nft --> */}
                 {listSale == false ? (
-                  nft?.nft_owner == signer_address && (
+                  nft?.owner?.wallet_id === signer_address && (
                     <div className="rounded-2lg  border-jacarta-100 bg-transparent p-8 dark:border-jacarta-600 dark:bg-jacarta-700">
                       {nft?.chainId == chainIdMain ? (
                         <button
                           onClick={() => setListSale(true)}
                           href="#"
+                          type="button"
                           className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                         >
                           List For Sale
@@ -176,6 +184,7 @@ const NFTPage = ({
                           onClick={() =>
                             alert("Please switch to respective chain")
                           }
+                          type="button"
                           href="#"
                           className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                         >
@@ -187,8 +196,8 @@ const NFTPage = ({
                 ) : (
                   <div className="absolute top-[30%] right-[40%] w-[500px] z-20 ">
                     <form
-                      onSubmit={list_token}
                       className="modal-dialog max-w-2xl"
+                      onSubmit={sell_user_nft}
                     >
                       <div
                         className="modal-content shadow-2xl"
@@ -400,16 +409,17 @@ const NFTPage = ({
                 )}
 
                 {/* <!-- not listed --> */}
-                {nft?.owner !== signer_address && nft?.isListed == false && (
-                  <div className="rounded-2lg  border-jacarta-100 bg-transparent p-8 dark:border-jacarta-600 dark:bg-jacarta-700">
-                    <button
-                      type="button"
-                      className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
-                    >
-                      Not Listed
-                    </button>
-                  </div>
-                )}
+                {nft?.owner?.wallet_id !== signer_address &&
+                  nft?.isListed == false && (
+                    <div className="rounded-2lg  border-jacarta-100 bg-transparent p-8 dark:border-jacarta-600 dark:bg-jacarta-700">
+                      <button
+                        type="button"
+                        className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                      >
+                        Not Listed
+                      </button>
+                    </div>
+                  )}
 
                 {/* -------------------------- all action buttons end ------------------------  */}
               </div>

@@ -91,7 +91,6 @@ export default function App({ Component, pageProps }) {
         .events(subscriber)
         .filter((event) => event.event === "tokenCreated")
         .on(async (event) => {
-          console.log({ event });
           const res = await axios({
             url: `${BaseURL}/nfts`,
             method: "POST",
@@ -102,6 +101,8 @@ export default function App({ Component, pageProps }) {
               owner: signer_address,
             },
           });
+
+          console.log(res.data);
         });
       const outputs = await contract.methods
         .mintNft({ json: JSON.stringify(nft_json) })
@@ -109,6 +110,7 @@ export default function App({ Component, pageProps }) {
           from: new Address(signer_address),
           amount: "1000000000",
         });
+
       const { nft: nftAddress } = await contract.methods
         .nftAddress({ answerId: 0, id: id })
         .call();
@@ -542,28 +544,34 @@ export default function App({ Component, pageProps }) {
   );
 
   const sell_nft = async (nft_address, tokenId, price) => {
-    const res = await axios({
-      url: `${BaseURL}/list_nft`,
-      method: "POST",
-      data: {
-        signer_address: signer_address,
-        tokenId,
-      },
-    });
+    try {
+      const nft_contract = new venomProvider.Contract(nftAbi, nft_address);
+      const txn = await nft_contract.methods
+        .transfer({
+          to: AUCTION_ADDRESS,
+          sendGasTo: signer_address,
+          callbacks: [[AUCTION_ADDRESS, { value: "100000000", payload: "" }]],
+        })
+        .send({
+          from: signer_address,
+          amount: "2000000000",
+        });
+      console.log({ txn });
+      const res = await axios({
+        url: `${BaseURL}/list_nft`,
+        method: "POST",
+        data: {
+          signer_address: signer_address,
+          tokenId,
+          listingPrice: (Number(price) * 1000000000).toString(),
+        },
+      });
 
-    console.log(res.data);
-    // const nft_contract = new venomProvider.Contract(nftAbi, NFT_ADDRESS);
-    // const txn = await nft_contract.methods
-    //   .transfer({
-    //     to: AUCTION_ADDRESS,
-    //     sendGasTo: signer_address,
-    //     callbacks: [[AUCTION_ADDRESS, { value: "100000000", payload: "" }]],
-    //   })
-    //   .send({
-    //     from: signer_address,
-    //     amount: "2000000000",
-    //   });
-    // console.log({ txn });
+      console.log(res.data);
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
   };
 
   const buy_nft = async (nft_address) => {
