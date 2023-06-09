@@ -70,7 +70,10 @@ export default function App({ Component, pageProps }) {
   const create_nft = async (data) => {
     console.log(data);
     try {
-      const ipfs_image = await storage.upload(data.image);
+      const ipfs_image =
+        typeof data.image == "string"
+          ? data.image
+          : await storage.upload(data.image);
 
       const nft_json = JSON.stringify({
         type: "Basic NFT",
