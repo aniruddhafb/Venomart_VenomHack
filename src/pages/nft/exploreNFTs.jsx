@@ -15,7 +15,6 @@ const Marketplace = ({ fetch_nfts, collection_address_devnet }) => {
       setLoading(true);
       const nfts = await fetch_nfts();
       set_nfts(nfts.data);
-      console.log(nfts);
       setLoading(false);
     })();
   }, []);
@@ -43,9 +42,11 @@ const Marketplace = ({ fetch_nfts, collection_address_devnet }) => {
                 <li className="my-1 mr-2.5" onClick={() => setPropShow(true)}>
                   <a
                     href="#"
-                    className={`${propShow && "border-transparent bg-[#189C87] text-white"
-                      } ${!propShow && "bg-white"
-                      } group flex h-9 items-center rounded-lg border border-jacarta-100 px-4 font-display text-sm font-semibold text-jacarta-500 transition-colors `}
+                    className={`${
+                      propShow && "border-transparent bg-[#189C87] text-white"
+                    } ${
+                      !propShow && "bg-white"
+                    } group flex h-9 items-center rounded-lg border border-jacarta-100 px-4 font-display text-sm font-semibold text-jacarta-500 transition-colors `}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -63,9 +64,11 @@ const Marketplace = ({ fetch_nfts, collection_address_devnet }) => {
                 <li className="my-1 mr-2.5" onClick={() => setPropShow(false)}>
                   <a
                     href="#"
-                    className={`${!propShow && "border-transparent bg-[#189C87] text-white"
-                      } ${propShow && "bg-white"
-                      } group flex h-9 items-center rounded-lg border border-jacarta-100 px-4 font-display text-sm font-semibold text-jacarta-500 transition-colors `}
+                    className={`${
+                      !propShow && "border-transparent bg-[#189C87] text-white"
+                    } ${
+                      propShow && "bg-white"
+                    } group flex h-9 items-center rounded-lg border border-jacarta-100 px-4 font-display text-sm font-semibold text-jacarta-500 transition-colors `}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

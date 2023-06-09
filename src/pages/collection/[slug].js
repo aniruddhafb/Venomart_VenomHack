@@ -7,8 +7,12 @@ import { BsFillExclamationCircleFill } from "react-icons/bs";
 import Head from "next/head";
 import Loader from "@/components/Loader";
 
-const Collection = ({ get_nfts_by_collection, get_collection_info_by_id, blockURL, collection_address_devnet }) => {
-
+const Collection = ({
+  get_nfts_by_collection,
+  get_collection_info_by_id,
+  blockURL,
+  collection_address_devnet,
+}) => {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -25,7 +29,7 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id, blockUR
 
       const nfts = await get_nfts_by_collection(collection_info.data.name);
       set_nft_data(nfts.data);
-      console.log(nfts.data)
+      console.log(nfts.data);
       setLoading(false);
     })();
   }, [slug]);
@@ -154,7 +158,10 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id, blockUR
           </section>
 
           {/* nft section  */}
-          <section className="relative py-24 pt-20" style={{ backgroundColor: "#080808" }}>
+          <section
+            className="relative py-24 pt-20"
+            style={{ backgroundColor: "#080808" }}
+          >
             <div className="container">
               <div className="tab-content">
                 <div
@@ -185,11 +192,11 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id, blockUR
                     })}
                   </div>
                   <div className="flex justify-center">
-                    {nft_data?.length <= 0 &&
+                    {nft_data?.length <= 0 && (
                       <h2 className="text-xl font-display font-thin">
                         This collection has no NFTs !!
                       </h2>
-                    }
+                    )}
                   </div>
                 </div>
               </div>
