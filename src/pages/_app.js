@@ -673,19 +673,19 @@ export default function App({ Component, pageProps }) {
 
   const buy_nft = async (tokenId) => {
     try {
-      await tokenWalletInstance.methods
-        .transfer({
-          amount: (Number(nft_price) * 1000000000).toString(), // with decimals
-          recipient: AUCTION_ADDRESS, // because it got it's own wallet
-          deployWalletValue: 0, // we know, that auction wallet deployed already
-          remainingGasTo: signer_address,
-          notify: true, // IMPORTANT to set it "true" for onAcceptTokensTransfer to be called
-          payload: "",
-        })
-        .send({
-          from: signer_address,
-          amount: (Number(price) * 1000000000).toString(),
-        });
+      // await tokenWalletInstance.methods
+      //   .transfer({
+      //     amount: (Number(nft_price) * 1000000000).toString(), // with decimals
+      //     recipient: AUCTION_ADDRESS, // because it got it's own wallet
+      //     deployWalletValue: 0, // we know, that auction wallet deployed already
+      //     remainingGasTo: signer_address,
+      //     notify: true, // IMPORTANT to set it "true" for onAcceptTokensTransfer to be called
+      //     payload: "",
+      //   })
+      //   .send({
+      //     from: signer_address,
+      //     amount: (Number(price) * 1000000000).toString(),
+      //   });
 
       const res = await axios({
         url: `${BaseURL}/buy_nft`,

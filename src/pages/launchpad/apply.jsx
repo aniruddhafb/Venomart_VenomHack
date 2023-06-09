@@ -18,7 +18,7 @@ const Apply = ({ signer_address, create_new_collection, create_launchpad }) => {
     json: "",
     start_date: "",
     email: "",
-    isActive: false,
+    isActive: true,
   });
 
   const handleChange = (e) => {
@@ -31,7 +31,7 @@ const Apply = ({ signer_address, create_new_collection, create_launchpad }) => {
     console.log(data);
     await create_launchpad(data);
     set_loading(false);
-    // router.push("/collection/exploreCollections");
+    router.push("/launch");
   };
 
   return (
