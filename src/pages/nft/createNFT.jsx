@@ -30,8 +30,10 @@ const CreateNFT = ({
     set_loading(true);
     e.preventDefault();
     await create_nft(data);
+    setTimeout(() => {
+      router.push("/nft/exploreNFTs");
+    }, 2000);
     set_loading(false);
-    router.push("/nft/exploreNFTs");
   };
 
   const handleChange = (e) => {

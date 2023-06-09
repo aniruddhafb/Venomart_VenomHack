@@ -19,9 +19,10 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id, blockUR
     (async () => {
       if (!slug) return;
       setLoading(true);
-      // const nfts = await get_nfts_by_collection(slug);
+      const nfts = await get_nfts_by_collection(slug);
       const collection_info = await get_collection_info_by_id(slug);
       set_collection_data(collection_info.data);
+      console.log({ collection_data: collection_data })
       setLoading(false);
     })();
   }, [slug]);
