@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }) {
   // const BaseURL = "https://venomart.space/api";
   const BaseURL = "http://localhost:3000/api";
 
-  const blockURL = "https://testnet.venomscan.com/";
+  const blockURL = "https://devnet.venomscan.com/";
   const storage = new ThirdwebStorage();
 
   const [venomConnect, setVenomConnect] = useState();
