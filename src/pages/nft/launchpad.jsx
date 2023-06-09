@@ -66,7 +66,7 @@ const launchpad = ({ standaloneProvider, fetch_all_collections }) => {
                                 <Link href={""} className="mt-4 font-display text-[22px] text-jacarta-700 hover:text-[#189C87] dark:text-white dark:hover:text-[#189C87] flex">
                                     Art Me Outside
                                     <MdVerified
-                                        style={{ color: "#4f87ff", cursor: "pointer", marginTop: "4px", marginLeft: "5px" }}
+                                        style={{ color: "#189C87", cursor: "pointer", marginTop: "4px", marginLeft: "5px" }}
                                         size={23}
                                     />
                                 </Link>
@@ -75,7 +75,7 @@ const launchpad = ({ standaloneProvider, fetch_all_collections }) => {
                                     <div className="flex flex-wrap items-center">
                                         <span className="mr-1 dark:text-jacarta-400">5555 Items</span>
                                     </div>
-                                    <button class="bg-[#050505] hover:bg-[#189C87] border border-[white] text-white font-bold py-2 px-4 rounded flex">
+                                    <Link href={"/launchpad/launch"} class="bg-[#050505] hover:bg-[#189C87] border border-[white] text-white font-bold py-2 px-4 rounded flex">
                                         Mint for 1
                                         <Image
                                             src={venomLogo}
@@ -94,7 +94,7 @@ const launchpad = ({ standaloneProvider, fetch_all_collections }) => {
                                                 marginTop: "3px"
                                             }}
                                         />
-                                    </button>
+                                    </Link>
                                 </div>
 
                             </div>

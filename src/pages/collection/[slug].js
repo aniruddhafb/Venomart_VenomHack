@@ -160,7 +160,7 @@ const Collection = ({
           {/* nft section  */}
           <section
             className="relative py-24 pt-20"
-            style={{ backgroundColor: "#080808" }}
+            style={{ backgroundColor: "#050505" }}
           >
             <div className="container">
               <div className="tab-content">

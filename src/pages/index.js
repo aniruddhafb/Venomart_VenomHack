@@ -176,7 +176,7 @@ export default function Home({
                 1. Mint NFTs
               </h3>
               <p className="dark:text-jacarta-300">
-                Mint NFTs on venom blockchain via venomart marketplace.
+                Mint on-chain NFTs on venom blockchain via venomart marketplace.
               </p>
             </div>
             <div className="text-center">
@@ -221,7 +221,7 @@ export default function Home({
                 3. Create Collections
               </h3>
               <p className="dark:text-jacarta-300">
-                Create your own on-chain NFT collection on Venomart.
+                Create your own NFT collections via Venomart on venom chain.
               </p>
             </div>
             <div className="text-center">

@@ -109,42 +109,85 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
             {/* menu links  */}
             <div className="navbar w-full">
               <ul className="flex flex-col lg:flex-row">
+
                 <li className="js-nav-dropdown group relative">
-                  <Link
-                    href="/nft/exploreNFTs"
+                  <a
+                    href="#"
                     className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-[#189C87] focus:text-[#189C87] dark:text-white dark:hover:text-[#189C87] dark:focus:text-[#189C87] lg:px-5"
-                    id="navDropdown-1"
-                    aria-expanded="false"
-                    role="button"
-                    data-bs-toggle="dropdown"
                   >
-                    Explore NFTs
-                  </Link>
+                    Explore
+                  </a>
+                  <ul
+                    className="dropdown-menu group-hover:visible lg:invisible left-0 top-[85%] z-10 hidden min-w-[200px] gap-x-4 whitespace-nowrap rounded-xl bg-white transition-all will-change-transform group-hover:opacity-100 dark:bg-[#137e6c] lg:absolute lg:grid lg:translate-y-4 lg:py-4 lg:px-2 lg:opacity-0 lg:shadow-2xl lg:group-hover:translate-y-2"
+                    aria-labelledby="navDropdown-4"
+                  >
+                    <li>
+                      <Link
+                        href="/nft/exploreNFTs"
+                        className="flex items-center rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
+                      >
+                        <span className="font-display text-sm text-jacarta-700 dark:text-white">
+                          Explore NFTs
+                        </span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/collection/exploreCollections"
+                        className="flex items-center rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
+                      >
+                        <span className="font-display text-sm text-jacarta-700 dark:text-white">
+                          Explore Collections
+                        </span>
+                      </Link>
+                    </li>
+                  </ul>
                 </li>
+
                 <li className="js-nav-dropdown group relative">
-                  <Link
-                    href="/collection/exploreCollections"
+                  <a
+                    href="#"
                     className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-[#189C87] focus:text-[#189C87] dark:text-white dark:hover:text-[#189C87] dark:focus:text-[#189C87] lg:px-5"
-                    id="navDropdown-1"
-                    aria-expanded="false"
-                    role="button"
-                    data-bs-toggle="dropdown"
                   >
-                    View Collections
-                  </Link>
-                </li>
-                <li className="js-nav-dropdown group relative">
-                  <Link
-                    href="/nft/CreateAINFT"
-                    className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-[#189C87] focus:text-[#189C87] dark:text-white dark:hover:text-[#189C87] dark:focus:text-[#189C87] lg:px-5"
-                    id="navDropdown-1"
-                    aria-expanded="false"
-                    role="button"
-                    data-bs-toggle="dropdown"
+                    Create
+                  </a>
+                  <ul
+                    className="dropdown-menu group-hover:visible lg:invisible left-0 top-[85%] z-10 hidden min-w-[200px] gap-x-4 whitespace-nowrap rounded-xl bg-white transition-all will-change-transform group-hover:opacity-100 dark:bg-[#137e6c] lg:absolute lg:grid lg:translate-y-4 lg:py-4 lg:px-2 lg:opacity-0 lg:shadow-2xl lg:group-hover:translate-y-2"
+                    aria-labelledby="navDropdown-4"
                   >
-                    Create AI NFT
-                  </Link>
+                    <li>
+                      <Link
+                        href="/nft/createNFT"
+                        className="flex items-center rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
+                      >
+                        <span className="font-display text-sm text-jacarta-700 dark:text-white">
+                          Create NFT
+                        </span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/nft/CreateAINFT"
+                        className="flex items-center rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
+                      >
+                        <span className="font-display text-sm text-jacarta-700 dark:text-white">
+                          Create AI NFT
+                        </span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/collection/createCollection"
+                        className="flex items-center rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
+                      >
+                        <span className="font-display text-sm text-jacarta-700 dark:text-white">
+                          Create NFT Collection
+                        </span>
+                      </Link>
+                    </li>
+                  </ul>
                 </li>
+
                 <li className="js-nav-dropdown group relative">
                   <Link
                     href="/nft/launchpad"
@@ -155,6 +198,19 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                     data-bs-toggle="dropdown"
                   >
                     Launchpad
+                  </Link>
+                </li>
+
+                <li className="js-nav-dropdown group relative">
+                  <Link
+                    href="/nft/launchpad"
+                    className="dropdown-toggle flex items-center justify-between py-3.5 font-display text-base text-jacarta-700 hover:text-[#189C87] focus:text-[#189C87] dark:text-white dark:hover:text-[#189C87] dark:focus:text-[#189C87] lg:px-5"
+                    id="navDropdown-1"
+                    aria-expanded="false"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    About
                   </Link>
                 </li>
               </ul>
@@ -356,7 +412,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
               <a
                 href="#"
                 onClick={connect_wallet}
-                className="ml-4 js-wallet group flex h-10 w-10 items-center justify-center rounded-full border border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-accent focus:border-transparent focus:bg-accent dark:border-transparent dark:bg-white/[.15] dark:hover:bg-accent"
+                className="ml-4 js-wallet group flex h-10 w-10 items-center justify-center rounded-full border border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-[#189C87] focus:border-transparent focus:bg-[#189C87] dark:border-transparent dark:bg-white/[.15] dark:hover:bg-[#189C87]"
                 data-bs-toggle="modal"
                 data-bs-target="#walletModal"
                 aria-label="wallet"
@@ -376,7 +432,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
               <div className="relative">
                 {/* profile icon */}
                 <button
-                  className="group ml-2 flex h-10 w-10 items-center justify-center rounded-full border border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-accent focus:border-transparent focus:bg-accent dark:border-transparent dark:bg-white/[.15] dark:hover:bg-accent"
+                  className="group ml-2 flex h-10 w-10 items-center justify-center rounded-full border border-jacarta-100 bg-white transition-colors hover:border-transparent hover:bg-[#189C87] focus:border-transparent focus:bg-[#189C87] dark:border-transparent dark:bg-white/[.15] dark:hover:bg-[#189C87]"
                   onClick={() => setMobieProfileDrop(!mobieProfileDrop)}
                 >
                   <svg
