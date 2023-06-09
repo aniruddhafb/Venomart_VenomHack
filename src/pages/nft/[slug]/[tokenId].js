@@ -395,17 +395,16 @@ const NFTPage = ({
                 )}
 
                 {/* <!-- not listed --> */}
-                {nft?.nft_owner !== signer_address &&
-                  nft?.isListed == false && (
-                    <div className="rounded-2lg  border-jacarta-100 bg-transparent p-8 dark:border-jacarta-600 dark:bg-jacarta-700">
-                      <button
-                        type="button"
-                        className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
-                      >
-                        Not Listed
-                      </button>
-                    </div>
-                  )}
+                {nft?.owner !== signer_address && nft?.isListed == false && (
+                  <div className="rounded-2lg  border-jacarta-100 bg-transparent p-8 dark:border-jacarta-600 dark:bg-jacarta-700">
+                    <button
+                      type="button"
+                      className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                    >
+                      Not Listed
+                    </button>
+                  </div>
+                )}
 
                 {/* -------------------------- all action buttons end ------------------------  */}
               </div>

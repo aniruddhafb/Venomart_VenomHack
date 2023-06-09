@@ -541,19 +541,29 @@ export default function App({ Component, pageProps }) {
     "0:6bdbcd439ba96f803cba9477ab27ffdea2c82db5467d9af35ba05ad9f4585b86"
   );
 
-  const sell_nft = async (nft_address) => {
-    const nft_contract = new venomProvider.Contract(nftAbi, NFT_ADDRESS);
-    const txn = await nft_contract.methods
-      .transfer({
-        to: AUCTION_ADDRESS,
-        sendGasTo: signer_address,
-        callbacks: [[AUCTION_ADDRESS, { value: "100000000", payload: "" }]],
-      })
-      .send({
-        from: signer_address,
-        amount: "2000000000",
-      });
-    console.log({ txn });
+  const sell_nft = async (nft_address, tokenId, price) => {
+    const res = await axios({
+      url: `${BaseURL}/list_nft`,
+      method: "POST",
+      data: {
+        signer_address: signer_address,
+        tokenId,
+      },
+    });
+
+    console.log(res.data);
+    // const nft_contract = new venomProvider.Contract(nftAbi, NFT_ADDRESS);
+    // const txn = await nft_contract.methods
+    //   .transfer({
+    //     to: AUCTION_ADDRESS,
+    //     sendGasTo: signer_address,
+    //     callbacks: [[AUCTION_ADDRESS, { value: "100000000", payload: "" }]],
+    //   })
+    //   .send({
+    //     from: signer_address,
+    //     amount: "2000000000",
+    //   });
+    // console.log({ txn });
   };
 
   const buy_nft = async (nft_address) => {
@@ -585,6 +595,7 @@ export default function App({ Component, pageProps }) {
       </button> */}
       <Component
         {...pageProps}
+        sell_nft={sell_nft}
         fetch_collection_by_name={fetch_collection_by_name}
         get_nfts_by_collection={get_nfts_by_collection}
         get_nft_by_tokenId={get_nft_by_tokenId}
