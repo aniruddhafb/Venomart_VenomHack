@@ -28,7 +28,6 @@ const NFTPage = ({
 
   const balance = parseFloat(nft?.listingPrice / 1000000000).toFixed(2);
 
-
   const sell_user_nft = async (e) => {
     set_loading(true);
     e.preventDefault();

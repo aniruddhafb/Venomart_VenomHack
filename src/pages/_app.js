@@ -157,37 +157,6 @@ export default function App({ Component, pageProps }) {
     }
   };
 
-  const create_launchpad = async (data) => {
-    console.log("fun called");
-    const ipfs_logo = await storage.upload(data.logo);
-    const ipfs_coverImage = await storage.upload(data.coverImage);
-    try {
-      const res = await axios({
-        url: `${BaseURL}/launchpad`,
-        method: "POST",
-        data: {
-          logo: ipfs_logo,
-          coverImage: ipfs_coverImage,
-          name: data.name,
-          description: data.description,
-          address: data.address,
-          max_supply: data.max_supply,
-          mint_price: data.mint_price,
-          json: data.json,
-          start_date: data.start_date,
-          email: data.email,
-          isActive: data.isActive,
-        },
-      });
-
-      console.log(res.data);
-      return res.data;
-    } catch (error) {
-      alert(error.message);
-      console.log(error.message);
-    }
-  };
-
   const fetch_launchpads = async () => {
     try {
       const res = await axios({
@@ -561,6 +530,64 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const get_launchpad_byId = async (launchpad_id) => {
+    try {
+      const res = await axios({
+        url: `${BaseURL}/get_launchpad_by_id`,
+        method: "POST",
+        data: {
+          launchpad_id,
+        },
+      });
+
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
+  const create_launchpad = async (data) => {
+    console.log("fun called");
+    const ipfs_logo = await storage.upload(data.logo);
+    const ipfs_coverImage = await storage.upload(data.coverImage);
+    try {
+      const res = await axios({
+        url: `${BaseURL}/launchpad`,
+        method: "POST",
+        data: {
+          logo: ipfs_logo,
+          coverImage: ipfs_coverImage,
+          name: data.name,
+          description: data.description,
+          address: data.address,
+          max_supply: data.max_supply,
+          mint_price: data.mint_price,
+          json: data.json,
+          start_date: data.start_date,
+          email: data.email,
+          isActive: data.isActive,
+        },
+      });
+
+      const collection_data = {
+        image: data.coverImage,
+        logo: data.logo,
+        collection_address: data.address,
+        name: data.name,
+        description: data.desccription,
+      };
+
+      create_new_collection(collection_data);
+
+      return res.data;
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
+  };
+
   //COLLECTION FACTORY
   const create_new_collection = async (data) => {
     const contract = new venomProvider.Contract(
@@ -580,10 +607,11 @@ export default function App({ Component, pageProps }) {
         cover_image: cover_ips,
         logo: logo_ipfs,
         name: data.name,
-        symbol: data.symbol,
+        symbol: data.symbol || "",
         description: data.description,
       },
     });
+    console.log(res.data);
   };
 
   const get_collection_info_by_id = async (collection_id) => {
@@ -673,19 +701,19 @@ export default function App({ Component, pageProps }) {
 
   const buy_nft = async (tokenId) => {
     try {
-      await tokenWalletInstance.methods
-        .transfer({
-          amount: (Number(nft_price) * 1000000000).toString(), // with decimals
-          recipient: AUCTION_ADDRESS, // because it got it's own wallet
-          deployWalletValue: 0, // we know, that auction wallet deployed already
-          remainingGasTo: signer_address,
-          notify: true, // IMPORTANT to set it "true" for onAcceptTokensTransfer to be called
-          payload: "",
-        })
-        .send({
-          from: signer_address,
-          amount: (Number(price) * 1000000000).toString(),
-        });
+      // await tokenWalletInstance.methods
+      //   .transfer({
+      //     amount: (Number(nft_price) * 1000000000).toString(), // with decimals
+      //     recipient: AUCTION_ADDRESS, // because it got it's own wallet
+      //     deployWalletValue: 0, // we know, that auction wallet deployed already
+      //     remainingGasTo: signer_address,
+      //     notify: true, // IMPORTANT to set it "true" for onAcceptTokensTransfer to be called
+      //     payload: "",
+      //   })
+      //   .send({
+      //     from: signer_address,
+      //     amount: (Number(price) * 1000000000).toString(),
+      //   });
 
       const res = await axios({
         url: `${BaseURL}/buy_nft`,
@@ -715,6 +743,7 @@ export default function App({ Component, pageProps }) {
       </button> */}
       <Component
         {...pageProps}
+        get_launchpad_byId={get_launchpad_byId}
         fetch_launchpads={fetch_launchpads}
         create_launchpad={create_launchpad}
         buy_nft={buy_nft}
