@@ -256,6 +256,28 @@ const apply = ({ signer_address, create_new_collection }) => {
                                 />
                             </div>
 
+                            {/* json URL  */}
+                            <div className="mb-6">
+                                <label
+                                    htmlFor="item-name"
+                                    className="mb-2 block font-display text-jacarta-700 dark:text-white"
+                                >
+                                    JSON URL<span className="text-red">*</span>
+                                </label>
+                                <p className="mb-3 text-2xs dark:text-jacarta-300">
+                                    Please enter your JSON url (metadata for NFTs)
+                                </p>
+                                <input
+                                    onChange={handleChange}
+                                    name="symbol"
+                                    type="text"
+                                    id="item-name"
+                                    className="bg-gray-300 w-full rounded-lg border-jacarta-100 py-3 hover:ring-2 hover:ring-[#189C87]/10 focus:ring-[#189C87] dark:border-jacarta-600 dark:bg-jacarta-700 dark:text-black placeholder:text-gray-800 text-black"
+                                    placeholder="Eg - ipfs.io/ipfs/QmNf1UsmdGaMbpatQ6toXSkzDpizaGmC9zfunCyoz1enD5/wilds/{id}.json"
+                                    required
+                                />
+                            </div>
+
                             {/* starte date  */}
                             <div className="mb-6">
                                 <label

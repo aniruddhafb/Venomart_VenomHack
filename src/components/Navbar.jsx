@@ -107,7 +107,7 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
 
           <div className="js-mobile-menu invisible lg:visible fixed inset-0 z-10 ml-auto items-center bg-white opacity-0 dark:bg-jacarta-800 lg:relative lg:inset-auto lg:flex lg:bg-transparent lg:opacity-100 dark:lg:bg-transparent">
             {/* menu links  */}
-            <div className="navbar w-full">
+            <div className="navbar w-full" style={{ marginRight: "180px" }}>
               <ul className="flex flex-col lg:flex-row">
 
                 <li className="js-nav-dropdown group relative">
@@ -380,6 +380,24 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
                           </span>
                         </Link>
                         <Link
+                          href={`/launchpad/apply`}
+                          className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            className="h-4 w-4 fill-jacarta-700 transition-colors dark:fill-white"
+                          >
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path d="M11 14.062V20h2v-5.938c3.946.492 7 3.858 7 7.938H4a8.001 8.001 0 0 1 7-7.938zM12 13c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6z"></path>
+                          </svg>
+                          <span className="mt-1 font-display text-sm text-jacarta-700 dark:text-white">
+                            Apply for Launchpad
+                          </span>
+                        </Link>
+                        <Link
                           href="#"
                           onClick={onDisconnect}
                           className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
@@ -566,6 +584,24 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
               </svg>
               <span className="mt-1 font-display text-sm text-jacarta-700 dark:text-white">
                 Create Collection
+              </span>
+            </Link>
+            <Link
+              href={`/launchpad/apply`}
+              className="flex items-center space-x-2 rounded-xl px-5 py-2 transition-colors hover:bg-jacarta-50 hover:text-[#189C87] focus:text-[#189C87] dark:hover:bg-[#0d5d50]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                className="h-4 w-4 fill-jacarta-700 transition-colors dark:fill-white"
+              >
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path d="M11 14.062V20h2v-5.938c3.946.492 7 3.858 7 7.938H4a8.001 8.001 0 0 1 7-7.938zM12 13c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6z"></path>
+              </svg>
+              <span className="mt-1 font-display text-sm text-jacarta-700 dark:text-white">
+                Apply for Launchpad
               </span>
             </Link>
             <Link

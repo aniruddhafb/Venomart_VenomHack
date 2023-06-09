@@ -73,8 +73,8 @@ const CreateAINFT = ({ collection_address_devnet, create_nft, get_collections_by
         e.preventDefault();
         await create_nft(data);
         setTimeout(() => {
-            router.push("/nft/exploreNFTs");
-        }, 2000);
+            router.push(`/profile/${signer_address}`);
+        }, 3000);
         set_loading(false);
     };
 
