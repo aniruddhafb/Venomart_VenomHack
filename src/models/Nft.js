@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const NFTSchema = new mongoose.Schema({
+  nft_address: String,
   tokenId: String,
   nft_collection: {
     type: Schema.Types.ObjectId,

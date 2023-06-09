@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     case "POST":
       try {
         let nft;
-        const { tokenId, collection_name, json, owner } = req.body;
+        const { tokenId, collection_name, json, owner, nft_address } = req.body;
 
         // check if nft exists then return
         nft = await Nft.findOne({ tokenId: req.body.tokenId });
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
         const nft_collection = await NFTCollection.findOne({
           name: collection_name,
         });
-        
+
         if (!nft_collection)
           return res
             .status(400)
@@ -44,6 +44,7 @@ export default async function handler(req, res) {
             .json({ success: false, data: "Cannot Find The Owner" });
 
         nft = await Nft.create({
+          nft_address,
           tokenId,
           nft_collection,
           collection_name,
@@ -56,6 +57,7 @@ export default async function handler(req, res) {
         res.status(400).json({ success: false, data: error.message });
       }
       break;
+
     default:
       res.status(400).json({ success: false });
       break;
