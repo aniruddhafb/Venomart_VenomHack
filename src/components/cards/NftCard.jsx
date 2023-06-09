@@ -53,7 +53,7 @@ const NftCard = ({
           }}
         >
           {onClickOpen == true ? (
-            <Link href={`/nft/${Address}/${tokenId}`}>
+            <Link href={`/nft/${collection_address_devnet}/${tokenId}`}>
               <span className="font-display text-base text-jacarta-700 hover:text-accent dark:text-white">
                 {Name}
               </span>

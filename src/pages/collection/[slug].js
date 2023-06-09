@@ -7,19 +7,30 @@ import { BsFillExclamationCircleFill } from "react-icons/bs";
 import Head from "next/head";
 import Loader from "@/components/Loader";
 
-const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
+const Collection = ({
+  get_nfts_by_collection,
+  get_collection_info_by_id,
+  blockURL,
+  collection_address_devnet,
+}) => {
   const router = useRouter();
   const { slug } = router.query;
+
   const [loading, setLoading] = useState(false);
+  const [collection_data, set_collection_data] = useState();
+  const [nft_data, set_nft_data] = useState();
 
   useEffect(() => {
     (async () => {
       if (!slug) return;
-      console.log(slug);
+      setLoading(true);
       const collection_info = await get_collection_info_by_id(slug);
-      const nfts = await get_nfts_by_collection(slug);
-      console.log({ nfts: nfts });
-      console.log({ collection_info: collection_info });
+      set_collection_data(collection_info.data);
+
+      const nfts = await get_nfts_by_collection(collection_info.data.name);
+      set_nft_data(nfts.data);
+      console.log(nfts.data);
+      setLoading(false);
     })();
   }, [slug]);
 
@@ -38,9 +49,10 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
           {/* <!-- Banner IMG--> */}
           <div className="relative mt-24">
             <Image
-              src={
-                "https://gateway.ipfscdn.io/ipfs/QmeZG7hon5Zj4E9nbYTBKRqYNV2FBxgdscqinLioabWJp4/details%20(1).png"
-              }
+              src={collection_data?.coverImage?.replace(
+                "ipfs://",
+                "https://gateway.ipfscdn.io/ipfs/"
+              )}
               width={100}
               height={100}
               alt="banner"
@@ -53,9 +65,10 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
             <div className="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">
               <div className="relative">
                 <Image
-                  src={
-                    "https://gateway.ipfscdn.io/ipfs/QmeZG7hon5Zj4E9nbYTBKRqYNV2FBxgdscqinLioabWJp4/details%20(1).png"
-                  }
+                  src={collection_data?.logo?.replace(
+                    "ipfs://",
+                    "https://gateway.ipfscdn.io/ipfs/"
+                  )}
                   width={100}
                   height={100}
                   alt="collection avatar"
@@ -74,21 +87,21 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
               <div className="text-center">
                 <div className="mb-6 inline-flex items-center justify-center rounded-full border border-jacarta-100 bg-transparent py-1.5 px-4 dark:border-jacarta-600 dark:bg-jacarta-700">
                   <a
-                    href={""}
+                    href={`${blockURL}accounts/${collection_data?.collection_address}`}
                     target="_blank"
                     className="js-copy-clipboard max-w-[10rem] select-none overflow-hidden text-ellipsis whitespace-nowrap dark:text-jacarta-200"
                   >
-                    <span>{slug}</span>
+                    <span>{collection_data?.collection_address}</span>
                   </a>
                 </div>
                 <h2 className="mb-2 mt-2 font-display text-4xl font-medium text-jacarta-700 dark:text-white">
-                  Collection Name
+                  {collection_data?.name}
                 </h2>
                 <div className="mb-4"></div>
 
                 {/* desc  */}
                 <p className="mx-auto mb-14 max-w-xl text-lg dark:text-jacarta-300">
-                  Collection Description
+                  {collection_data?.description}
                 </p>
 
                 {/* stats  */}
@@ -98,7 +111,7 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
                     className="w-1/2 rounded-l-xl border-r border-jacarta-100 py-4 hover:shadow-md dark:border-jacarta-600 sm:w-32"
                   >
                     <div className="mb-1 text-base font-bold text-jacarta-700 dark:text-white">
-                      0
+                      {nft_data?.length}
                     </div>
                     <div className="text-2xs font-medium tracking-tight dark:text-jacarta-400">
                       Items
@@ -109,7 +122,7 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
                     className="w-1/2 border-jacarta-100 py-4 hover:shadow-md dark:border-jacarta-600 sm:w-32 sm:border-r"
                   >
                     <div className="mb-1 text-base font-bold text-jacarta-700 dark:text-white">
-                      0
+                      1
                     </div>
                     <div className="text-2xs font-medium tracking-tight dark:text-jacarta-400">
                       Owners
@@ -120,7 +133,7 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
                     className="w-1/2 border-r border-jacarta-100 py-4 hover:shadow-md dark:border-jacarta-600 sm:w-32"
                   >
                     <div className="mb-1 flex items-center justify-center text-base font-medium text-jacarta-700 dark:text-white">
-                      <span className="font-bold mr-2">2</span>
+                      <span className="font-bold mr-2">0</span>
                       <Image src={`../../venom.svg`} height={18} width={18} />
                     </div>
                     <div className="text-2xs font-medium tracking-tight dark:text-jacarta-400">
@@ -132,7 +145,7 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
                     className="w-1/2 rounded-r-xl border-jacarta-100 py-4 hover:shadow-md sm:w-32"
                   >
                     <div className="mb-1 flex items-center justify-center text-base font-medium text-jacarta-700 dark:text-white">
-                      <span className="font-bold mr-2">2</span>
+                      <span className="font-bold mr-2">0</span>
                       <Image src={`../../venom.svg`} height={18} width={18} />
                     </div>
                     <div className="text-2xs font-medium tracking-tight dark:text-jacarta-400">
@@ -145,7 +158,10 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
           </section>
 
           {/* nft section  */}
-          <section className="relative py-24 pt-20">
+          <section
+            className="relative py-24 pt-20"
+            style={{ backgroundColor: "#080808" }}
+          >
             <div className="container">
               <div className="tab-content">
                 <div
@@ -155,31 +171,32 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
                   aria-labelledby="on-sale-tab"
                 >
                   <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4">
-                    {/* {nfts?.map((e, index) => {
-                                            return (
-                                                <NftCard
-                                                    key={index}
-                                                    ImageSrc={e.ipfsData.image.replace(
-                                                        "ipfs://",
-                                                        "https://gateway.ipfscdn.io/ipfs/"
-                                                    )}
-                                                    Name={e.ipfsData.name}
-                                                    Description={e.ipfsData.description}
-                                                    Address={e.ipfsData.collection}
-                                                    tokenId={e.tokenId}
-                                                    listedBool={e.isListed}
-                                                    listingPrice={e.listingPrice}
-                                                    chainImgPre={"../"}
-                                                    chain_image={e.chain_image}
-                                                    chain_symbol={e.chain_symbol}
-                                                />
-                                            );
-                                        })} */}
+                    {nft_data?.map((e, index) => {
+                      const nft_info = JSON.parse(e.json);
+                      return (
+                        <NftCard
+                          key={index}
+                          ImageSrc={nft_info.nft_image?.replace(
+                            "ipfs://",
+                            "https://gateway.ipfscdn.io/ipfs/"
+                          )}
+                          Name={nft_info?.name}
+                          Description={nft_info?.description}
+                          Address={nft_info?.nft_collection}
+                          tokenId={e?.tokenId}
+                          listedBool={e?.isListed}
+                          listingPrice={"0.2"}
+                          collection_address_devnet={collection_address_devnet}
+                        />
+                      );
+                    })}
                   </div>
                   <div className="flex justify-center">
-                    <h2 className="text-xl font-display font-thin">
-                      This collection has no NFTs !!
-                    </h2>
+                    {nft_data?.length <= 0 && (
+                      <h2 className="text-xl font-display font-thin">
+                        This collection has no NFTs !!
+                      </h2>
+                    )}
                   </div>
                 </div>
               </div>

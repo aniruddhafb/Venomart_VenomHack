@@ -26,9 +26,11 @@ const NFTPage = ({
   const [nft, set_nft_info] = useState({});
 
   const sell_user_nft = async (e) => {
+    set_loading(true);
     e.preventDefault();
     if (listingPrice < 0) alert("Please give a valid listing price");
     await sell_nft("", tokenId, listingPrice);
+    set_loading(false);
   };
 
   useEffect(() => {
@@ -93,7 +95,7 @@ const NFTPage = ({
                       href={`/collection/${nft?.nft_collection}`}
                       className="mr-2 text-sm font-bold text-[#189C87]"
                     >
-                      Default Collection
+                      View Collection
                     </Link>
                     <MdVerified
                       style={{ color: "#4f87ff", marginLeft: "-4px" }}
@@ -121,9 +123,9 @@ const NFTPage = ({
                           src={
                             nft?.owner?.profileImage
                               ? nft?.owner?.profileImage.replace(
-                                  "ipfs://",
-                                  "https://gateway.ipfscdn.io/ipfs/"
-                                )
+                                "ipfs://",
+                                "https://gateway.ipfscdn.io/ipfs/"
+                              )
                               : testNFT
                           }
                           height={40}
@@ -219,7 +221,7 @@ const NFTPage = ({
                               viewBox="0 0 24 24"
                               width="24"
                               height="24"
-                              className="h-6 w-6 fill-jacarta-700 dark:fill-white"
+                              className="h-6 w-6 fill-jacarta-700"
                             >
                               <path fill="none" d="M0 0h24v24H0z" />
                               <path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
@@ -229,7 +231,7 @@ const NFTPage = ({
 
                         <div className="modal-body p-6">
                           <div className="mb-2 flex items-center justify-between">
-                            <span className="font-display text-sm font-semibold text-jacarta-700 dark:text-white">
+                            <span className="font-display text-sm font-semibold text-jacarta-700 ">
                               Price
                             </span>
                           </div>
@@ -237,9 +239,7 @@ const NFTPage = ({
                           <div className="relative mb-2 flex items-center overflow-hidden rounded-lg border border-jacarta-100 dark:border-jacarta-600">
                             <div className="flex flex-1 items-center self-stretch border-r border-jacarta-100 bg-jacarta-50 px-2">
                               <span className="font-display text-sm text-jacarta-700">
-                                {nft?.chain_symbol
-                                  ? nft?.chain_symbol
-                                  : "MATIC"}
+                                VENOM
                               </span>
                             </div>
                             {loading ? (
@@ -247,7 +247,7 @@ const NFTPage = ({
                                 disabled
                                 required
                                 type="text"
-                                className="h-12 w-full flex-[3] border-0 focus:ring-inset focus:ring-[#189C87]"
+                                className="h-12 w-full flex-[3] border-0 focus:ring-inset focus:ring-[#189C87] text-black"
                                 placeholder="Amount"
                               />
                             ) : (
@@ -257,7 +257,7 @@ const NFTPage = ({
                                 onChange={(e) =>
                                   set_listing_price(e.target.value)
                                 }
-                                className="h-12 w-full flex-[3] border-0 focus:ring-inset focus:ring-[#189C87]"
+                                className="h-12 w-full flex-[3] border-0 focus:ring-inset focus:ring-[#189C87] text-black"
                                 placeholder="Amount"
                               />
                             )}
@@ -436,10 +436,9 @@ const NFTPage = ({
                     onClick={() => setPropShow(true)}
                   >
                     <button
-                      className={` ${
-                        propShow &&
+                      className={` ${propShow &&
                         "text-[#189C87] active relative border-b-2 border-b-[#189C87]"
-                      } flex items-center whitespace-nowrap py-3 px-6  hover:text-jacarta-200`}
+                        } flex items-center whitespace-nowrap py-3 px-6  hover:text-jacarta-200`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -464,10 +463,9 @@ const NFTPage = ({
                     onClick={() => setPropShow(false)}
                   >
                     <button
-                      className={`${
-                        !propShow &&
+                      className={`${!propShow &&
                         "text-[#189C87] active relative border-b-2 border-b-[#189C87]"
-                      } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-200`}
+                        } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-200`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
