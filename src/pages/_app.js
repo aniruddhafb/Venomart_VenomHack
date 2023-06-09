@@ -603,6 +603,7 @@ export default function App({ Component, pageProps }) {
   );
 
   const sell_nft = async (nft_address, tokenId, price) => {
+    console.log({ nft_address, tokenId, price });
     try {
       const nft_contract = new venomProvider.Contract(nftAbi, nft_address);
       const txn = await nft_contract.methods
