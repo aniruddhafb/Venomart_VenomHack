@@ -627,20 +627,35 @@ export default function App({ Component, pageProps }) {
     }
   };
 
-  const buy_nft = async (nft_address) => {
-    await tokenWalletInstance.methods
-      .transfer({
-        amount: "1000000000", // with decimals
-        recipient: AUCTION_ADDRESS, // because it got it's own wallet
-        deployWalletValue: 0, // we know, that auction wallet deployed already
-        remainingGasTo: signer_address,
-        notify: true, // IMPORTANT to set it "true" for onAcceptTokensTransfer to be called
-        payload: "",
-      })
-      .send({
-        from: someAccount.address,
-        amount: toNano(2),
+  const buy_nft = async (tokenId) => {
+    try {
+      await tokenWalletInstance.methods
+        .transfer({
+          amount: (Number(nft_price) * 1000000000).toString(), // with decimals
+          recipient: AUCTION_ADDRESS, // because it got it's own wallet
+          deployWalletValue: 0, // we know, that auction wallet deployed already
+          remainingGasTo: signer_address,
+          notify: true, // IMPORTANT to set it "true" for onAcceptTokensTransfer to be called
+          payload: "",
+        })
+        .send({
+          from: signer_address,
+          amount: (Number(price) * 1000000000).toString(),
+        });
+
+      const res = await axios({
+        url: `${BaseURL}/buy_nft`,
+        method: "POST",
+        data: {
+          tokenId,
+          buyer_address: signer_address,
+        },
       });
+      console.log(res.data);
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
   };
 
   return (
@@ -656,6 +671,7 @@ export default function App({ Component, pageProps }) {
       </button> */}
       <Component
         {...pageProps}
+        buy_nft={buy_nft}
         sell_nft={sell_nft}
         fetch_collection_by_name={fetch_collection_by_name}
         get_nfts_by_collection={get_nfts_by_collection}

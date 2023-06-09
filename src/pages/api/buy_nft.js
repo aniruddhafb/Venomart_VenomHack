@@ -19,6 +19,8 @@ export default async function handler(req, res) {
 
         const buyer = await User.findOne({ wallet_id: buyer_address });
         nft.owner = buyer;
+        nft.isListed = false;
+        nft.listingPrice = "0";
         await nft.save();
         res.status(200).json({ success: true, data: nft });
       } catch (error) {
