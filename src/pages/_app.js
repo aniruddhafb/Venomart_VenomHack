@@ -72,13 +72,6 @@ export default function App({ Component, pageProps }) {
     try {
       const ipfs_image = await storage.upload(data.image);
 
-      // const nft_json = JSON.stringify({
-      //   nft_image: ipfs_image,
-      //   name: data.name,
-      //   description: data.description,
-      //   collection_name: data.collection,
-      //   properties: data.properties.filter((e) => e.type.length > 0),
-      // });
       const nft_json = JSON.stringify({
         type: "Basic NFT",
         id: 0,

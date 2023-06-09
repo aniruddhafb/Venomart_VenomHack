@@ -21,6 +21,10 @@
   background-repeat: repeat-y;
 }
 
+.customHeroImg {
+  /* width: 90%; */
+}
+
 #pcMenu {
   display: block;
 }

@@ -492,7 +492,7 @@ const NFTPage = ({
                     <div>
                       <div className="rounded-t-2lg rounded-b-2lg rounded-tl-none border border-[#189C87] bg-transparent p-6">
                         <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4">
-                          {nft?.properties?.map((e, index) => {
+                          {nft?.attributes?.map((e, index) => {
                             return (
                               <a
                                 key={index}
@@ -507,7 +507,7 @@ const NFTPage = ({
                               </a>
                             );
                           })}
-                          {nft?.properties == "" && <p>No Properties</p>}
+                          {nft?.attributes == "" && <p>No Properties</p>}
                         </div>
                       </div>
                     </div>
@@ -516,26 +516,26 @@ const NFTPage = ({
                       <div className="rounded-t-2lg rounded-b-2lg rounded-tl-none border border-[#189C87] bg-transparent p-6 dark:border-jacarta-600 dark:bg-jacarta-700 md:p-10">
                         <div className="mb-2 flex items-center">
                           <span className="mr-2 min-w-[9rem]">
-                            Contract Address:
+                            Collection Address:
                           </span>
                           <a
                             href={`${blockURL}accounts/${slug}`}
                             target="_blank"
                             className="text-[#189C87] hover:text-[#189C87]"
                           >
-                            {slug}
+                            {slug.slice(0, 7) + "..." + slug.slice(58)}
                           </a>
                         </div>
                         <div className="mb-2 flex items-center">
                           <span className="mr-2 min-w-[9rem] dark:text-jacarta-300">
-                            Token Address:
+                            NFT Address:
                           </span>
                           <a
-                            href={`${blockURL}accounts/${slug}`}
+                            href={`${blockURL}accounts/${nft?.nft_address}`}
                             target="_blank"
                             className="text-[#189C87] hover:text-[#189C87]"
                           >
-                            {slug}
+                            {nft?.nft_address.slice(0, 7) + "..." + nft?.nft_address.slice(58)}
                           </a>
                         </div>
                         <div className="mb-2 flex items-center">
