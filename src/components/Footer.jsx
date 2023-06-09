@@ -74,7 +74,7 @@ const Footer = ({ theme }) => {
                                     href="/nft/launchpad"
                                     className="hover:text-accent dark:hover:text-white"
                                 >
-                                    Get Launchpad
+                                    Launchpad
                                 </Link>
                             </li>
                         </ul>
@@ -117,7 +117,14 @@ const Footer = ({ theme }) => {
                                     Create Collection
                                 </Link>
                             </li>
-
+                            <li>
+                                <Link
+                                    href="/launchpad/apply"
+                                    className="hover:text-accent dark:hover:text-white"
+                                >
+                                    Apply for Launchpad
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
