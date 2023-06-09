@@ -11,7 +11,7 @@ const NFTPage = ({
   signer_address,
   chainIdMain,
   get_nft_by_tokenId,
-  collection_address_devnet,
+  blockURL,
 }) => {
   const router = useRouter();
   const { slug, tokenId } = router.query;
@@ -27,9 +27,11 @@ const NFTPage = ({
   useEffect(() => {
     if (!tokenId) return;
     (async () => {
+      setPageLoading(true);
       const nft_data = await get_nft_by_tokenId(tokenId);
-      console.log(nft_data);
+      console.log({ nft_data: nft_data });
       set_nft_info(nft_data);
+      setPageLoading(false);
     })();
   }, [tokenId]);
 
@@ -49,7 +51,10 @@ const NFTPage = ({
       {pageLoading ? (
         <Loader />
       ) : (
-        <section className="relative pt-12 pb-24 lg:py-24 mt-10" id="heroBack">
+        <section
+          className="relative pt-12 pb-24 lg:py-24"
+          style={{ paddingTop: "160px" }}
+        >
           <div className="container">
             <div className="md:flex md:flex-wrap">
               <div
@@ -68,7 +73,7 @@ const NFTPage = ({
                   width={80}
                   height={80}
                   alt="item"
-                  className="cursor-pointer rounded-2.5xl h-[auto] w-[80%]"
+                  className="cursor-pointer rounded-2.5xl h-[500px] w-[auto]"
                 />
               </div>
 
@@ -78,14 +83,14 @@ const NFTPage = ({
                   {/* <!-- Collection --> */}
                   <div className="flex items-center">
                     <Link
-                      href={`/collection/${nft?.collection_id}`}
-                      className="mr-2 text-sm font-bold text-accent"
+                      href={`/collection/${nft?.nft_collection}`}
+                      className="mr-2 text-sm font-bold text-[#189C87]"
                     >
                       Default Collection
                     </Link>
                     <MdVerified
                       style={{ color: "#4f87ff", marginLeft: "-4px" }}
-                      size={25}
+                      size={16}
                     />
                   </div>
                 </div>
@@ -142,8 +147,8 @@ const NFTPage = ({
                         Owned by
                       </span>
                       <Link
-                        href={`/profile/${nft?.user_id}`}
-                        className="block text-accent"
+                        href={`/profile/${nft?.owner?.wallet_id}`}
+                        className="block text-[#189C87]"
                       >
                         <span className="text-sm font-bold">
                           {nft?.owner?.user_name}
@@ -162,7 +167,7 @@ const NFTPage = ({
                         <button
                           onClick={() => setListSale(true)}
                           href="#"
-                          className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                          className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                         >
                           List For Sale
                         </button>
@@ -172,7 +177,7 @@ const NFTPage = ({
                             alert("Please switch to respective chain")
                           }
                           href="#"
-                          className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                          className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                         >
                           List For Sale
                         </button>
@@ -233,7 +238,7 @@ const NFTPage = ({
                                 disabled
                                 required
                                 type="text"
-                                className="h-12 w-full flex-[3] border-0 focus:ring-inset focus:ring-accent"
+                                className="h-12 w-full flex-[3] border-0 focus:ring-inset focus:ring-[#189C87]"
                                 placeholder="Amount"
                               />
                             ) : (
@@ -243,7 +248,7 @@ const NFTPage = ({
                                 onChange={(e) =>
                                   set_listing_price(e.target.value)
                                 }
-                                className="h-12 w-full flex-[3] border-0 focus:ring-inset focus:ring-accent"
+                                className="h-12 w-full flex-[3] border-0 focus:ring-inset focus:ring-[#189C87]"
                                 placeholder="Amount"
                               />
                             )}
@@ -256,7 +261,7 @@ const NFTPage = ({
                               <button
                                 disabled
                                 type="button"
-                                className="rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                                className="rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                               >
                                 Listing{" "}
                                 <svg
@@ -279,7 +284,7 @@ const NFTPage = ({
                             ) : (
                               <button
                                 type="submit"
-                                className="rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                                className="rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                               >
                                 List Now
                               </button>
@@ -321,7 +326,7 @@ const NFTPage = ({
                     {loading ? (
                       <button
                         type="button"
-                        className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                        className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                       >
                         Proccessing{" "}
                         <svg
@@ -349,7 +354,7 @@ const NFTPage = ({
                             onClick={() =>
                               buyNFT(tokenId, slug, nft?.listingPrice)
                             }
-                            className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                            className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                           >
                             Buy Now
                           </button>
@@ -359,7 +364,7 @@ const NFTPage = ({
                             onClick={() =>
                               alert("Please switch to respective chain")
                             }
-                            className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                            className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                           >
                             Buy Now
                           </button>
@@ -376,7 +381,7 @@ const NFTPage = ({
                       <button
                         type="button"
                         onClick={() => cancelListingToken(slug, tokenId)}
-                        className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                        className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                       >
                         Cancel Sale
                       </button>
@@ -386,7 +391,7 @@ const NFTPage = ({
                         onClick={() =>
                           alert("Please switch to respective chain")
                         }
-                        className="inline-block w-full rounded-full bg-accent py-3 px-8 text-center font-semibold text-white shadow-accent-volume transition-all hover:bg-accent-dark"
+                        className="inline-block w-full rounded-full bg-[#189C87] py-3 px-8 text-center font-semibold text-white shadow-[#189C87]-volume transition-all hover:bg-[#189C87]-dark"
                       >
                         Cancel Sale
                       </button>
@@ -481,18 +486,18 @@ const NFTPage = ({
                             return (
                               <a
                                 key={index}
-                                className="flex flex-col space-y-2 rounded-2lg border border-jacarta-100 bg-light-base p-5 text-center transition-shadow hover:shadow-lg dark:border-jacarta-600 dark:bg-jacarta-800"
+                                className="flex flex-col space-y-2 rounded-2lg shadow-sm shadow-[#189C87] p-5 text-center transition-shadow hover:shadow-lg"
                               >
-                                <span className="text-sm uppercase text-accent">
+                                <span className="text-sm uppercase text-[#189C87]">
                                   {e.type}
                                 </span>
-                                <span className="text-base text-jacarta-700 ">
+                                <span className="text-base text-white">
                                   {e.value}
                                 </span>
                               </a>
                             );
                           })}
-                          {nft?.nft_properties == "" && <p>No Properties</p>}
+                          {nft?.properties == "" && <p>No Properties</p>}
                         </div>
                       </div>
                     </div>
@@ -504,26 +509,23 @@ const NFTPage = ({
                             Contract Address:
                           </span>
                           <a
-                            href=""
-                            // href={
-                            //   `${nft?.chain_block}` + `address/` + `${slug}`
-                            // }
+                            href={`${blockURL}accounts/${slug}`}
                             target="_blank"
-                            className="text-[#189C87]"
+                            className="text-[#189C87] hover:text-[#189C87]"
                           >
                             {slug}
                           </a>
                         </div>
                         <div className="mb-2 flex items-center">
                           <span className="mr-2 min-w-[9rem] dark:text-jacarta-300">
-                            Token ID:
+                            Token Address:
                           </span>
                           <a
-                            href={""}
+                            href={`${blockURL}accounts/${slug}`}
                             target="_blank"
-                            className="text-[#189C87]"
+                            className="text-[#189C87] hover:text-[#189C87]"
                           >
-                            3
+                            {slug}
                           </a>
                         </div>
                         <div className="mb-2 flex items-center">
@@ -539,7 +541,7 @@ const NFTPage = ({
                             Blockchain:
                           </span>
                           <span className="text-jacarta-700 dark:text-white">
-                            Venom Testnet
+                            Venom Devnet
                           </span>
                         </div>
                       </div>
