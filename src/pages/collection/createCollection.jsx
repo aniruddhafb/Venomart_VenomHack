@@ -3,7 +3,11 @@ import Loader from "@/components/Loader";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const CreateNFTCollection = ({ signer_address, create_new_collection }) => {
+const CreateNFTCollection = ({
+  signer_address,
+  create_new_collection,
+  collection_address_devnet,
+}) => {
   const router = useRouter();
   const [loading, set_loading] = useState(false);
   const [preview, set_preview] = useState({ logo: "", cover: "" });
@@ -20,9 +24,12 @@ const CreateNFTCollection = ({ signer_address, create_new_collection }) => {
   };
 
   const handle_submit = async (e) => {
-    set_loading(true);
     e.preventDefault();
-    await create_new_collection(data);
+    set_loading(true);
+    await create_new_collection({
+      ...data,
+      collection_address: collection_address_devnet,
+    });
     set_loading(false);
     router.push("/collection/exploreCollections");
   };

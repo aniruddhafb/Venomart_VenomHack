@@ -26,12 +26,12 @@ const Apply = ({ signer_address, create_new_collection, create_launchpad }) => {
   };
 
   const handle_submit = async (e) => {
-    set_loading(true);
     e.preventDefault();
+    set_loading(true);
     console.log(data);
     await create_launchpad(data);
     set_loading(false);
-    router.push("/launch");
+    // router.push("/launch");
   };
 
   return (

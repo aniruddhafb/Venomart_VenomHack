@@ -68,7 +68,6 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
-    console.log(data);
     try {
       const ipfs_image =
         typeof data.image == "string"
@@ -249,23 +248,6 @@ export default function App({ Component, pageProps }) {
       },
     });
     console.log(res.data);
-  };
-
-  const create_collection = async (data) => {
-    const ipfsUrl_logo = await storage.upload(data.logo);
-    const ipfsUrl_cover = await storage.upload(data.image);
-    const res = await axios({
-      url: `${BaseURL}/collections`,
-      method: "POST",
-      data: {
-        collection_address: collection_address_devnet,
-        coverImage: ipfsUrl_cover,
-        logo: ipfsUrl_logo,
-        name: data.name,
-        symbol: data.symbol,
-        description: data.description,
-      },
-    });
   };
 
   const getAddress = async (provider) => {
@@ -605,7 +587,7 @@ export default function App({ Component, pageProps }) {
       url: `${BaseURL}/collections`,
       method: "POST",
       data: {
-        collection_address: collection_address_devnet,
+        collection_address: data.collection_address,
         user_wallet: signer_address,
         cover_image: cover_ips,
         logo: logo_ipfs,
@@ -763,7 +745,6 @@ export default function App({ Component, pageProps }) {
         loadNFTs={loadNFTs}
         create_user={create_user}
         update_profile={update_profile}
-        create_collection={create_collection}
         create_nft={create_nft}
         mint_nft={mint_nft}
         standaloneProvider={venomProvider}
