@@ -14,12 +14,14 @@ const Collection = ({ get_nfts_by_collection, get_collection_info_by_id }) => {
 
   useEffect(() => {
     (async () => {
+      if (!slug) return;
+      console.log(slug);
       const collection_info = await get_collection_info_by_id(slug);
       const nfts = await get_nfts_by_collection(slug);
-      console.log({ nfts: nfts });
+      // console.log({ nfts: nfts });
       console.log({ collection_info: collection_info });
     })();
-  }, []);
+  }, [slug]);
 
   return (
     <>

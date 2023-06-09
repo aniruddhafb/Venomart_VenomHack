@@ -506,13 +506,13 @@ export default function App({ Component, pageProps }) {
     });
   };
 
-  const get_collection_info_by_id = async (user_id) => {
+  const get_collection_info_by_id = async (collection_id) => {
     try {
       const res = await axios({
-        url: `${BaseURL}/get_collection_owner`,
+        url: `${BaseURL}/get_collection_info_by_id`,
         method: "POST",
         data: {
-          wallet_address: user_id,
+          collection_id,
         },
       });
       return res.data;
