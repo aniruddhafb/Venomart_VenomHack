@@ -544,15 +544,12 @@ export default function App({ Component, pageProps }) {
 
       const contract = new venomProvider.Contract(
         collectionAbi,
-        data.collection_address
-          ? data.collection_address
-          : collection_address_devnet
+        data.collection_address ? data.collection_address : collection_address_devnet
       );
 
       const { count: id } = await contract.methods
         .totalSupply({ answerId: 0 })
         .call();
-
       const subscriber = new Subscriber(venomProvider);
       contract
         .events(subscriber)
@@ -561,7 +558,6 @@ export default function App({ Component, pageProps }) {
           const { nft: nftAddress } = await contract.methods
             .nftAddress({ answerId: 0, id: id })
             .call();
-
           const res = await axios({
             url: `${BaseURL}/nfts`,
             method: "POST",
@@ -573,12 +569,11 @@ export default function App({ Component, pageProps }) {
               owner: signer_address,
             },
           });
-
           console.log(res.data);
         });
       const outputs = await contract.methods.mintNft({ json: nft_json }).send({
         from: new Address(signer_address),
-        amount: "100000000",
+        amount: "1000000000",
       });
 
       window.location.replace("/nft/exploreNFTs");
