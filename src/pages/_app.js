@@ -506,6 +506,8 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
+    console.log("create nft called");
+    console.log(data);
     try {
       const ipfs_image =
         typeof data.image == "string"
@@ -552,12 +554,15 @@ export default function App({ Component, pageProps }) {
       const { count: id } = await contract.methods
         .totalSupply({ answerId: 0 })
         .call();
+      console.log({ id });
 
       const subscriber = new Subscriber(venomProvider);
       contract
         .events(subscriber)
         .filter((event) => event.event === "tokenCreated")
         .on(async (event) => {
+          console.log("event emitted");
+          console.log({ event });
           const { nft: nftAddress } = await contract.methods
             .nftAddress({ answerId: 0, id: id })
             .call();
@@ -574,14 +579,19 @@ export default function App({ Component, pageProps }) {
             },
           });
 
-          console.log(res.data);
+          console.log({ res: res.data });
         });
       const outputs = await contract.methods.mintNft({ json: nft_json }).send({
         from: new Address(signer_address),
-        amount: "100000000",
+        amount: "1000000000",
       });
+      const { nft: nftAddress } = await contract.methods
+        .nftAddress({ answerId: 0, id: id })
+        .call();
 
-      window.location.replace("/nft/exploreNFTs");
+      console.log({ nftAddress });
+
+      // window.location.replace("/nft/exploreNFTs");
     } catch (error) {
       console.log(error.message);
     }
