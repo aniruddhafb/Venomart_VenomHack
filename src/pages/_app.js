@@ -506,7 +506,6 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
-    console.log(data);
     try {
       const ipfs_image =
         typeof data.image == "string"
@@ -579,7 +578,7 @@ export default function App({ Component, pageProps }) {
         });
       const outputs = await contract.methods.mintNft({ json: nft_json }).send({
         from: new Address(signer_address),
-        amount: "1000000000",
+        amount: "100000000",
       });
 
       window.location.replace("/nft/exploreNFTs");
@@ -602,7 +601,7 @@ export default function App({ Component, pageProps }) {
       })
       .send({
         from: new Address(signer_address),
-        amount: "1000000000",
+        amount: "100000000",
       });
 
     const cover_ips = await storage.upload(data.image);

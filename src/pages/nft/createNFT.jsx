@@ -30,13 +30,6 @@ const CreateNFT = ({
     e.preventDefault();
     set_loading(true);
     await create_nft(data);
-    set_data({
-      image: "",
-      name: "",
-      description: "",
-      collection: collection_address_devnet,
-      properties: [{ type: "", value: "" }],
-    });
     set_loading(false);
   };
 
@@ -67,7 +60,6 @@ const CreateNFT = ({
     (async () => {
       if (!signer_address) return;
       const collections = await get_collections_by_owner(signer_address);
-      console.log(collections);
       set_user_collections(collections);
     })();
   }, [signer_address]);
