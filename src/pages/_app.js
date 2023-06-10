@@ -548,15 +548,12 @@ export default function App({ Component, pageProps }) {
 
       const contract = new venomProvider.Contract(
         collectionAbi,
-        data.collection_address
-          ? data.collection_address
-          : collection_address_devnet
+        data.collection_address ? data.collection_address : collection_address_devnet
       );
 
       const { count: id } = await contract.methods
         .totalSupply({ answerId: 0 })
         .call();
-      console.log({ id });
 
       const subscriber = new Subscriber(venomProvider);
       contract
@@ -568,7 +565,6 @@ export default function App({ Component, pageProps }) {
           const { nft: nftAddress } = await contract.methods
             .nftAddress({ answerId: 0, id: id })
             .call();
-
           const res = await axios({
             url: `${BaseURL}/nfts`,
             method: "POST",
