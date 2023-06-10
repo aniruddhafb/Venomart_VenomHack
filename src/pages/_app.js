@@ -38,6 +38,9 @@ export default function App({ Component, pageProps }) {
 
   const [standaloneProvider, setStandAloneProvider] = useState();
 
+  const [nfts, set_nfts] = useState([]);
+  const [search_data] = useState(nfts);
+
   const collection_address_devnet =
     "0:ed149312db64ae4f123785fce15cde133c388d37a943c01736fcf1e36e48c9a3";
 
@@ -47,6 +50,25 @@ export default function App({ Component, pageProps }) {
   const init = async () => {
     const _venomConnect = await initVenomConnect();
     setVenomConnect(_venomConnect);
+  };
+
+  const search_nft = async (query) => {
+    // console.log(nfts);
+    try {
+      let filtered_nfts = [];
+      nfts.filter(async (item) => {
+        let parsed_item = JSON.parse(item.json);
+        if (parsed_item.name.toLowerCase().includes(query)) {
+          let obj = { ...item, ...parsed_item };
+          filtered_nfts.push(obj);
+          return obj;
+        }
+      });
+      console.log(filtered_nfts);
+      return filtered_nfts;
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const create_user = async (data) => {
@@ -178,7 +200,9 @@ export default function App({ Component, pageProps }) {
         url: `${BaseURL}/nfts`,
         method: "GET",
       });
+      console.log(res.data.data);
       if (!res.data.data) return;
+      set_nfts(res.data.data);
       return res.data;
     } catch (error) {
       alert(error.message);
@@ -564,7 +588,6 @@ export default function App({ Component, pageProps }) {
       };
 
       create_new_collection(collection_data);
-
     } catch (error) {
       alert(error.message);
       console.log(error.message);
@@ -719,6 +742,8 @@ export default function App({ Component, pageProps }) {
         signer_address={signer_address}
         connect_wallet={connect_wallet}
         onDisconnect={onDisconnect}
+        search_nft={search_nft}
+        collection_address_devnet={collection_address_devnet}
       />
       {/* <button className="mt-52" onClick={sell_nft}>
         Press{" "}
