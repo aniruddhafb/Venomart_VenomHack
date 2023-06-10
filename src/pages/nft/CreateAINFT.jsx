@@ -73,7 +73,6 @@ const CreateAINFT = ({
 
   const handle_submit = async (e) => {
     e.preventDefault();
-    console.log(data);
     set_loading(true);
     await create_nft(data);
     setTimeout(() => {

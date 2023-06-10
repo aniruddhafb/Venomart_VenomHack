@@ -96,7 +96,7 @@ export default function Home({
           <div className="flex flex-wrap justify-center align-middle">
             {nfts.map((e, index) => {
               const nft_info = JSON.parse(e.json);
-              return (
+              return index < 8 && (
                 <NftCard
                   key={index}
                   ImageSrc={nft_info.nft_image?.replace(
@@ -125,7 +125,7 @@ export default function Home({
           </div>
           <div className="flex flex-wrap justify-center align-middle">
             {collections?.map((e, index) => {
-              return (
+              return index < 8 && (
                 <CollectionCard
                   key={index}
                   Name={e.name}

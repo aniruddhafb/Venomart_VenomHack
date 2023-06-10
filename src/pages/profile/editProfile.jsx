@@ -50,7 +50,6 @@ const EditProfile = ({
 
   const handle_submit = async (e) => {
     e.preventDefault();
-    console.log(data);
     set_loading(true);
     await update_profile(data);
     set_loading(false);
@@ -91,9 +90,9 @@ const EditProfile = ({
               src={
                 typeof data.coverImage == "string"
                   ? data.coverImage.replace(
-                      "ipfs://",
-                      "https://gateway.ipfscdn.io/ipfs/"
-                    )
+                    "ipfs://",
+                    "https://gateway.ipfscdn.io/ipfs/"
+                  )
                   : coverImg_preview
               }
               alt="banner"
@@ -262,9 +261,9 @@ const EditProfile = ({
                           src={
                             typeof data.profileImage == "string"
                               ? data.profileImage.replace(
-                                  "ipfs://",
-                                  "https://gateway.ipfscdn.io/ipfs/"
-                                )
+                                "ipfs://",
+                                "https://gateway.ipfscdn.io/ipfs/"
+                              )
                               : profImg_preview
                           }
                           width={100}

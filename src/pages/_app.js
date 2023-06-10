@@ -182,6 +182,7 @@ export default function App({ Component, pageProps }) {
     } catch (error) {
       console.log(error.message);
     }
+    window.location.replace("/nft/exploreNFTs");
   };
 
   const fetch_launchpads = async () => {
@@ -676,7 +677,6 @@ export default function App({ Component, pageProps }) {
   );
 
   const sell_nft = async (nft_address, tokenId, price) => {
-    console.log({ nft_address, tokenId, price });
     try {
       const nft_contract = new venomProvider.Contract(nftAbi, nft_address);
       const txn = await nft_contract.methods
@@ -700,7 +700,6 @@ export default function App({ Component, pageProps }) {
         },
       });
 
-      console.log(res.data);
     } catch (error) {
       alert(error.message);
       console.log(error.message);
