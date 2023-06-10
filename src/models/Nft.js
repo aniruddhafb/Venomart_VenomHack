@@ -2,7 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 const NFTSchema = new mongoose.Schema({
   nft_address: String,
-  tokenId: String,
+  tokenId: {
+    type: String,
+    unique: true,
+  },
   nft_collection: {
     type: Schema.Types.ObjectId,
     ref: "Collection",
