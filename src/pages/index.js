@@ -125,7 +125,7 @@ export default function Home({
           </div>
           <div className="flex flex-wrap justify-center align-middle">
             {collections?.map((e, index) => {
-              return index < 8 && (
+              return index < 6 && (
                 <CollectionCard
                   key={index}
                   Name={e.name}
