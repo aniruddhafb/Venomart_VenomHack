@@ -33,22 +33,22 @@ const About = () => {
                 </section>
 
                 {/* <!-- YouTube Modal --> */}
-                {/* <div
-                className=" fade video-lightbox js-video-lightbox"
-                tabindex="-1"
-                aria-label="Youtube Modal"
-                aria-hidden="true"
-            >
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-body">
-                            <div className="ratio ratio-16x9 before:bg-jacarta-900">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/hJsEJF-TrtM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <div
+                    className=" fade video-lightbox js-video-lightbox"
+                    tabindex="-1"
+                    aria-label="Youtube Modal"
+                    aria-hidden="true"
+                >
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-body">
+                                <div className="ratio ratio-16x9 before:bg-jacarta-900">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/zKyltDwzr64" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> */}
 
                 {/* <!-- Team --> */}
                 <section className="py-24">
