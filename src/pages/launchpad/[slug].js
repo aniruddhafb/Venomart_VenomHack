@@ -29,6 +29,7 @@ const Launch = ({
       ...data.data,
       collection: collectionInfo?.name,
       collection_address: collectionInfo?.address,
+      description: "Test Description",
       properties: [],
     };
 
