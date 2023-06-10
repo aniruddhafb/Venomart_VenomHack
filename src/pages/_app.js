@@ -593,10 +593,15 @@ export default function App({ Component, pageProps }) {
       collection_factory_address
     );
 
-    const txn = await contract.methods.create_collection({
-      _state: "1",
-      _json: JSON.stringify({ demo: "demo_name" }),
-    });
+    const txn = await contract.methods
+      .create_collection({
+        _state: "1",
+        _json: JSON.stringify({ demo: "demo_name" }),
+      })
+      .send({
+        from: new Address(signer_address),
+        amount: "1000000000",
+      });
 
     const cover_ips = await storage.upload(data.image);
     const logo_ipfs = await storage.upload(data.logo);
