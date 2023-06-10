@@ -506,7 +506,6 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
-    console.log(data);
     try {
       const ipfs_image =
         typeof data.image == "string"
@@ -582,7 +581,7 @@ export default function App({ Component, pageProps }) {
         amount: "1000000000",
       });
 
-      // window.location.replace("/nft/exploreNFTs");
+      window.location.replace("/nft/exploreNFTs");
     } catch (error) {
       console.log(error.message);
     }
