@@ -581,7 +581,9 @@ export default function App({ Component, pageProps }) {
         .nftAddress({ answerId: 0, id: id })
         .call();
 
-      // window.location.replace("/nft/exploreNFTs");
+      // setTimeout(() => {
+      //   window.location.replace("/nft/exploreNFTs");
+      // }, 3000);
 
     } catch (error) {
       console.log(error.message);
