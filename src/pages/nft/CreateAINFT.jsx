@@ -75,9 +75,6 @@ const CreateAINFT = ({
     e.preventDefault();
     set_loading(true);
     await create_nft(data);
-    setTimeout(() => {
-      router.push(`/profile/${signer_address}`);
-    }, 3000);
     set_loading(false);
   };
 
