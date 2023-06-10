@@ -27,8 +27,8 @@ const CreateNFT = ({
   });
 
   const handle_submit = async (e) => {
-    set_loading(true);
     e.preventDefault();
+    set_loading(true);
     await create_nft(data);
     set_loading(false);
     router.push(`/profile/${signer_address}`);

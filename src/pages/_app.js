@@ -132,7 +132,7 @@ export default function App({ Component, pageProps }) {
 
       const contract = new venomProvider.Contract(
         collectionAbi,
-        data.collection_address ? data.collection_address : data.collection
+        data.collection_address ? data.collection_address : collection_address_devnet
       );
 
       const { count: id } = await contract.methods
@@ -180,7 +180,6 @@ export default function App({ Component, pageProps }) {
       //   },
       // });
     } catch (error) {
-      alert(error.message);
       console.log(error.message);
     }
   };
@@ -309,7 +308,7 @@ export default function App({ Component, pageProps }) {
       ? await getAddress(provider)
       : undefined;
     setSignerAddress(venomWalletAddress);
-    // create_user({ wallet_id: venomWalletAddress });
+    create_user({ wallet_id: venomWalletAddress });
     return venomWalletAddress;
   };
 
