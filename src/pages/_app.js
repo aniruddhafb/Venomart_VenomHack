@@ -499,7 +499,7 @@ export default function App({ Component, pageProps }) {
         description: data.description,
       };
 
-      create_new_collection(collection_data);
+      await create_new_collection(collection_data);
     } catch (error) {
       alert(error.message);
       console.log(error.message);
