@@ -11,6 +11,7 @@ const Launch = ({
   blockURL,
   get_launchpad_by_address,
   create_nft,
+  show_loading,
 }) => {
   const router = useRouter();
   const { slug } = router.query;
@@ -20,8 +21,9 @@ const Launch = ({
 
   const createNFT = async () => {
     const data = await axios({
-      url: `https://ipfs.io/ipfs/QmPgdfAeXTazC9xdKAXhmZa9hUY6jrhNP4YvwB7ZSvbauH/${Math.floor(Math.random() * 1000) + 1
-        }.json`,
+      url: `https://ipfs.io/ipfs/QmPgdfAeXTazC9xdKAXhmZa9hUY6jrhNP4YvwB7ZSvbauH/${
+        Math.floor(Math.random() * 1000) + 1
+      }.json`,
       method: "GET",
     });
 
@@ -33,9 +35,9 @@ const Launch = ({
       properties: [],
     };
 
-    setLoading(true);
+    // setLoading(true);
     const createNF = await create_nft(obj);
-    setLoading(false);
+    // setLoading(false);
   };
 
   useEffect(() => {
@@ -47,7 +49,7 @@ const Launch = ({
       setCollectionInfo(getCollectionInfo.data);
       setLoading(false);
     })();
-  }, [slug]);
+  }, [slug, show_loading]);
 
   return (
     <>
@@ -57,7 +59,7 @@ const Launch = ({
         <link rel="icon" href="/fav.png" />
       </Head>
 
-      {loading ? (
+      {show_loading ? (
         <Loader />
       ) : (
         <>
@@ -109,10 +111,17 @@ const Launch = ({
                   </a>
                 </div>
                 <div className="mb-8">
-                  <a href={`${blockURL}accounts/${collectionInfo?.address}`} target="_blank" className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
+                  <a
+                    href={`${blockURL}accounts/${collectionInfo?.address}`}
+                    target="_blank"
+                    className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6"
+                  >
                     View on Explorer
                   </a>
-                  <Link href={`/collection/exploreCollections`} className="bg-transparent hover:bg-[#189C87] border border-whit text-white font-bold py-2 px-4 rounded">
+                  <Link
+                    href={`/collection/exploreCollections`}
+                    className="bg-transparent hover:bg-[#189C87] border border-whit text-white font-bold py-2 px-4 rounded"
+                  >
                     View Collection
                   </Link>
                 </div>
@@ -156,7 +165,9 @@ const Launch = ({
                     className="w-1/2 rounded-r-xl border-jacarta-100 py-4 hover:shadow-md sm:w-32"
                   >
                     <div className="mb-1 flex items-center justify-center text-base font-medium text-jacarta-700 dark:text-white">
-                      <span className="font-bold mr-2">{collectionInfo?.mint_price}</span>
+                      <span className="font-bold mr-2">
+                        {collectionInfo?.mint_price}
+                      </span>
                       <Image src={`../../venom.svg`} height={18} width={18} />
                     </div>
                     <div className="text-2xs font-medium tracking-tight dark:text-jacarta-400">
