@@ -507,7 +507,6 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
-    console.log({ data });
     set_show_loading(true);
     try {
       const ipfs_image =
@@ -561,8 +560,6 @@ export default function App({ Component, pageProps }) {
         .events(subscriber)
         .filter((event) => event.event === "tokenCreated")
         .on(async (event) => {
-          console.log("event emitted");
-          console.log({ event });
           const { nft: nftAddress } = await contract.methods
             .nftAddress({ answerId: 0, id: id })
             .call();
@@ -578,7 +575,6 @@ export default function App({ Component, pageProps }) {
             },
           });
 
-          console.log({ res });
           set_show_loading(false);
           window.location.replace("/nft/exploreNFTs");
         });
@@ -711,19 +707,6 @@ export default function App({ Component, pageProps }) {
   const buy_nft = async (tokenId, price) => {
     console.log({ tokenId, price });
     try {
-      // await tokenWalletInstance.methods
-      //   .transfer({
-      //     amount: (Number(nft_price) * 1000000000).toString(), // with decimals
-      //     recipient: AUCTION_ADDRESS, // because it got it's own wallet
-      //     deployWalletValue: 0, // we know, that auction wallet deployed already
-      //     remainingGasTo: signer_address,
-      //     notify: true, // IMPORTANT to set it "true" for onAcceptTokensTransfer to be called
-      //     payload: "",
-      //   })
-      //   .send({
-      //     from: signer_address,
-      //     amount: (Number(price) * 1000000000).toString(),
-      //   });
       const contract = new venomProvider.Contract(
         collectionFactory,
         collection_factory_address

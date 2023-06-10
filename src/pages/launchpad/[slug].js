@@ -26,7 +26,6 @@ const Launch = ({
       }.json`,
       method: "GET",
     });
-    console.log({ data });
 
     let obj = {
       ...data.data,
@@ -36,10 +35,9 @@ const Launch = ({
       properties: [],
     };
 
-    console.log({ obj });
-
     // setLoading(true);
     create_nft(obj);
+    obj = {};
     // setLoading(false);
   };
 
