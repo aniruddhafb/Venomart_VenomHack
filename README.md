@@ -13,7 +13,7 @@ Upcoming Features
 > 
 > Introduce Auction functionality for NFTs
 > 
-> On-chain Buy and sell functionality
+> On-chain Buy and sell functionality for NFTs
 > 
 > Special section for artists profile on marketplace
 
