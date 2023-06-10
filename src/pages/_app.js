@@ -506,8 +506,6 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
-    console.log("create nft called");
-    console.log(data);
     try {
       const ipfs_image =
         typeof data.image == "string"
@@ -583,7 +581,7 @@ export default function App({ Component, pageProps }) {
         .nftAddress({ answerId: 0, id: id })
         .call();
 
-      window.location.replace("/nft/exploreNFTs");
+      // window.location.replace("/nft/exploreNFTs");
 
     } catch (error) {
       console.log(error.message);
