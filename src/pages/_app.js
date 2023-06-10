@@ -26,7 +26,6 @@ import mongoose from "mongoose";
 // import { toNano } from "locklift";
 
 export default function App({ Component, pageProps }) {
-
   // const BaseURL = "https://venomart.space/api";
   const BaseURL = "http://localhost:3000/api";
 
@@ -46,7 +45,7 @@ export default function App({ Component, pageProps }) {
   const [search_data] = useState(nfts);
 
   const collection_address_devnet =
-    "0:ed149312db64ae4f123785fce15cde133c388d37a943c01736fcf1e36e48c9a3";
+    "0:260aa57cbcdf1f727dfc0eabc7c20c16e038f129b9fdc31650430e5d596c559c";
 
   const collection_factory_address =
     "0:88b78baad2ac1e959ce5ad7e83f7a39bc0ecb4c2cbc119a84fc381d990d508fb";
@@ -91,97 +90,6 @@ export default function App({ Component, pageProps }) {
       },
     });
     return res.data;
-  };
-
-  const create_nft = async (data) => {
-    try {
-      const ipfs_image =
-        typeof data.image == "string"
-          ? data.image
-          : await storage.upload(data.image);
-
-      const nft_json = JSON.stringify({
-        type: "Basic NFT",
-        id: 0,
-        name: data.name,
-        description: data.description,
-        preview: {
-          source: ipfs_image.replace(
-            "ipfs://",
-            "https://gateway.ipfscdn.io/ipfs/"
-          ),
-          mimetype: "image/png",
-        },
-        files: [
-          {
-            source: ipfs_image.replace(
-              "ipfs://",
-              "https://gateway.ipfscdn.io/ipfs/"
-            ),
-            mimetype: ipfs_image.replace(
-              "ipfs://",
-              "https://gateway.ipfscdn.io/ipfs/"
-            ),
-          },
-        ],
-        attributes: data.properties.filter((e) => e.type.length > 0),
-        external_url: "https://venomart.space",
-        nft_image: ipfs_image,
-        collection_name: data.collection,
-      });
-
-      const contract = new venomProvider.Contract(
-        collectionAbi,
-        data.collection_address ? data.collection_address : collection_address_devnet
-      );
-
-      const { count: id } = await contract.methods
-        .totalSupply({ answerId: 0 })
-        .call();
-
-      const subscriber = new Subscriber(venomProvider);
-      contract
-        .events(subscriber)
-        .filter((event) => event.event === "tokenCreated")
-        .on(async (event) => {
-          const { nft: nftAddress } = await contract.methods
-            .nftAddress({ answerId: 0, id: id })
-            .call();
-
-          const res = await axios({
-            url: `${BaseURL}/nfts`,
-            method: "POST",
-            data: {
-              nft_address: nftAddress._address,
-              tokenId: event.data.tokenId,
-              collection_name: data.collection,
-              json: nft_json,
-              owner: signer_address,
-            },
-          });
-
-          console.log(res.data);
-        });
-      const outputs = await contract.methods.mintNft({ json: nft_json }).send({
-        from: new Address(signer_address),
-        amount: "1000000000",
-      });
-
-      // const { nft: nftAddress } = await contract.methods
-      //   .nftAddress({ answerId: 0, id: id })
-      //   .call();
-
-      // const res = await axios({
-      //   url: `${BaseURL}/nfts`,
-      //   method: "PUT",
-      //   data: {
-      //     nft_address: nftAddress,
-      //     tokenId: tokenId
-      //   },
-      // });
-    } catch (error) {
-      console.log(error.message);
-    }
   };
 
   const fetch_launchpads = async () => {
@@ -597,12 +505,97 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  const create_nft = async (data) => {
+    try {
+      const ipfs_image =
+        typeof data.image == "string"
+          ? data.image
+          : await storage.upload(data.image);
+
+      const nft_json = JSON.stringify({
+        type: "Basic NFT",
+        id: 0,
+        name: data.name,
+        description: data.description,
+        preview: {
+          source: ipfs_image.replace(
+            "ipfs://",
+            "https://gateway.ipfscdn.io/ipfs/"
+          ),
+          mimetype: "image/png",
+        },
+        files: [
+          {
+            source: ipfs_image.replace(
+              "ipfs://",
+              "https://gateway.ipfscdn.io/ipfs/"
+            ),
+            mimetype: ipfs_image.replace(
+              "ipfs://",
+              "https://gateway.ipfscdn.io/ipfs/"
+            ),
+          },
+        ],
+        attributes: data.properties.filter((e) => e.type.length > 0),
+        external_url: "https://venomart.space",
+        nft_image: ipfs_image,
+        collection_name: data.collection,
+      });
+
+      const contract = new venomProvider.Contract(
+        collectionAbi,
+        data.collection_address
+          ? data.collection_address
+          : collection_address_devnet
+      );
+
+      const { count: id } = await contract.methods
+        .totalSupply({ answerId: 0 })
+        .call();
+
+      const subscriber = new Subscriber(venomProvider);
+      contract
+        .events(subscriber)
+        .filter((event) => event.event === "tokenCreated")
+        .on(async (event) => {
+          const { nft: nftAddress } = await contract.methods
+            .nftAddress({ answerId: 0, id: id })
+            .call();
+
+          const res = await axios({
+            url: `${BaseURL}/nfts`,
+            method: "POST",
+            data: {
+              nft_address: nftAddress._address,
+              tokenId: event.data.tokenId,
+              collection_name: data.collection,
+              json: nft_json,
+              owner: signer_address,
+            },
+          });
+
+          console.log(res.data);
+        });
+      const outputs = await contract.methods.mintNft({ json: nft_json }).send({
+        from: new Address(signer_address),
+        amount: "1000000000",
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   //COLLECTION
   const create_new_collection = async (data) => {
     const contract = new venomProvider.Contract(
       collectionFactory,
       collection_factory_address
     );
+
+    const txn = await contract.methods.create_collection({
+      _state: "1",
+      _json: JSON.stringify({ demo: "demo_name" }),
+    });
 
     const cover_ips = await storage.upload(data.image);
     const logo_ipfs = await storage.upload(data.logo);
@@ -709,19 +702,19 @@ export default function App({ Component, pageProps }) {
 
   const buy_nft = async (tokenId) => {
     try {
-      // await tokenWalletInstance.methods
-      //   .transfer({
-      //     amount: (Number(nft_price) * 1000000000).toString(), // with decimals
-      //     recipient: AUCTION_ADDRESS, // because it got it's own wallet
-      //     deployWalletValue: 0, // we know, that auction wallet deployed already
-      //     remainingGasTo: signer_address,
-      //     notify: true, // IMPORTANT to set it "true" for onAcceptTokensTransfer to be called
-      //     payload: "",
-      //   })
-      //   .send({
-      //     from: signer_address,
-      //     amount: (Number(price) * 1000000000).toString(),
-      //   });
+      await tokenWalletInstance.methods
+        .transfer({
+          amount: (Number(nft_price) * 1000000000).toString(), // with decimals
+          recipient: AUCTION_ADDRESS, // because it got it's own wallet
+          deployWalletValue: 0, // we know, that auction wallet deployed already
+          remainingGasTo: signer_address,
+          notify: true, // IMPORTANT to set it "true" for onAcceptTokensTransfer to be called
+          payload: "",
+        })
+        .send({
+          from: signer_address,
+          amount: (Number(price) * 1000000000).toString(),
+        });
 
       const res = await axios({
         url: `${BaseURL}/buy_nft`,
