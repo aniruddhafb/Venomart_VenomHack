@@ -45,7 +45,7 @@ export default function App({ Component, pageProps }) {
   const [search_data] = useState(nfts);
 
   const collection_address_devnet =
-    "0:260aa57cbcdf1f727dfc0eabc7c20c16e038f129b9fdc31650430e5d596c559c";
+    "0:e22f673dc7c0e978fb4525cab9b8a2f88c17e779bb8d9bba3c43480dafb92677";
 
   const collection_factory_address =
     "0:88b78baad2ac1e959ce5ad7e83f7a39bc0ecb4c2cbc119a84fc381d990d508fb";
@@ -506,6 +506,7 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
+    console.log(data);
     try {
       const ipfs_image =
         typeof data.image == "string"
@@ -580,7 +581,8 @@ export default function App({ Component, pageProps }) {
         from: new Address(signer_address),
         amount: "1000000000",
       });
-      window.location.replace("/nft/exploreNFTs");
+
+      // window.location.replace("/nft/exploreNFTs");
     } catch (error) {
       console.log(error.message);
     }
