@@ -10,6 +10,9 @@ We have a long roadmap ahead where we have to implement many features and functi
 
 Upcoming Features
 > Improve UI / UX with production perspective 
+> 
 > Introduce Auction functionality for NFTs
+> 
 > On-chain Buy and sell functionality
+> 
 > Special section for artists profile on marketplace
