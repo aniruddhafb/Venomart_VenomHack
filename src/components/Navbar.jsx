@@ -7,13 +7,20 @@ import venomLogo from "../../public/venom.svg";
 import axios from "axios";
 import { ethers } from "ethers";
 
-const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
+const Navbar = ({
+  signer_address,
+  connect_wallet,
+  onDisconnect,
+  theme,
+  search_nft,
+  collection_address_devnet,
+}) => {
   const router = useRouter();
 
-  // testnet api 
+  // testnet api
   // const baseURL = "https://testnet-api.venomscan.com/v1/accounts";
 
-  // devnet api 
+  // devnet api
   const baseURL = "https://devnet-api.venomscan.com/v1/accounts";
 
   const [profileDrop, setProfileDrop] = useState(false);
@@ -31,15 +38,30 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
       })
       .then((response) => {
         SetExplorerLog(response.data);
-        const balance = parseFloat(response.data.balance / 1000000000).toFixed(2);
+        const balance = parseFloat(response.data.balance / 1000000000).toFixed(
+          2
+        );
         setVnmBalance(balance);
       });
   }, [signer_address]);
 
+  const find_nft = async (e) => {
+    try {
+      if (!e.target.value) return;
+      setTimeout(async () => {
+        const res = await search_nft(e.target.value);
+        console.log({ res });
+        set_search_result(res);
+      }, [500]);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     setProfileDrop(false);
     setMobieProfileDrop(false);
-    set_search_result(false);
+    // set_search_result(false);
   }, [router.pathname]);
 
   return (
@@ -66,8 +88,8 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
           >
             <input
               type="search"
-              // onFocus={() => set_search_result([])}
-              // onChange={find_nft}
+              onFocus={() => set_search_result([])}
+              onChange={find_nft}
               className="w-full rounded-2xl border border-jacarta-100 py-[0.6875rem] px-4 pl-10 text-jacarta-700 placeholder-jacarta-500 focus:ring-[#189C87] dark:border-transparent dark:bg-white/[.15] dark:text-white dark:placeholder-white"
               placeholder="Search"
             />
@@ -85,29 +107,29 @@ const Navbar = ({ signer_address, connect_wallet, onDisconnect, theme }) => {
             </span>
 
             {/* SEARCH FUNCTIONALITY */}
-            {/* <div
-                            className="w-full rounded-2xl bg-[#F6F1F8] absolute mt-2 border-r-4"
-                            onClick={() => set_search_result([])}
-                        >
-                            {search_result?.map((e, index) => (
-                                <Link
-                                    key={index}
-                                    href={`/nft/${e.ipfsData.collection}/${e.tokenId}`}
-                                    className="rounded-2xl"
-                                >
-                                    <div className="w-full rounded-2xl border-gray-200 border-b-2 p-4 hover:bg-[#f5f5f5]">
-                                        {e?.nft_name}
-                                    </div>
-                                </Link>
-                            ))}
-                        </div> */}
+            <div
+              className="w-full rounded-2xl bg-[#F6F1F8] absolute mt-2 border-r-4"
+              onClick={() => set_search_result([])}
+            >
+              {search_result?.map((e, index) => (
+                <Link
+                  key={index}
+                  // href={`/nft/`}
+                  href={`/nft/${collection_address_devnet}/${e.tokenId}`}
+                  className="rounded-2xl"
+                >
+                  <div className="w-full rounded-2xl border-gray-200 border-b-2 p-4 hover:bg-[#f5f5f5]">
+                    {e?.name}
+                  </div>
+                </Link>
+              ))}
+            </div>
           </form>
 
           <div className="js-mobile-menu invisible lg:visible fixed inset-0 z-10 ml-auto items-center bg-white opacity-0 dark:bg-jacarta-800 lg:relative lg:inset-auto lg:flex lg:bg-transparent lg:opacity-100 dark:lg:bg-transparent">
             {/* menu links  */}
             <div className="navbar w-full" style={{ marginRight: "180px" }}>
               <ul className="flex flex-col lg:flex-row">
-
                 <li className="js-nav-dropdown group relative">
                   <a
                     href="#"
