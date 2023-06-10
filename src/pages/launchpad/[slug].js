@@ -9,7 +9,6 @@ import axios from "axios";
 import Link from "next/link";
 const Launch = ({
   blockURL,
-  collection_address_devnet,
   get_launchpad_by_address,
   create_nft,
 }) => {
@@ -30,12 +29,12 @@ const Launch = ({
       ...data.data,
       collection: collectionInfo?.name,
       collection_address: collectionInfo?.address,
+      description: "Test Description",
       properties: [],
     };
 
     setLoading(true);
     const createNF = await create_nft(obj);
-    console.log({ createNF: createNF });
     setLoading(false);
   };
 
@@ -101,8 +100,16 @@ const Launch = ({
 
             <div className="container">
               <div className="text-center">
+                <div className="mb-8 inline-flex items-center justify-center rounded-xl border border-[#189C87] bg-transparent py-1.5 px-4 dark:border-jacarta-600 dark:bg-jacarta-700">
+                  <a
+                    href="#!"
+                    className="js-copy-clipboard max-w-[10rem] select-none overflow-hidden text-ellipsis whitespace-nowrap dark:text-jacarta-200"
+                  >
+                    <span>Live Now</span>
+                  </a>
+                </div>
                 <div className="mb-8">
-                  <a href={`${blockURL}accounts/${collectionInfo?.address}`} className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
+                  <a href={`${blockURL}accounts/${collectionInfo?.address}`} target="_blank" className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
                     View on Explorer
                   </a>
                   <Link href={`/collection/exploreCollections`} className="bg-transparent hover:bg-[#189C87] border border-whit text-white font-bold py-2 px-4 rounded">
@@ -119,15 +126,6 @@ const Launch = ({
                 <p className="mx-auto mb-14 max-w-xl text-lg dark:text-jacarta-300">
                   {collectionInfo?.description}
                 </p>
-
-                {/* <div className="mb-8 inline-flex items-center justify-center rounded-xl border border-[#189C87] bg-transparent py-1.5 px-4 dark:border-jacarta-600 dark:bg-jacarta-700">
-                                    <a
-                                        href="#!"
-                                        className="js-copy-clipboard max-w-[10rem] select-none overflow-hidden text-ellipsis whitespace-nowrap dark:text-jacarta-200"
-                                    >
-                                        <span>Live Now</span>
-                                    </a>
-                                </div> */}
 
                 {/* stats  */}
                 <div className="mb-8 inline-flex flex-wrap items-center justify-center rounded-xl border border-jacarta-100 bg-transparent dark:border-jacarta-600 dark:bg-jacarta-800">
