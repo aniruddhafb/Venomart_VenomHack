@@ -582,7 +582,7 @@ export default function App({ Component, pageProps }) {
         amount: "1000000000",
       });
 
-      // window.location.replace("/nft/exploreNFTs");
+      window.location.replace("/nft/exploreNFTs");
     } catch (error) {
       console.log(error.message);
     }
