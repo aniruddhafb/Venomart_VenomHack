@@ -38,7 +38,7 @@ const CreateNFT = ({
       properties: [{ type: "", value: "" }],
     });
     set_loading(false);
-    router.push(`/profile/${signer_address}`);
+    router.replace(`/profile/${signer_address}`);
   };
 
   const handleChange = (e) => {
