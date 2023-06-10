@@ -4,16 +4,10 @@ pragma AbiHeader expire;
 pragma AbiHeader time;
 pragma AbiHeader pubkey;
     
-// Interfaces we needs
-// This interface for transferring NFT to winner
 import "@itgold/everscale-tip/contracts/TIP4_1/interfaces/ITIP4_1NFT.sol";
-// This interface to accept NFT from owner
 import "@itgold/everscale-tip/contracts/TIP4_1/interfaces/INftTransfer.sol";
-// This interface for implementing tip-3 tokens receiving callback
 import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.sol";
-// This interface for deploying TokenWallet
 import "tip3/contracts/interfaces/ITokenRoot.sol";
-// This interface to return lower bids
 import "tip3/contracts/interfaces/ITokenWallet.sol";
 
 contract Auction is INftTransfer, IAcceptTokensTransferCallback {

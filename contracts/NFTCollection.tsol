@@ -9,7 +9,7 @@ import '@itgold/everscale-tip/contracts/TIP4_2/TIP4_2Collection.sol';
 import '@itgold/everscale-tip/contracts/TIP4_3/TIP4_3Collection.sol';
 import './NftBase.sol';
 
-
+// This contract is responsible for providing all collection functionalities
 contract NFTCollection is TIP4_2Collection, TIP4_3Collection {
 
     /**
@@ -39,6 +39,7 @@ contract NFTCollection is TIP4_2Collection, TIP4_3Collection {
         tvm.accept();
     }
 
+    //Here we are minting NFT & taking NFT Metadata as JSON in the function argument
     function _mintNft(
         string json
     ) internal {
@@ -46,6 +47,7 @@ contract NFTCollection is TIP4_2Collection, TIP4_3Collection {
         /// reserve original_balance
         tvm.rawReserve(0, 4);
 
+        // calculating totalSupply & each NFT ID
         uint256 id = _totalSupply;
         _totalSupply++;
 
@@ -65,6 +67,7 @@ contract NFTCollection is TIP4_2Collection, TIP4_3Collection {
             _codeIndex
         );
 
+        //Event is Emitted when new NFT is minted
         emit NftCreated(
             id, 
             nftAddr,
@@ -87,68 +90,3 @@ contract NFTCollection is TIP4_2Collection, TIP4_3Collection {
     }
 
 }
-
-
-
-
-
-
-
-
-// pragma ever-solidity >= 0.61.2;
-
-// pragma AbiHeader expire;
-// pragma AbiHeader time;
-// pragma AbiHeader pubkey;
-
-// import '@itgold/everscale-tip/contracts/TIP4_1/TIP4_1Collection.sol';
-// import '@itgold/everscale-tip/contracts/TIP4_2/TIP4_2Collection.sol';
-// import '@itgold/everscale-tip/contracts/TIP4_3/TIP4_3Collection.sol';
-// import './NftBase.sol';
-
-// contract Collection is TIP4_1Collection, TIP4_2Collection, TIP4_3Collection {
-
-//     constructor(
-//         TvmCell codeNft,
-//         TvmCell codeIndex,
-//         TvmCell codeIndexBasis,
-//         string json
-//     ) TIP4_1Collection (
-//         codeNft
-//     ) TIP4_2Collection (
-//         json
-//     ) TIP4_3Collection (
-//         codeIndex,
-//         codeIndexBasis
-//     ) public {
-//         tvm.accept();
-//     }
-
-//     function mintNft(string json) external virtual {
-//         require(msg.value > 0.4 ever, 101);
-//         tvm.rawReserve(0, 4);
-
-//         uint256 id = uint256(_totalSupply);
-//         _totalSupply++;
-
-//         TvmCell codeNft = _buildNftCode(address(this));
-//         TvmCell stateNft = tvm.buildStateInit({
-//             contr: NftBase,
-//             varInit: {_id: id},
-//             code: codeNft
-//         });
-//         new NftBase{
-//             stateInit: stateNft,
-//             value: 0,
-//             flag: 128
-//         }(
-//             msg.sender,
-//             msg.sender,
-//             0.3 ever,
-//             json,
-//             _codeIndex,
-//             _indexDeployValue,
-//             _indexDestroyValue
-//         );     
-//     }
-// }
