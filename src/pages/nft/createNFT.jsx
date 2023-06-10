@@ -30,10 +30,8 @@ const CreateNFT = ({
     set_loading(true);
     e.preventDefault();
     await create_nft(data);
-    setTimeout(() => {
-      router.push(`/profile/${signer_address}`);
-    }, 3000);
     set_loading(false);
+    router.push(`/profile/${signer_address}`);
   };
 
   const handleChange = (e) => {

@@ -106,12 +106,12 @@ export default function App({ Component, pageProps }) {
 
       const contract = new venomProvider.Contract(
         collectionAbi,
-        collection_address_devnet
+        data.collection_address ? data.collection_address : data.collection
       );
+
       const { count: id } = await contract.methods
         .totalSupply({ answerId: 0 })
         .call();
-      console.log({ id });
 
       const subscriber = new Subscriber(venomProvider);
       contract
@@ -534,7 +534,6 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_launchpad = async (data) => {
-    console.log("fun called");
     const ipfs_logo = await storage.upload(data.logo);
     const ipfs_coverImage = await storage.upload(data.coverImage);
     try {
@@ -561,19 +560,18 @@ export default function App({ Component, pageProps }) {
         logo: data.logo,
         collection_address: data.address,
         name: data.name,
-        description: data.desccription,
+        description: data.description,
       };
 
       create_new_collection(collection_data);
 
-      return res.data;
     } catch (error) {
       alert(error.message);
       console.log(error.message);
     }
   };
 
-  //COLLECTION FACTORY
+  //COLLECTION
   const create_new_collection = async (data) => {
     const contract = new venomProvider.Contract(
       collectionFactory,
@@ -596,7 +594,6 @@ export default function App({ Component, pageProps }) {
         description: data.description,
       },
     });
-    console.log(res.data);
   };
 
   const get_collection_info_by_id = async (collection_id) => {

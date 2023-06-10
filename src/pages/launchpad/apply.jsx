@@ -3,7 +3,7 @@ import Loader from "@/components/Loader";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const Apply = ({ signer_address, create_new_collection, create_launchpad }) => {
+const Apply = ({ create_launchpad }) => {
   const router = useRouter();
   const [loading, set_loading] = useState(false);
   const [preview, set_preview] = useState({ logo: "", cover: "" });
@@ -28,10 +28,9 @@ const Apply = ({ signer_address, create_new_collection, create_launchpad }) => {
   const handle_submit = async (e) => {
     e.preventDefault();
     set_loading(true);
-    console.log(data);
     await create_launchpad(data);
     set_loading(false);
-    // router.push("/launch");
+    router.push("/nft/launchpad");
   };
 
   return (

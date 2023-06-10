@@ -39,7 +39,8 @@ const Launchpad = ({
             <div className="flex flex-wrap justify-center align-middle">
               {launchpads?.map((e, index) => {
                 return (
-                  <LaunchpadCard
+                  e?.isActive == true &&
+                  (<LaunchpadCard
                     key={index}
                     collectionAddress={e?.address}
                     cover={e?.coverImage}
@@ -47,7 +48,7 @@ const Launchpad = ({
                     logo={e?.logo}
                     mintPrice={e?.mint_price}
                     name={e?.name}
-                  />
+                  />)
                 );
               })}
             </div>

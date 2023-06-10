@@ -6,6 +6,7 @@ import { MdVerified } from "react-icons/md";
 import Head from "next/head";
 import Loader from "@/components/Loader";
 import axios from "axios";
+import Link from "next/link";
 const Launch = ({
   blockURL,
   collection_address_devnet,
@@ -20,15 +21,15 @@ const Launch = ({
 
   const createNFT = async () => {
     const data = await axios({
-      url: `https://ipfs.io/ipfs/QmPgdfAeXTazC9xdKAXhmZa9hUY6jrhNP4YvwB7ZSvbauH/${
-        Math.floor(Math.random() * 1000) + 1
-      }.json`,
+      url: `https://ipfs.io/ipfs/QmPgdfAeXTazC9xdKAXhmZa9hUY6jrhNP4YvwB7ZSvbauH/${Math.floor(Math.random() * 1000) + 1
+        }.json`,
       method: "GET",
     });
 
     let obj = {
       ...data.data,
       collection: collectionInfo?.name,
+      collection_address: collectionInfo?.address,
       properties: [],
     };
 
@@ -64,7 +65,10 @@ const Launch = ({
           {/* <!-- Banner IMG--> */}
           <div className="relative mt-24">
             <Image
-              src={testNFT}
+              src={collectionInfo?.coverImage?.replace(
+                "ipfs://",
+                "https://gateway.ipfscdn.io/ipfs/"
+              )}
               width={100}
               height={100}
               alt="banner"
@@ -77,7 +81,10 @@ const Launch = ({
             <div className="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">
               <div className="relative">
                 <Image
-                  src={testNFT}
+                  src={collectionInfo?.logo?.replace(
+                    "ipfs://",
+                    "https://gateway.ipfscdn.io/ipfs/"
+                  )}
                   width={100}
                   height={100}
                   alt="collection avatar"
@@ -95,12 +102,12 @@ const Launch = ({
             <div className="container">
               <div className="text-center">
                 <div className="mb-8">
-                  <button className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
+                  <a href={`${blockURL}accounts/${collectionInfo?.address}`} className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6">
                     View on Explorer
-                  </button>
-                  <button className="bg-transparent hover:bg-[#189C87] border border-whit text-white font-bold py-2 px-4 rounded">
+                  </a>
+                  <Link href={`/collection/exploreCollections`} className="bg-transparent hover:bg-[#189C87] border border-whit text-white font-bold py-2 px-4 rounded">
                     View Collection
-                  </button>
+                  </Link>
                 </div>
 
                 <h2 className="mb-2 mt-2 font-display text-4xl font-medium text-jacarta-700 dark:text-white">
@@ -140,7 +147,7 @@ const Launch = ({
                     className="w-1/2 border-jacarta-100 py-4 hover:shadow-md dark:border-jacarta-600 sm:w-32 sm:border-r"
                   >
                     <div className="mb-1 text-base font-bold text-jacarta-700 dark:text-white">
-                      5555
+                      {collectionInfo?.max_supply}
                     </div>
                     <div className="text-2xs font-medium tracking-tight dark:text-jacarta-400">
                       Items
@@ -151,7 +158,7 @@ const Launch = ({
                     className="w-1/2 rounded-r-xl border-jacarta-100 py-4 hover:shadow-md sm:w-32"
                   >
                     <div className="mb-1 flex items-center justify-center text-base font-medium text-jacarta-700 dark:text-white">
-                      <span className="font-bold mr-2">2</span>
+                      <span className="font-bold mr-2">{collectionInfo?.mint_price}</span>
                       <Image src={`../../venom.svg`} height={18} width={18} />
                     </div>
                     <div className="text-2xs font-medium tracking-tight dark:text-jacarta-400">
