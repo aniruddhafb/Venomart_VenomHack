@@ -30,6 +30,13 @@ const CreateNFT = ({
     e.preventDefault();
     set_loading(true);
     await create_nft(data);
+    set_data({
+      image: "",
+      name: "",
+      description: "",
+      collection: collection_address_devnet,
+      properties: [{ type: "", value: "" }],
+    });
     set_loading(false);
     router.push(`/profile/${signer_address}`);
   };
