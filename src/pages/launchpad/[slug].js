@@ -26,6 +26,7 @@ const Launch = ({
       }.json`,
       method: "GET",
     });
+    console.log({ data });
 
     let obj = {
       ...data.data,
@@ -35,8 +36,10 @@ const Launch = ({
       properties: [],
     };
 
+    console.log({ obj });
+
     // setLoading(true);
-    const createNF = await create_nft(obj);
+    create_nft(obj);
     // setLoading(false);
   };
 
@@ -180,7 +183,9 @@ const Launch = ({
                   <button
                     onClick={() => createNFT()}
                     disabled={show_loading}
-                    className="bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6"
+                    className={`bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6 ${
+                      show_loading && "bg-pink-600"
+                    }`}
                   >
                     Mint NFT
                   </button>

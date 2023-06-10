@@ -507,8 +507,7 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
-    console.log("create nft called");
-    console.log(data);
+    console.log({ data });
     set_show_loading(true);
     try {
       const ipfs_image =
@@ -581,7 +580,7 @@ export default function App({ Component, pageProps }) {
 
           console.log({ res });
           set_show_loading(false);
-          window.location.replace("/nft/exploreNFTs");
+          // window.location.replace("/nft/exploreNFTs");
         });
       const outputs = await contract.methods.mintNft({ json: nft_json }).send({
         from: new Address(signer_address),
@@ -709,7 +708,8 @@ export default function App({ Component, pageProps }) {
     }
   };
 
-  const buy_nft = async (tokenId) => {
+  const buy_nft = async (tokenId, price) => {
+    console.log({ tokenId, price });
     try {
       // await tokenWalletInstance.methods
       //   .transfer({
@@ -724,6 +724,20 @@ export default function App({ Component, pageProps }) {
       //     from: signer_address,
       //     amount: (Number(price) * 1000000000).toString(),
       //   });
+      const contract = new venomProvider.Contract(
+        collectionFactory,
+        collection_factory_address
+      );
+
+      const txn = await contract.methods
+        .create_collection({
+          _state: "1",
+          _json: JSON.stringify({ demo: "demo_name" }),
+        })
+        .send({
+          from: new Address(signer_address),
+          amount: price,
+        });
 
       const res = await axios({
         url: `${BaseURL}/buy_nft`,

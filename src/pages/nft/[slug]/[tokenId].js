@@ -41,7 +41,7 @@ const NFTPage = ({
 
   const purchase_nft = async (tokenId) => {
     set_loading(true);
-    await buy_nft(tokenId);
+    await buy_nft(tokenId, nft?.listingPrice);
     set_loading(false);
     router.reload();
   };
