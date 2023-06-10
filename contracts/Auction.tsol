@@ -18,7 +18,7 @@ import "tip3/contracts/interfaces/ITokenWallet.sol";
 
 contract Auction is INftTransfer, IAcceptTokensTransferCallback {
     
-    uint256 static _nonce; // random nonce for affecting on address
+    uint256 static _nonce; 
     address static _owner; // owner of auction and nft
 
     uint32  public _startTime; // auction start time timestmp in seconds
@@ -51,7 +51,7 @@ contract Auction is INftTransfer, IAcceptTokensTransferCallback {
         _endTime = endTime;
 
         _tokenRoot = tokenRoot;
-        // familiar wallet deploying mechanic
+        
         ITokenRoot(_tokenRoot).deployWallet {
             value: 0.2 ever,
             flag: 1,
@@ -60,7 +60,7 @@ contract Auction is INftTransfer, IAcceptTokensTransferCallback {
             address(this),
             0.1 ever
         );
-        // memento gas management :)
+        
         sendRemainingGasTo.transfer({ value: 0, flag: 128, bounce: false });
     }
 
@@ -71,7 +71,7 @@ contract Auction is INftTransfer, IAcceptTokensTransferCallback {
             101
         );
         tvm.rawReserve(0.2 ever, 0);
-        // just store our auction's wallet address for future interaction
+        // Storing auction's wallet address for any future interaction
         _tokenWallet = value;
         _owner.transfer({ value: 0, flag: 128, bounce: false });
     }
