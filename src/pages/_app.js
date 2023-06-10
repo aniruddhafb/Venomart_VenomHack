@@ -581,7 +581,7 @@ export default function App({ Component, pageProps }) {
 
           console.log({ res });
           set_show_loading(false);
-          // window.location.replace("/nft/exploreNFTs");
+          window.location.replace("/nft/exploreNFTs");
         });
       const outputs = await contract.methods.mintNft({ json: nft_json }).send({
         from: new Address(signer_address),
