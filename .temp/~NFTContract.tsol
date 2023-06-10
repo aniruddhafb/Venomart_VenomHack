@@ -2,7 +2,7 @@ pragma ever-solidity >= 0.61.2;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "./NFTCollection.sol";
+import "./~NFTCollection.sol";
 
 //This is the Main Contract for the marketplace
 contract NFTContract is NFTCollection {
