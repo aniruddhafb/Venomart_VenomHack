@@ -26,10 +26,14 @@ import mongoose from "mongoose";
 // import { toNano } from "locklift";
 
 export default function App({ Component, pageProps }) {
+
   // const BaseURL = "https://venomart.space/api";
   const BaseURL = "http://localhost:3000/api";
 
   const blockURL = "https://devnet.venomscan.com/";
+
+  const AcceptingLaunch = true;
+
   const storage = new ThirdwebStorage();
 
   const [venomConnect, setVenomConnect] = useState();
@@ -749,6 +753,7 @@ export default function App({ Component, pageProps }) {
         signer_address={signer_address}
         blockURL={blockURL}
         collection_address_devnet={collection_address_devnet}
+        AcceptingLaunch={AcceptingLaunch}
       />
       <Footer theme={"dark"} />
     </>
