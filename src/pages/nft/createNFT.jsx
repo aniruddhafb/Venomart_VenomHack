@@ -9,9 +9,11 @@ const CreateNFT = ({
   create_nft,
   get_collections_by_owner,
   signer_address,
+  show_loading,
 }) => {
   const router = useRouter();
-  const [loading, set_loading] = useState(false);
+
+  const [loading] = useState(show_loading);
   const [propModel, setPropModel] = useState(false);
   const [preview, set_preview] = useState("");
   const [user_collections, set_user_collections] = useState([]);
@@ -28,9 +30,9 @@ const CreateNFT = ({
 
   const handle_submit = async (e) => {
     e.preventDefault();
-    set_loading(true);
-    await create_nft(data);
-    set_loading(false);
+    // set_loading(true);
+    create_nft(data);
+    // set_loading(false);
   };
 
   const handleChange = (e) => {
@@ -62,7 +64,9 @@ const CreateNFT = ({
       const collections = await get_collections_by_owner(signer_address);
       set_user_collections(collections);
     })();
-  }, [signer_address]);
+
+    console.log({ show_loading });
+  }, [signer_address, show_loading]);
 
   return (
     <>
@@ -71,7 +75,7 @@ const CreateNFT = ({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav.png" />
       </Head>
-      {loading ? (
+      {show_loading ? (
         <Loader />
       ) : (
         <form onSubmit={handle_submit} className="relative py-24" id="heroBack">

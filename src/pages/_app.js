@@ -38,6 +38,7 @@ export default function App({ Component, pageProps }) {
   const [venomConnect, setVenomConnect] = useState();
   const [venomProvider, setVenomProvider] = useState();
   const [signer_address, setSignerAddress] = useState();
+  const [show_loading, set_show_loading] = useState(false);
 
   const [standaloneProvider, setStandAloneProvider] = useState();
 
@@ -506,6 +507,9 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
+    console.log("create nft called");
+    console.log(data);
+    set_show_loading(true);
     try {
       const ipfs_image =
         typeof data.image == "string"
@@ -572,15 +576,13 @@ export default function App({ Component, pageProps }) {
               owner: signer_address,
             },
           });
+          set_show_loading(false);
+          window.location.replace("/nft/exploreNFTs");
         });
       const outputs = await contract.methods.mintNft({ json: nft_json }).send({
         from: new Address(signer_address),
         amount: "1000000000",
       });
-      const { nft: nftAddress } = await contract.methods
-        .nftAddress({ answerId: 0, id: id })
-        .call();
-
     } catch (error) {
       console.log(error.message);
     }
@@ -749,6 +751,7 @@ export default function App({ Component, pageProps }) {
       </button> */}
       <Component
         {...pageProps}
+        show_loading={show_loading}
         get_launchpad_by_address={get_launchpad_by_address}
         fetch_launchpads={fetch_launchpads}
         create_launchpad={create_launchpad}
