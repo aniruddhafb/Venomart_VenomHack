@@ -305,7 +305,7 @@ export default function App({ Component, pageProps }) {
       ? await getAddress(provider)
       : undefined;
     setSignerAddress(venomWalletAddress);
-    // create_user({ wallet_id: venomWalletAddress });
+    create_user({ wallet_id: venomWalletAddress });
     return venomWalletAddress;
   };
 
