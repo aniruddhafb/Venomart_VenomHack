@@ -11,7 +11,7 @@ const About = () => {
                 <title>About - Venomart Marketplace</title>
                 <meta
                     name="description"
-                    content="About rarx marketplace"
+                    content="About venomart marketplace"
                 />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/fav.png" />
