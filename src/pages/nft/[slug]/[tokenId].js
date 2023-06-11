@@ -40,6 +40,10 @@ const NFTPage = ({
   };
 
   const purchase_nft = async (tokenId) => {
+    if (!signer_address) {
+      alert("please connect your venom wallet to buy a NFT");
+      return;
+    }
     set_loading(true);
     await buy_nft(tokenId, nft?.listingPrice);
     set_loading(false);
@@ -137,9 +141,9 @@ const NFTPage = ({
                           src={
                             nft?.owner?.profileImage
                               ? nft?.owner?.profileImage.replace(
-                                  "ipfs://",
-                                  "https://gateway.ipfscdn.io/ipfs/"
-                                )
+                                "ipfs://",
+                                "https://gateway.ipfscdn.io/ipfs/"
+                              )
                               : testNFT
                           }
                           height={40}
@@ -419,10 +423,9 @@ const NFTPage = ({
                     onClick={() => setPropShow(true)}
                   >
                     <button
-                      className={` ${
-                        propShow &&
+                      className={` ${propShow &&
                         "text-[#189C87] active relative border-b-2 border-b-[#189C87]"
-                      } flex items-center whitespace-nowrap py-3 px-6  hover:text-jacarta-200`}
+                        } flex items-center whitespace-nowrap py-3 px-6  hover:text-jacarta-200`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -447,10 +450,9 @@ const NFTPage = ({
                     onClick={() => setPropShow(false)}
                   >
                     <button
-                      className={`${
-                        !propShow &&
+                      className={`${!propShow &&
                         "text-[#189C87] active relative border-b-2 border-b-[#189C87]"
-                      } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-200`}
+                        } flex items-center whitespace-nowrap py-3 px-6 text-jacarta-200`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

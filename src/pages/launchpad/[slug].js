@@ -21,9 +21,8 @@ const Launch = ({
 
   const createNFT = async () => {
     const data = await axios({
-      url: `https://ipfs.io/ipfs/QmPgdfAeXTazC9xdKAXhmZa9hUY6jrhNP4YvwB7ZSvbauH/${
-        Math.floor(Math.random() * 1000) + 1
-      }.json`,
+      url: `https://ipfs.io/ipfs/QmPgdfAeXTazC9xdKAXhmZa9hUY6jrhNP4YvwB7ZSvbauH/${Math.floor(Math.random() * 500) + 1
+        }.json`,
       method: "GET",
     });
 
@@ -181,9 +180,8 @@ const Launch = ({
                   <button
                     onClick={() => createNFT()}
                     disabled={show_loading}
-                    className={`bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6 ${
-                      show_loading && "bg-pink-600"
-                    }`}
+                    className={`bg-transparent hover:bg-[#189C87] border border-white text-white font-bold py-2 px-4 rounded mr-6 ${show_loading && "bg-pink-600"
+                      }`}
                   >
                     Mint NFT
                   </button>

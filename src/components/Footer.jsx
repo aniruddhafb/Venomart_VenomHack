@@ -63,7 +63,7 @@ const Footer = ({ theme }) => {
                             </li>
                             <li>
                                 <Link
-                                    href="/collection/exploreCollection"
+                                    href="/collection/exploreCollections"
                                     className="hover:text-accent dark:hover:text-white"
                                 >
                                     View Collections
