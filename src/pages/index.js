@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import NftCard from "@/components/cards/NftCard";
 import { useEffect, useState } from "react";
+import { BiLoaderAlt } from "react-icons/bi";
 export default function Home({
   fetch_nfts,
   loadNFTs,
@@ -13,15 +14,20 @@ export default function Home({
 }) {
   const [nfts, set_nfts] = useState([]);
   const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState("");
 
   useEffect(() => {
     (async () => {
+
+      setLoading(true);
       const nfts = await fetch_nfts();
       const collections = await fetch_all_collections();
-      console.log(nfts);
+      setLoading(false);
+
       if (!nfts) return;
       set_nfts(nfts.data);
       setCollections(collections);
+
       if (!standaloneProvider) return;
       loadNFTs();
     })();
@@ -95,11 +101,15 @@ export default function Home({
             Trending NFTs
           </h2>
 
-          <div className="flex flex-wrap justify-center align-middle">
-            {nfts.map((e, index) => {
-              const nft_info = JSON.parse(e.json);
-              return (
-                index < 8 && (
+          {loading ?
+            <div className="flex flex-wrap justify-center align-middle">
+              <BiLoaderAlt className="h-48 w-[60px] animate-spin" />
+            </div>
+            :
+            <div className="flex flex-wrap justify-center align-middle">
+              {nfts.map((e, index) => {
+                const nft_info = JSON.parse(e.json);
+                return index < 8 && (
                   <NftCard
                     key={index}
                     ImageSrc={nft_info.nft_image?.replace(
@@ -114,10 +124,10 @@ export default function Home({
                     listingPrice={e?.listingPrice}
                     collection_address_devnet={collection_address_devnet}
                   />
-                )
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          }
         </div>
       </div>
 
@@ -127,10 +137,14 @@ export default function Home({
           <div className="mb-12 text-center font-display text-3xl text-jacarta-700 dark:text-white">
             <h2 className="inline">Latest NFT Collections </h2>
           </div>
-          <div className="flex flex-wrap justify-center align-middle">
-            {collections?.map((e, index) => {
-              return (
-                index < 6 && (
+          {loading ?
+            <div className="flex flex-wrap justify-center align-middle">
+              <BiLoaderAlt className="h-48 w-[60px] animate-spin" />
+            </div>
+            :
+            <div className="flex flex-wrap justify-center align-middle">
+              {collections?.map((e, index) => {
+                return index < 6 && (
                   <CollectionCard
                     key={index}
                     Name={e.name}
@@ -140,10 +154,10 @@ export default function Home({
                     OwnerAddress={e.owner.wallet_id}
                     collection_id={e._id}
                   />
-                )
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          }
 
           <div className="mt-10 text-center">
             <Link
