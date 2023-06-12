@@ -20,10 +20,10 @@ const Launch = ({
   const [collectionInfo, setCollectionInfo] = useState("");
 
   const createNFT = async () => {
+    const token_id = Math.floor(Math.random() * (550 - 250 + 1)) + 300;
+
     const data = await axios({
-      url: `https://ipfs.io/ipfs/QmPgdfAeXTazC9xdKAXhmZa9hUY6jrhNP4YvwB7ZSvbauH/${
-        Math.floor(Math.random() * 1000) + 1
-      }.json`,
+      url: `https://ipfs.io/ipfs/QmPgdfAeXTazC9xdKAXhmZa9hUY6jrhNP4YvwB7ZSvbauH/${token_id}.json`,
       method: "GET",
     });
 
@@ -31,14 +31,14 @@ const Launch = ({
       ...data.data,
       collection: collectionInfo?.name,
       collection_address: collectionInfo?.address,
-      description: "Test Description",
-      properties: [],
+      description: "This Nft is minted via VenomArt Launchpad",
+      properties: [{ type: "Type", value: "Ranger" }],
+      tokenId_launchpad: token_id,
     };
 
-    // setLoading(true);
+    setLoading(true);
     create_nft(obj);
-    obj = {};
-    // setLoading(false);
+    setLoading(false);
   };
 
   useEffect(() => {

@@ -9,6 +9,7 @@ export default function Home({
   standaloneProvider,
   collection_address_devnet,
   fetch_all_collections,
+  show_loading,
 }) {
   const [nfts, set_nfts] = useState([]);
   const [collections, setCollections] = useState([]);
@@ -86,6 +87,7 @@ export default function Home({
       </section>
 
       {/* Newly minted  */}
+
       <div className="py-24">
         <div className="container">
           <h2 className="mb-8 text-center font-display text-3xl text-jacarta-700 dark:text-white">
@@ -96,21 +98,23 @@ export default function Home({
           <div className="flex flex-wrap justify-center align-middle">
             {nfts.map((e, index) => {
               const nft_info = JSON.parse(e.json);
-              return index < 8 && (
-                <NftCard
-                  key={index}
-                  ImageSrc={nft_info.nft_image?.replace(
-                    "ipfs://",
-                    "https://gateway.ipfscdn.io/ipfs/"
-                  )}
-                  Name={nft_info?.name}
-                  Description={nft_info?.description}
-                  Address={nft_info?.collection}
-                  tokenId={e?.tokenId}
-                  listedBool={e?.isListed}
-                  listingPrice={e?.listingPrice}
-                  collection_address_devnet={collection_address_devnet}
-                />
+              return (
+                index < 8 && (
+                  <NftCard
+                    key={index}
+                    ImageSrc={nft_info.nft_image?.replace(
+                      "ipfs://",
+                      "https://gateway.ipfscdn.io/ipfs/"
+                    )}
+                    Name={nft_info?.name}
+                    Description={nft_info?.description}
+                    Address={nft_info?.collection}
+                    tokenId={e?.tokenId}
+                    listedBool={e?.isListed}
+                    listingPrice={e?.listingPrice}
+                    collection_address_devnet={collection_address_devnet}
+                  />
+                )
               );
             })}
           </div>
@@ -125,16 +129,18 @@ export default function Home({
           </div>
           <div className="flex flex-wrap justify-center align-middle">
             {collections?.map((e, index) => {
-              return index < 6 && (
-                <CollectionCard
-                  key={index}
-                  Name={e.name}
-                  Cover={e.coverImage}
-                  Logo={e.logo}
-                  CollectionAddress={e.collection_address}
-                  OwnerAddress={e.owner.wallet_id}
-                  collection_id={e._id}
-                />
+              return (
+                index < 6 && (
+                  <CollectionCard
+                    key={index}
+                    Name={e.name}
+                    Cover={e.coverImage}
+                    Logo={e.logo}
+                    CollectionAddress={e.collection_address}
+                    OwnerAddress={e.owner.wallet_id}
+                    collection_id={e._id}
+                  />
+                )
               );
             })}
           </div>
