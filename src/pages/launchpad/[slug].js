@@ -68,7 +68,7 @@ const Launch = ({
             <Image
               src={collectionInfo?.coverImage?.replace(
                 "ipfs://",
-                "https://gateway.ipfscdn.io/ipfs/"
+                "https://ipfs.io/ipfs/"
               )}
               width={100}
               height={100}
@@ -84,7 +84,7 @@ const Launch = ({
                 <Image
                   src={collectionInfo?.logo?.replace(
                     "ipfs://",
-                    "https://gateway.ipfscdn.io/ipfs/"
+                    "https://ipfs.io/ipfs/"
                   )}
                   width={100}
                   height={100}

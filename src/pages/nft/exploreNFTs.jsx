@@ -93,7 +93,7 @@ const Marketplace = ({ fetch_nfts, collection_address_devnet }) => {
                           key={index}
                           ImageSrc={nft_info.nft_image?.replace(
                             "ipfs://",
-                            "https://gateway.ipfscdn.io/ipfs/"
+                            "https://ipfs.io/ipfs/"
                           )}
                           Name={nft_info?.name}
                           Description={nft_info?.description}
@@ -116,7 +116,7 @@ const Marketplace = ({ fetch_nfts, collection_address_devnet }) => {
                           key={index}
                           ImageSrc={nft_info.nft_image?.replace(
                             "ipfs://",
-                            "https://gateway.ipfscdn.io/ipfs/"
+                            "https://ipfs.io/ipfs/"
                           )}
                           Name={nft_info?.name}
                           Description={nft_info?.description}

@@ -95,7 +95,7 @@ const NFTPage = ({
                 <Image
                   src={nft?.nft_image?.replace(
                     "ipfs://",
-                    "https://gateway.ipfscdn.io/ipfs/"
+                    "https://ipfs.io/ipfs/"
                   )}
                   width={80}
                   height={80}
@@ -142,7 +142,7 @@ const NFTPage = ({
                             nft?.owner?.profileImage
                               ? nft?.owner?.profileImage.replace(
                                 "ipfs://",
-                                "https://gateway.ipfscdn.io/ipfs/"
+                                "https://ipfs.io/ipfs/"
                               )
                               : testNFT
                           }

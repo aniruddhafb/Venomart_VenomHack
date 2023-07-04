@@ -112,7 +112,7 @@ export default function Home({
                     key={index}
                     ImageSrc={nft_info.nft_image?.replace(
                       "ipfs://",
-                      "https://gateway.ipfscdn.io/ipfs/"
+                      "https://ipfs.io/ipfs/"
                     )}
                     Name={nft_info?.name}
                     Description={nft_info?.description}

@@ -23,11 +23,12 @@ import {
 import { useEffect, useState } from "react";
 import { initVenomConnect } from "../components/test_config";
 import mongoose from "mongoose";
+import { Router } from "next/router";
 // import { toNano } from "locklift";
 
 export default function App({ Component, pageProps }) {
-  const BaseURL = "https://venomart.space/api";
-  // const BaseURL = "http://localhost:3000/api";
+  // const BaseURL = "https://venomart.space/api";
+  const BaseURL = "http://localhost:3000/api";
 
   const blockURL = "https://devnet.venomscan.com/";
 
@@ -507,6 +508,7 @@ export default function App({ Component, pageProps }) {
   };
 
   const create_nft = async (data) => {
+    console.log({ data: data })
     set_show_loading(true);
     try {
       const ipfs_image =
@@ -522,7 +524,7 @@ export default function App({ Component, pageProps }) {
         preview: {
           source: ipfs_image.replace(
             "ipfs://",
-            "https://gateway.ipfscdn.io/ipfs/"
+            "https://ipfs.io/ipfs/"
           ),
           mimetype: "image/png",
         },
@@ -530,11 +532,11 @@ export default function App({ Component, pageProps }) {
           {
             source: ipfs_image.replace(
               "ipfs://",
-              "https://gateway.ipfscdn.io/ipfs/"
+              "https://ipfs.io/ipfs/"
             ),
             mimetype: ipfs_image.replace(
               "ipfs://",
-              "https://gateway.ipfscdn.io/ipfs/"
+              "https://ipfs.io/ipfs/"
             ),
           },
         ],
@@ -575,7 +577,11 @@ export default function App({ Component, pageProps }) {
             },
           });
 
+          console.log({ event: event })
+          console.log({ res: res })
+
           set_show_loading(false);
+          // Router.push("/nft/exploreNFTs");
           window.location.replace("/nft/exploreNFTs");
         });
       const outputs = await contract.methods.mintNft({ json: nft_json }).send({

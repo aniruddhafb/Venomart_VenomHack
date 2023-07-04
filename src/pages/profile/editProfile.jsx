@@ -91,7 +91,7 @@ const EditProfile = ({
                 typeof data.coverImage == "string"
                   ? data.coverImage.replace(
                     "ipfs://",
-                    "https://gateway.ipfscdn.io/ipfs/"
+                    "https://ipfs.io/ipfs/"
                   )
                   : coverImg_preview
               }
@@ -262,7 +262,7 @@ const EditProfile = ({
                             typeof data.profileImage == "string"
                               ? data.profileImage.replace(
                                 "ipfs://",
-                                "https://gateway.ipfscdn.io/ipfs/"
+                                "https://ipfs.io/ipfs/"
                               )
                               : profImg_preview
                           }

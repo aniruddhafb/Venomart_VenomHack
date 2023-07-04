@@ -12,7 +12,7 @@ const LaunchpadCard = ({ cover, logo, name, items, mintPrice, collectionAddress 
             <Link href={`/launchpad/${collectionAddress}`} className="flex w-[300px]">
                 <span className="space-x-[0.625rem]">
                     <Image
-                        src={cover?.replace("ipfs://", "https://gateway.ipfscdn.io/ipfs/")}
+                        src={cover?.replace("ipfs://", "https://ipfs.io/ipfs/")}
                         alt="Mainvn"
                         height={100}
                         width={100}
@@ -22,7 +22,7 @@ const LaunchpadCard = ({ cover, logo, name, items, mintPrice, collectionAddress 
                 </span>
                 <span className="flex flex-col space-y-[0.325rem]">
                     <Image
-                        src={logo?.replace("ipfs://", "https://gateway.ipfscdn.io/ipfs/")}
+                        src={logo?.replace("ipfs://", "https://ipfs.io/ipfs/")}
                         alt="item 1"
                         height={100}
                         width={100}
@@ -30,7 +30,7 @@ const LaunchpadCard = ({ cover, logo, name, items, mintPrice, collectionAddress 
                         loading="lazy"
                     />
                     <Image
-                        src={logo?.replace("ipfs://", "https://gateway.ipfscdn.io/ipfs/")}
+                        src={logo?.replace("ipfs://", "https://ipfs.io/ipfs/")}
                         alt="item 2"
                         height={100}
                         width={100}
@@ -38,7 +38,7 @@ const LaunchpadCard = ({ cover, logo, name, items, mintPrice, collectionAddress 
                         loading="lazy"
                     />
                     <Image
-                        src={logo?.replace("ipfs://", "https://gateway.ipfscdn.io/ipfs/")}
+                        src={logo?.replace("ipfs://", "https://ipfs.io/ipfs/")}
                         alt="item 3"
                         height={100}
                         width={100}

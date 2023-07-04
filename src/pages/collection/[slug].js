@@ -51,7 +51,7 @@ const Collection = ({
             <Image
               src={collection_data?.coverImage?.replace(
                 "ipfs://",
-                "https://gateway.ipfscdn.io/ipfs/"
+                "https://ipfs.io/ipfs/"
               )}
               width={100}
               height={100}
@@ -67,7 +67,7 @@ const Collection = ({
                 <Image
                   src={collection_data?.logo?.replace(
                     "ipfs://",
-                    "https://gateway.ipfscdn.io/ipfs/"
+                    "https://ipfs.io/ipfs/"
                   )}
                   width={100}
                   height={100}
@@ -178,7 +178,7 @@ const Collection = ({
                           key={index}
                           ImageSrc={nft_info.nft_image?.replace(
                             "ipfs://",
-                            "https://gateway.ipfscdn.io/ipfs/"
+                            "https://ipfs.io/ipfs/"
                           )}
                           Name={nft_info?.name}
                           Description={nft_info?.description}
