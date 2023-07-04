@@ -2,19 +2,27 @@ import React, { useEffect, useState } from "react";
 import NftCard from "@/components/cards/NftCard";
 import Head from "next/head";
 import Loader from "@/components/Loader";
+import Pagination from "@/components/Pagination";
 
 const Marketplace = ({ fetch_nfts, collection_address_devnet }) => {
   const [loading, setLoading] = useState(false);
   const [nfts, set_nfts] = useState([]);
-  const [notListedNFts, setNotListedNFts] = useState([]);
 
   const [propShow, setPropShow] = useState(true);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(20);
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentNFTs = nfts.slice(firstPostIndex, lastPostIndex);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
       const nfts = await fetch_nfts();
       set_nfts(nfts.data);
+
       setLoading(false);
     })();
   }, []);
@@ -85,27 +93,35 @@ const Marketplace = ({ fetch_nfts, collection_address_devnet }) => {
             <div>
               <div className="container">
                 {propShow ? (
-                  <div className="flex flex-wrap justify-start align-middle">
-                    {nfts.map((e, index) => {
-                      const nft_info = JSON.parse(e.json);
-                      return (
-                        <NftCard
-                          key={index}
-                          ImageSrc={nft_info.nft_image?.replace(
-                            "ipfs://",
-                            "https://ipfs.io/ipfs/"
-                          )}
-                          Name={nft_info?.name}
-                          Description={nft_info?.description}
-                          Address={nft_info?.collection}
-                          tokenId={e?.tokenId}
-                          listedBool={e?.isListed}
-                          listingPrice={e?.listingPrice}
-                          collection_address_devnet={collection_address_devnet}
-                        />
-                      );
-                    })}
-                  </div>
+                  <>
+                    <div className="flex flex-wrap justify-start align-middle">
+                      {currentNFTs.map((e, index) => {
+                        const nft_info = JSON.parse(e.json);
+                        return (
+                          <NftCard
+                            key={index}
+                            ImageSrc={nft_info.nft_image?.replace(
+                              "ipfs://",
+                              "https://ipfs.io/ipfs/"
+                            )}
+                            Name={nft_info?.name}
+                            Description={nft_info?.description}
+                            Address={nft_info?.collection}
+                            tokenId={e?.tokenId}
+                            listedBool={e?.isListed}
+                            listingPrice={e?.listingPrice}
+                            collection_address_devnet={collection_address_devnet}
+                          />
+                        );
+                      })}
+                    </div>
+                    <Pagination
+                      totalPosts={nfts.length}
+                      postsPerPage={postsPerPage}
+                      setCurrentPage={setCurrentPage}
+                      currentPage={currentPage}
+                    />
+                  </>
                 ) : (
                   <div className="flex flex-wrap justify-start align-middle">
                     {nfts.map((e, index) => {

@@ -2,10 +2,18 @@ import React, { useEffect, useState } from "react";
 import CollectionCard from "@/components/cards/CollectionCard";
 import Head from "next/head";
 import Loader from "@/components/Loader";
+import Pagination from "@/components/Pagination";
 
 const TopCollections = ({ standaloneProvider, fetch_all_collections }) => {
   const [loading, setLoading] = useState(false);
   const [collections, setCollections] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(9);
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentCollections = collections.slice(firstPostIndex, lastPostIndex);
 
   useEffect(() => {
     (async () => {
@@ -36,7 +44,7 @@ const TopCollections = ({ standaloneProvider, fetch_all_collections }) => {
 
             {/* loop collections here  */}
             <div className="flex flex-wrap justify-center align-middle">
-              {collections?.map((e, index) => {
+              {currentCollections?.map((e, index) => {
                 return (
                   <CollectionCard
                     key={index}
@@ -50,6 +58,12 @@ const TopCollections = ({ standaloneProvider, fetch_all_collections }) => {
                 );
               })}
             </div>
+            <Pagination
+              totalPosts={collections.length}
+              postsPerPage={postsPerPage}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+            />
           </div>
         </section>
       )}
