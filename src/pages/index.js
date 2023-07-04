@@ -10,6 +10,7 @@ export default function Home({
   standaloneProvider,
   collection_address_devnet,
   fetch_all_collections,
+  show_loading,
 }) {
   const [nfts, set_nfts] = useState([]);
   const [collections, setCollections] = useState([]);
@@ -92,6 +93,7 @@ export default function Home({
       </section>
 
       {/* Newly minted  */}
+
       <div className="py-24">
         <div className="container">
           <h2 className="mb-8 text-center font-display text-3xl text-jacarta-700 dark:text-white">

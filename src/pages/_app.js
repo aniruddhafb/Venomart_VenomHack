@@ -510,6 +510,7 @@ export default function App({ Component, pageProps }) {
   const create_nft = async (data) => {
     console.log({ data: data })
     set_show_loading(true);
+    console.log({ data });
     try {
       const ipfs_image =
         typeof data.image == "string"
@@ -570,7 +571,9 @@ export default function App({ Component, pageProps }) {
             method: "POST",
             data: {
               nft_address: nftAddress._address,
-              tokenId: event.data.tokenId,
+              tokenId: data.tokenId_launchpad
+                ? data.tokenId_launchpad
+                : event.data.tokenId,
               collection_name: data.collection,
               json: nft_json,
               owner: signer_address,
